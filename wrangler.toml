@@ -6,3 +6,12 @@ compatibility_date = "2024-09-23"
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+# By default Cloudflare serves any request matching a static file directly,
+# WITHOUT ever invoking worker-entry.js -- the Worker only runs for requests
+# that don't match a static asset. That's why every header override we tried
+# in worker-entry.js had no effect on /admin/*: it's a static file, so
+# Cloudflare never ran our script at all. This forces requests under
+# /admin/* through the Worker first, so it can rewrite the CSP header,
+# while every other (much more numerous) page on the site keeps being
+# served directly for full performance.
+run_worker_first = ["/admin/*"]
