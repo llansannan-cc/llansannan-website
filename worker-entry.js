@@ -3,17 +3,17 @@
  *
  * The site is otherwise fully static (see wrangler.toml [assets]). This
  * script exists for exactly one reason: the public/_headers file can't
- * express "the strict site-wide CSP applies everywhere EXCEPT /admin/*".
- * Cloudflare sends headers from every matching _headers block, and
- * browsers enforce the intersection of multiple Content-Security-Policy
- * headers rather than letting a more specific rule win — so trying to
- * "override" CSP for /admin/* from within _headers just adds a second,
- * conflicting header instead of replacing the first.
+ * express "the strict site-wide CSP applies everywhere EXCEPT /admin/*"
+ * (Cloudflare sends headers from every matching block, and browsers
+ * enforce the intersection of multiple CSP headers rather than letting a
+ * more specific rule win). So the /admin/* override is done here instead,
+ * after the asset is fetched, giving the Decap CMS admin (which needs to
+ * load a script from unpkg.com and call the GitHub API) a different
+ * policy than the rest of the site.
  *
- * Doing the override here, after the asset is served, is the only
- * reliable way to give /admin/* (the Decap CMS admin, which needs to load
- * a script from unpkg.com and call the GitHub API) a different policy
- * than the rest of the site.
+ * For this script to actually run for /admin/* requests at all, wrangler.toml
+ * sets run_worker_first = ["/admin/*"] — by default Cloudflare serves any
+ * request matching a static file directly, without invoking this script.
  */
 
 const ADMIN_CSP = [
@@ -34,10 +34,8 @@ export default {
     if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {
       const headers = new Headers(response.headers);
       headers.set('Content-Security-Policy', ADMIN_CSP);
-      // The admin area must never be served stale from Cloudflare's edge
-      // cache — it needs to reflect the latest config.yml and this CSP
-      // fix immediately after every deploy, not whenever a cached copy
-      // happens to expire.
+      // Belt and braces: the admin tool should always be fetched fresh,
+      // not cached anywhere between deploys.
       headers.set('Cache-Control', 'no-store');
       return new Response(response.body, {
         status: response.status,

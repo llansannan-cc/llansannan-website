@@ -14,13 +14,14 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # NOTE: the Decap CMS admin (/admin/*) needs a looser Content-Security-Policy
-# than the rest of the site. That override is NOT done here — Cloudflare
-# sends the headers from every matching block, including this catch-all
-# /* one, and browsers enforce the INTERSECTION of multiple CSP headers
-# rather than letting a more specific rule win. So a second CSP block here
-# would just add a second, conflicting header rather than replacing this
-# one. The actual override lives in worker-entry.js, which rewrites the
-# response header for /admin/* after the static asset is served.
+# than the rest of the site (it loads a script from unpkg.com and calls the
+# GitHub API). That override is NOT done here: Cloudflare sends headers from
+# every matching block, so a second CSP rule for /admin/* here would just
+# add a second, conflicting header rather than replacing this one: browsers
+# enforce the intersection of multiple CSP headers, not "most specific
+# wins". The actual override lives in worker-entry.js (see wrangler.toml's
+# run_worker_first setting, which is what makes that script run for
+# /admin/* at all instead of being served as a plain static file).
 
 /admin/config.yml
   Content-Type: text/yaml; charset=utf-8

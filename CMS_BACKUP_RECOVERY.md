@@ -62,22 +62,23 @@ Work through these in order:
    GitHub's own account recovery — the CMS has no separate login system
    to reset.
 
-## If `/admin/` shows old, broken, or unexpected behaviour after a deploy
+## If `/admin/` shows a Content-Security-Policy console error again
 
-Check the response headers in the browser's Network tab for
-`cf-cache-status`. If it says `HIT`, Cloudflare's edge is serving a stale
-cached copy of `/admin/index.html` rather than the newly deployed one.
+The admin page needs a looser CSP than the rest of the site (see the note
+at the top of `worker-entry.js`). That override only works because
+`wrangler.toml` has:
 
-Cloudflare only invalidates its cache for a static file when that exact
-file's *content* changes — not when `worker-entry.js`, `wrangler.toml`, or
-`_headers` change around it. So a fix that only touches those files can
-deploy successfully while `/admin/` keeps serving a stale cached response
-indefinitely. A cache-busting query string (`/admin/?x=1`) does **not**
-help either — the cache key here is the asset path, not the full URL.
+```
+run_worker_first = ["/admin/*"]
+```
 
-The fix is to make a real edit to `public/admin/index.html` itself (even
-just bumping the `cache-rev:` number in its comment) so Cloudflare treats
-it as new content and invalidates the stale copy on the next deploy.
+Without that line, Cloudflare serves `/admin/*` as a plain static file and
+never runs `worker-entry.js` at all — so any change to that script,
+`_headers`, or anything else has no effect whatsoever on `/admin/*`, no
+matter how correct the code is. If this setting is ever accidentally
+removed (e.g. during a wrangler.toml rewrite), the admin page will start
+loading with the strict site-wide CSP again and the Decap script will fail
+to load. Check for this line first before assuming it's a caching issue.
 
 ## If a build fails after publishing
 
