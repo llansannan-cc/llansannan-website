@@ -1,0 +1,141 @@
+# Decap CMS configuration for Llansannan Community Council
+#
+# IMPORTANT — before this works, replace the two placeholders below:
+#   1. repo:      COUNCIL_GITHUB_ORG/llansannan-website
+#   2. base_url:  the URL of the Cloudflare OAuth Worker (see /cms-oauth-worker)
+# See DECAP_CMS_SETUP.md in the repo root for the full setup walkthrough.
+
+backend:
+  name: github
+  repo: COUNCIL_GITHUB_ORG/llansannan-website   # <-- replace with the council org/repo
+  branch: main
+  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev  # <-- replace with the OAuth Worker URL
+  auth_endpoint: auth
+
+# The CMS only ever writes to these four JSON files and the shared uploads
+# folder below. It has no access to templates, layouts, or site design —
+# those live in src/layouts and src/pages, which are not exposed here.
+# (Note: this restricts what the CMS *interface* allows. Anyone with GitHub
+# write access to the repository could still edit any file directly on
+# GitHub.com or via git — see DATA_PROCESSING_NOTE.md.)
+
+publish_mode: simple
+show_preview_links: false
+
+media_folder: "public/documents/uploads"
+public_folder: "/documents/uploads"
+
+locale: "en"
+
+collections:
+  - name: "meetings"
+    label: "Meetings"
+    label_singular: "Meeting"
+    files:
+      - name: "schedule"
+        file: "src/data/meetings.json"
+        label: "Meeting Schedule"
+        description: "The council's meeting calendar. Add next year's dates here each December."
+        fields:
+          - name: "schedule_2026"
+            label: "Meetings"
+            widget: "list"
+            summary: "{{date_en}} — {{type_en}}"
+            fields:
+              - { name: "date_cy", label: "Dyddiad (Cymraeg)", widget: "string", hint: "e.g. Dydd Iau, 15 Ionawr 2026" }
+              - { name: "date_en", label: "Date (English)", widget: "string", hint: "e.g. Thursday, 15 January 2026" }
+              - { name: "type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
+              - { name: "type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
+              - { name: "time", label: "Time", widget: "string", default: "19:00" }
+              - name: "status"
+                label: "Status"
+                widget: "select"
+                options:
+                  - { label: "Past", value: "past" }
+                  - { label: "Next meeting", value: "next" }
+                  - { label: "Upcoming", value: "upcoming" }
+                hint: "Only one meeting should be set to 'Next meeting' at a time."
+
+  - name: "minutes"
+    label: "Minutes"
+    label_singular: "Minutes"
+    files:
+      - name: "minutes"
+        file: "src/data/minutes.json"
+        label: "Meeting Minutes"
+        fields:
+          - name: "items"
+            label: "Minutes"
+            widget: "list"
+            summary: "{{meeting_date}} — {{meeting_type_en}} ({{status}})"
+            fields:
+              - { name: "meeting_date", label: "Meeting date", widget: "date", format: "YYYY-MM-DD" }
+              - { name: "meeting_type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
+              - { name: "meeting_type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
+              - name: "status"
+                label: "Status"
+                widget: "select"
+                options:
+                  - { label: "Draft (not yet approved)", value: "draft" }
+                  - { label: "Approved — publish on site", value: "approved" }
+                hint: "Only 'Approved' minutes appear on the public Minutes page."
+              - { name: "chair", label: "Chair", widget: "string" }
+              - name: "minutes_cy_file"
+                label: "Cofnodion PDF (Cymraeg)"
+                widget: "file"
+                media_library: { config: { multiple: false } }
+                hint: "PDF only, under 10MB. Must be a proper searchable/tagged PDF, not a scanned image — see the accessible PDF note in DECAP_CMS_SETUP.md."
+              - name: "minutes_en_file"
+                label: "Minutes PDF (English)"
+                widget: "file"
+                media_library: { config: { multiple: false } }
+                hint: "PDF only, under 10MB. Must be a proper searchable/tagged PDF, not a scanned image."
+
+  - name: "agendas"
+    label: "Agendas"
+    label_singular: "Agenda"
+    files:
+      - name: "agendas"
+        file: "src/data/agendas.json"
+        label: "Meeting Agendas"
+        fields:
+          - name: "items"
+            label: "Agendas"
+            widget: "list"
+            summary: "{{meeting_date}} — {{meeting_type_en}}"
+            fields:
+              - { name: "meeting_date", label: "Meeting date", widget: "date", format: "YYYY-MM-DD" }
+              - { name: "meeting_type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
+              - { name: "meeting_type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
+              - name: "agenda_cy_file"
+                label: "Agenda PDF (Cymraeg)"
+                widget: "file"
+                media_library: { config: { multiple: false } }
+                hint: "PDF only, under 10MB. Publish at least 3 clear days before the meeting."
+              - name: "agenda_en_file"
+                label: "Agenda PDF (English)"
+                widget: "file"
+                media_library: { config: { multiple: false } }
+                hint: "PDF only, under 10MB. Publish at least 3 clear days before the meeting."
+
+  - name: "events"
+    label: "Events"
+    label_singular: "Event"
+    files:
+      - name: "events"
+        file: "src/data/events.json"
+        label: "Community Events"
+        fields:
+          - name: "items"
+            label: "Events"
+            widget: "list"
+            summary: "{{date}} — {{title_en}}"
+            fields:
+              - { name: "title_cy", label: "Teitl (Cymraeg)", widget: "string" }
+              - { name: "title_en", label: "Title (English)", widget: "string" }
+              - { name: "date", label: "Date", widget: "date", format: "YYYY-MM-DD", hint: "Events drop off the public calendar automatically once this date has passed." }
+              - { name: "time", label: "Time", widget: "string", required: false, hint: "e.g. 14:00. Leave blank for all-day events." }
+              - { name: "location_cy", label: "Lleoliad (Cymraeg)", widget: "string" }
+              - { name: "location_en", label: "Location (English)", widget: "string" }
+              - { name: "description_cy", label: "Disgrifiad (Cymraeg)", widget: "text", required: false }
+              - { name: "description_en", label: "Description (English)", widget: "text", required: false }

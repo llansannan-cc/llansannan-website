@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "meeting_date": "2026-08-20",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "Meurig Davies",
+      "minutes_cy_file": "/documents/2026/minutes/2026-08-20-cyfarfod-cyffredin-cofnodion-cy.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-08-20-ordinary-meeting-approved-minutes-en.pdf"
+    }
+  ]
+}

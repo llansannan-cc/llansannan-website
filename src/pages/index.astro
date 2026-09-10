@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import config from '../data/config.json';
-import meetings from '../data/meetings.json';
+import minutes from '../data/minutes.json';
 import news from '../data/news.json';
 
 const { council, next_meeting, site } = config;
 const nextMeeting = next_meeting;
 const latestNews = news.items.filter(n => n.featured).slice(0, 3);
-const latestMinutes = meetings.minutes[0] ?? null;
+const latestMinutes = minutes.items[0] ?? null;
 ---
 <Layout
   title_cy="Hafan"

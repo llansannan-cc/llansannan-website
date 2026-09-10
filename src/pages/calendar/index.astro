@@ -1,7 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
+import events from '../../data/events.json';
+
 const upcoming = meetings.schedule_2026.filter(m => m.status === 'next' || m.status === 'upcoming');
+
+// Events automatically drop off the site once their date has passed —
+// this runs at build time, so the site must be rebuilt periodically
+// (see the daily scheduled rebuild) for expiry to take effect without a new commit.
+const today = new Date().toISOString().slice(0, 10);
+const upcomingEvents = events.items
+  .filter(e => e.date >= today)
+  .sort((a, b) => a.date.localeCompare(b.date));
 ---
 <Layout title_cy="Calendr" title_en="Calendar">
   <div class="page-banner"><h1><span lang="cy">Calendr Cymunedol</span><span lang="en">Community Calendar</span></h1></div>
@@ -38,5 +48,41 @@ const upcoming = meetings.schedule_2026.filter(m => m.status === 'next' || m.sta
       })}
     </div>
     <p style="margin-top:1rem"><a href="/meetings/"><span lang="cy">Gweld pob dyddiad →</span><span lang="en">View all dates →</span></a></p>
+
+    <h3 class="sub-sh" style="margin-top:2rem"><span lang="cy">Digwyddiadau Cymunedol</span><span lang="en">Community Events</span></h3>
+    {upcomingEvents.length === 0 ? (
+      <>
+        <p lang="cy">Nid oes digwyddiadau cymunedol wedi'u trefnu ar hyn o bryd.</p>
+        <p lang="en">No community events are currently scheduled.</p>
+      </>
+    ) : (
+      <div class="cal-list">
+        {upcomingEvents.map(e => (
+          <div class="cal-item">
+            <div class="cal-date-box">
+              <div class="cal-day">{e.date.slice(8, 10)}</div>
+              <div class="cal-month">{new Date(e.date).toLocaleString('en-GB', { month: 'short' })}</div>
+            </div>
+            <div>
+              <div class="cal-title">
+                <span lang="cy">{e.title_cy}</span>
+                <span lang="en">{e.title_en}</span>
+              </div>
+              <div class="cal-detail">
+                {e.time && <>{e.time} &middot; </>}
+                <span lang="cy">{e.location_cy}</span>
+                <span lang="en">{e.location_en}</span>
+              </div>
+              {(e.description_cy || e.description_en) && (
+                <p class="cal-desc">
+                  <span lang="cy">{e.description_cy}</span>
+                  <span lang="en">{e.description_en}</span>
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
   </div></div>
 </Layout>

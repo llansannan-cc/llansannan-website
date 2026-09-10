@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import meetings from '../../data/meetings.json';
+import agendas from '../../data/agendas.json';
 import config from '../../data/config.json';
 
-const upcoming = meetings.schedule_2026.filter(m => m.status === 'next' || m.status === 'upcoming');
-const withAgendas = meetings.minutes.filter(m => m.files.agenda_en || m.files.agenda_cy);
+const withAgendas = agendas.items
+  .filter(m => m.agenda_en_file || m.agenda_cy_file)
+  .sort((a, b) => b.meeting_date.localeCompare(a.meeting_date));
 ---
 <Layout title_cy="Agendâu" title_en="Agendas">
   <div class="page-banner">
@@ -33,11 +34,11 @@ const withAgendas = meetings.minutes.filter(m => m.files.agenda_en || m.files.ag
               <span lang="en">{m.meeting_type_en} — {m.meeting_date}</span>
             </h3>
             <ul class="doc-links">
-              {m.files.agenda_en && (
-                <li><a href={m.files.agenda_en} class="doc-link pdf" lang="en">Agenda (English) — PDF</a></li>
+              {m.agenda_en_file && (
+                <li><a href={m.agenda_en_file} class="doc-link pdf" lang="en">Agenda (English) — PDF</a></li>
               )}
-              {m.files.agenda_cy && (
-                <li><a href={m.files.agenda_cy} class="doc-link pdf" lang="cy">Agenda (Cymraeg) — PDF</a></li>
+              {m.agenda_cy_file && (
+                <li><a href={m.agenda_cy_file} class="doc-link pdf" lang="cy">Agenda (Cymraeg) — PDF</a></li>
               )}
             </ul>
           </article>

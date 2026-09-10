@@ -12,20 +12,5 @@
     { "date_cy": "Dydd Iau, 15 Hydref 2026",    "date_en": "Thursday, 15 October 2026",   "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
     { "date_cy": "Dydd Iau, 19 Tachwedd 2026",  "date_en": "Thursday, 19 November 2026",  "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
     { "date_cy": "Dydd Iau, 17 Rhagfyr 2026",   "date_en": "Thursday, 17 December 2026",  "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" }
-  ],
-  "minutes": [
-    {
-      "meeting_date": "2026-08-20",
-      "meeting_type_cy": "Cyfarfod Cyffredin",
-      "meeting_type_en": "Ordinary Meeting",
-      "status": "approved",
-      "chair": "Meurig Davies",
-      "files": {
-        "minutes_en": "/documents/2026/minutes/2026-08-20-ordinary-meeting-approved-minutes-en.pdf",
-        "minutes_cy": "/documents/2026/minutes/2026-08-20-cyfarfod-cyffredin-cofnodion-cy.pdf",
-        "agenda_en": "/documents/2026/agendas/2026-08-20-ordinary-meeting-agenda-en.pdf",
-        "agenda_cy": "/documents/2026/agendas/2026-08-20-cyfarfod-cyffredin-agenda-cy.pdf"
-      }
-    }
   ]
 }

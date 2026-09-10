@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/validate-uploads.mjs",
     "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"

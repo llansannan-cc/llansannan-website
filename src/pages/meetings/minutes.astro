@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import meetings from '../../data/meetings.json';
+import minutes from '../../data/minutes.json';
 import config from '../../data/config.json';
 
-const approved = meetings.minutes.filter(m => m.status === 'approved');
+const approved = minutes.items
+  .filter(m => m.status === 'approved')
+  .sort((a, b) => b.meeting_date.localeCompare(a.meeting_date));
 const chair = config.council.chair_name;
 ---
 <Layout title_cy="Cofnodion" title_en="Minutes">
@@ -41,31 +43,17 @@ const chair = config.council.chair_name;
               <span lang="en">{m.meeting_type_en} — {m.meeting_date}</span>
             </h3>
             <ul class="doc-links">
-              {m.files.minutes_en && (
+              {m.minutes_en_file && (
                 <li>
-                  <a href={m.files.minutes_en} lang="en" class="doc-link pdf">
+                  <a href={m.minutes_en_file} lang="en" class="doc-link pdf">
                     Approved Minutes (English) — PDF
                   </a>
                 </li>
               )}
-              {m.files.minutes_cy && (
+              {m.minutes_cy_file && (
                 <li>
-                  <a href={m.files.minutes_cy} lang="cy" class="doc-link pdf">
+                  <a href={m.minutes_cy_file} lang="cy" class="doc-link pdf">
                     Cofnodion Cymeradwy (Cymraeg) — PDF
-                  </a>
-                </li>
-              )}
-              {m.files.agenda_en && (
-                <li>
-                  <a href={m.files.agenda_en} lang="en" class="doc-link pdf">
-                    Agenda (English) — PDF
-                  </a>
-                </li>
-              )}
-              {m.files.agenda_cy && (
-                <li>
-                  <a href={m.files.agenda_cy} lang="cy" class="doc-link pdf">
-                    Agenda (Cymraeg) — PDF
                   </a>
                 </li>
               )}

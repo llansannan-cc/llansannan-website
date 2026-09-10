@@ -1,0 +1,29 @@
+name: Scheduled rebuild (event/agenda expiry)
+
+# Events and past agendas drop off the public site based on their date field,
+# checked at BUILD time (see src/pages/calendar/index.astro). A static site
+# only rebuilds when something is pushed, so without this workflow an event
+# would stay visible until the next real content change. This runs once a
+# day and pushes an empty commit, which triggers Cloudflare's normal
+# connected-repo build — no Cloudflare secrets needed here.
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 05:00 UTC daily (before the working day in the UK)
+  workflow_dispatch: {}    # allows a manual "Run workflow" trigger too
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Push empty commit to trigger a rebuild
+        run: |
+          git config user.name "llansannan-scheduled-rebuild"
+          git config user.email "actions@users.noreply.github.com"
+          git commit --allow-empty -m "chore: scheduled rebuild (event/agenda expiry) [skip ci-notify]"
+          git push

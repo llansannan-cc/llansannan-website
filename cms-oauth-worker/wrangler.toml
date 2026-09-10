@@ -1,0 +1,15 @@
+name = "llansannan-cms-auth"
+main = "src/worker.js"
+compatibility_date = "2024-09-23"
+
+# Non-secret config. Set ALLOWED_ORIGIN to the exact site origin that is
+# allowed to receive the GitHub token (e.g. "https://llansannan-cc.gov.uk").
+# Do not use a wildcard here — this is the check that stops the token being
+# handed to any page other than the council's own CMS admin.
+[vars]
+GITHUB_CLIENT_ID = "REPLACE_WITH_GITHUB_OAUTH_APP_CLIENT_ID"
+ALLOWED_ORIGIN = "https://REPLACE-WITH-SITE-DOMAIN"
+
+# GITHUB_CLIENT_SECRET is NOT set here — it is a secret, set separately with:
+#   npx wrangler secret put GITHUB_CLIENT_SECRET
+# so it never appears in this file or in git history.
