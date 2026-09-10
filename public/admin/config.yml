@@ -1,15 +1,11 @@
 # Decap CMS configuration for Llansannan Community Council
-#
-# IMPORTANT — before this works, replace the two placeholders below:
-#   1. repo:      COUNCIL_GITHUB_ORG/llansannan-website
-#   2. base_url:  the URL of the Cloudflare OAuth Worker (see /cms-oauth-worker)
 # See DECAP_CMS_SETUP.md in the repo root for the full setup walkthrough.
 
 backend:
   name: github
-  repo: COUNCIL_GITHUB_ORG/llansannan-website   # <-- replace with the council org/repo
+  repo: llansannan-cc/llansannan-website
   branch: main
-  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev  # <-- replace with the OAuth Worker URL
+  base_url: https://llansannan-cms-auth.llansannancc.workers.dev
   auth_endpoint: auth
 
 # The CMS only ever writes to these four JSON files and the shared uploads
