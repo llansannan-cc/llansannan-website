@@ -1,7 +1,28 @@
 ---
+import fs from 'node:fs';
+import crypto from 'node:crypto';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import config from '../data/config.json';
+
+// public/assets/* is served with an "immutable, max-age=31536000" cache
+// header (see public/_headers) -- fine for images, but it means an edit to
+// style.css or main.js under the SAME url never reaches a returning
+// visitor's browser, or Cloudflare's edge cache, for up to a year. A
+// query string built from the file's own content hash gives each edit a
+// new URL automatically, busting both caches without any manual version
+// bump or Cloudflare purge.
+function assetVersion(publicPath: string) {
+  try {
+    const abs = new URL(`../../public${publicPath}`, import.meta.url);
+    const bytes = fs.readFileSync(abs);
+    return crypto.createHash('md5').update(bytes).digest('hex').slice(0, 8);
+  } catch {
+    return Date.now().toString(36);
+  }
+}
+const cssVersion = assetVersion('/assets/css/style.css');
+const jsVersion = assetVersion('/assets/js/main.js');
 
 interface Props {
   title_cy: string;
@@ -48,7 +69,7 @@ const siteUrl = config.site.url;
   <meta property="og:locale:alternate" content="en_GB">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href={`/assets/css/style.css?v=${cssVersion}`}>
 
   <!-- Pagefind search UI -->
   <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
@@ -75,7 +96,7 @@ const siteUrl = config.site.url;
 
   <Footer />
 
-  <script src="/assets/js/main.js" is:inline></script>
+  <script src={`/assets/js/main.js?v=${jsVersion}`} is:inline></script>
   <script src="/pagefind/pagefind-ui.js" type="module" is:inline></script>
 </body>
 </html>

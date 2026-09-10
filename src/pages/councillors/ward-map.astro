@@ -49,22 +49,17 @@ import Layout from '../../layouts/Layout.astro';
   document.addEventListener('DOMContentLoaded', function () {
     const map = L.map('ward-map', { scrollWheelZoom: false }).setView([53.185, -3.58], 12);
 
-    // Detailed basemap: standard OpenStreetMap tiles (terrain, land use,
-    // rivers, contours, etc).
-    const detailedTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // A single OpenStreetMap tile source is used for both views -- third-party
+    // "simple" basemap providers (CARTO, Esri) now gate their free raster
+    // tiles behind an API key/developer account, which this project
+    // deliberately avoids adding. Instead, Simple mode desaturates the same
+    // OSM tiles with a CSS filter (see the .map-simple rule below), muting
+    // the rivers/land-use colour so the road network reads as the main
+    // feature, with no extra account or external dependency required.
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
-
-    // Simple basemap: CARTO "Positron" -- a light, minimal style with
-    // roads and place labels only, no rivers/land-use/contour shading.
-    const simpleTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 18,
-      subdomains: 'abcd',
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-    });
-
-    detailedTiles.addTo(map);
+    }).addTo(map);
 
     // Official Llansannan ward boundary -- 338-point polygon sourced from
     // Conwy CBC's KML for ward W05001421. This is the real boundary that
@@ -189,18 +184,19 @@ import Layout from '../../layouts/Layout.astro';
 
     const detailedLayer = L.layerGroup([boundaryLayer, otherWardLayer]);
 
-    // Detailed = full official boundary + approximate ward points.
-    // Simple = just the highlighted Llansannan marker on a plain map.
+    const mapContainer = document.getElementById('ward-map');
+
+    // Detailed = full-colour OSM tiles + official boundary + approximate
+    // ward points. Simple = desaturated tiles + just the highlighted
+    // Llansannan marker.
     function showDetailed() {
-      map.removeLayer(simpleTiles);
-      detailedTiles.addTo(map);
+      mapContainer.classList.remove('map-simple');
       detailedLayer.addTo(map);
       map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
     }
     function showSimple() {
+      mapContainer.classList.add('map-simple');
       map.removeLayer(detailedLayer);
-      map.removeLayer(detailedTiles);
-      simpleTiles.addTo(map);
       map.setView([53.1677, -3.5582], 13);
     }
 
@@ -232,6 +228,13 @@ import Layout from '../../layouts/Layout.astro';
   .map-view-btn {
     padding: 0.45rem 1rem;
     font-size: 0.8rem;
+  }
+  /* Simple mode: desaturate the OSM tiles so rivers/land-use/contour
+     colour fades to grey and the road network becomes the dominant
+     feature, without needing a separate "simple" tile provider (those
+     now require an API key -- see the comment in the script above). */
+  :global(#ward-map.map-simple .leaflet-tile-pane) {
+    filter: grayscale(90%) brightness(1.08) contrast(0.95);
   }
   :global(.village-label) {
     background: var(--primary-dark);
