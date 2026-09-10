@@ -14,8 +14,18 @@ import Layout from '../../layouts/Layout.astro';
     <p lang="cy">Mae'r map isod yn dangos ffiniau tair ward etholiadol Cyngor Cymuned Llansannan: Ward Llansannan, Ward Bylchau a Ward Llannefydd.</p>
     <p lang="en">The map below shows the boundaries of Llansannan Community Council's three electoral wards: Llansannan Ward, Bylchau Ward and Llannefydd Ward.</p>
 
+    <!-- Map view toggle -->
+    <div class="map-view-toggle" role="group" aria-label="Map view / Golwg map">
+      <button type="button" id="mapViewDetailed" class="btn map-view-btn is-active">
+        <span lang="cy">Map Manwl</span><span lang="en">Detailed Map</span>
+      </button>
+      <button type="button" id="mapViewSimple" class="btn-outline map-view-btn">
+        <span lang="cy">Map Syml</span><span lang="en">Simple Map</span>
+      </button>
+    </div>
+
     <!-- Map container -->
-    <div id="ward-map" style="height:480px;border-radius:6px;margin:1.5rem 0;border:1px solid var(--border)" aria-label="Ward boundary map" role="application"></div>
+    <div id="ward-map" style="height:480px;border-radius:6px;margin:1rem 0 1.5rem;border:1px solid var(--border)" aria-label="Ward boundary map" role="application"></div>
 
     <p lang="cy" style="font-size:0.875rem;color:var(--text-muted)">Sylwer: Mae'r ffiniau a ddangosir yn fras yn unig. Am fanylion swyddogol, ewch i wefan Cyngor Sir Conwy.</p>
     <p lang="en" style="font-size:0.875rem;color:var(--text-muted)">Note: The boundaries shown are approximate only. For official details, visit the Conwy County Council website.</p>
@@ -136,35 +146,86 @@ import Layout from '../../layouts/Layout.astro';
       [53.24513,-3.53088],[53.24511,-3.52880]
     ];
 
-    L.polygon(wardBoundary, {
+    const boundaryLayer = L.polygon(wardBoundary, {
       color: '#2b4f72', weight: 2.5, opacity: 0.9,
       fillColor: '#3d6e99', fillOpacity: 0.18
-    }).addTo(map);
+    });
 
+    // Highlighted Llansannan village marker -- larger, high-contrast dot
+    // with a permanent label, so it reads clearly on its own in Simple mode.
     const villageIcon = L.divIcon({
       className: '',
-      html: '<div style="background:#b07420;width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.4)"></div>',
-      iconSize: [12, 12], iconAnchor: [6, 6]
+      html: '<div style="background:#b07420;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,0.45)"></div>',
+      iconSize: [16, 16], iconAnchor: [8, 8]
     });
-    L.marker([53.1677, -3.5582], { icon: villageIcon })
+    const villageMarker = L.marker([53.1677, -3.5582], { icon: villageIcon })
       .bindPopup('<strong>Llansannan</strong><br>LL16 5HE')
+      .bindTooltip('Llansannan', { permanent: true, direction: 'top', offset: [0, -10], className: 'village-label' })
       .addTo(map);
 
     // Bylchau and Llannefydd don't have equivalent official KML boundary
     // data in this project -- shown as approximate reference points only,
     // clearly distinct from the surveyed Llansannan boundary above.
+    const isCy = () => document.documentElement.getAttribute('data-lang') !== 'en';
     const otherWards = [
       { name_cy: 'Ward Bylchau (bras)', name_en: 'Bylchau Ward (approximate)', lat: 53.205, lng: -3.545 },
       { name_cy: 'Ward Llannefydd (bras)', name_en: 'Llannefydd Ward (approximate)', lat: 53.175, lng: -3.540 }
     ];
-    const isCy = () => document.documentElement.getAttribute('data-lang') !== 'en';
-    otherWards.forEach(w => {
-      L.marker([w.lat, w.lng]).addTo(map)
-        .bindPopup(`<strong>${isCy() ? w.name_cy : w.name_en}</strong>`);
-    });
+    const otherWardLayer = L.layerGroup(otherWards.map(w =>
+      L.marker([w.lat, w.lng]).bindPopup(`<strong>${isCy() ? w.name_cy : w.name_en}</strong>`)
+    ));
 
-    map.fitBounds(L.polygon(wardBoundary).getBounds(), { padding: [20, 20] });
+    const detailedLayer = L.layerGroup([boundaryLayer, otherWardLayer]);
+
+    // Detailed = full official boundary + approximate ward points.
+    // Simple = just the highlighted Llansannan marker on a plain map.
+    function showDetailed() {
+      detailedLayer.addTo(map);
+      map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
+    }
+    function showSimple() {
+      map.removeLayer(detailedLayer);
+      map.setView([53.1677, -3.5582], 12);
+    }
+
+    const detailedBtn = document.getElementById('mapViewDetailed');
+    const simpleBtn = document.getElementById('mapViewSimple');
+    function setActive(btn) {
+      [detailedBtn, simpleBtn].forEach(b => {
+        b.classList.toggle('is-active', b === btn);
+        b.classList.toggle('btn', b === btn);
+        b.classList.toggle('btn-outline', b !== btn);
+      });
+    }
+    detailedBtn.addEventListener('click', () => { showDetailed(); setActive(detailedBtn); });
+    simpleBtn.addEventListener('click', () => { showSimple(); setActive(simpleBtn); });
+
+    // Start in Detailed mode (the full boundary).
+    showDetailed();
   });
     </script>
   </div></div>
 </Layout>
+
+<style>
+  .map-view-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .map-view-btn {
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+  }
+  :global(.village-label) {
+    background: var(--primary-dark);
+    color: #fff;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+  }
+  :global(.village-label::before) {
+    border-top-color: var(--primary-dark);
+  }
+</style>
