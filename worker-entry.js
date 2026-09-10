@@ -34,6 +34,11 @@ export default {
     if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {
       const headers = new Headers(response.headers);
       headers.set('Content-Security-Policy', ADMIN_CSP);
+      // The admin area must never be served stale from Cloudflare's edge
+      // cache — it needs to reflect the latest config.yml and this CSP
+      // fix immediately after every deploy, not whenever a cached copy
+      // happens to expire.
+      headers.set('Cache-Control', 'no-store');
       return new Response(response.body, {
         status: response.status,
         statusText: response.statusText,
