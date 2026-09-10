@@ -2,11 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import minutes from '../../data/minutes.json';
 import config from '../../data/config.json';
+import councillors from '../../data/councillors.json';
 
 const approved = minutes.items
   .filter(m => m.status === 'approved')
   .sort((a, b) => b.meeting_date.localeCompare(a.meeting_date));
-const chair = config.council.chair_name;
+const chair = councillors.people.find(p => p.role === 'chair' && p.active)?.name;
 ---
 <Layout title_cy="Cofnodion" title_en="Minutes">
   <div class="page-banner">

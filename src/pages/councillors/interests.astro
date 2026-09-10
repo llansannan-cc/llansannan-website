@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import councillors from '../../data/councillors.json';
+import { ROLE_LABELS, WARD_LABELS } from '../../data/people-lookups.js';
 
-const allActive = councillors.wards.flatMap(w =>
-  w.councillors.filter(c => c.active).map(c => ({ ...c, ward_cy: w.name_cy, ward_en: w.name_en }))
-);
+const allActive = councillors.people
+  .filter(p => p.active && p.ward !== 'staff')
+  .map(p => ({ ...p, ward_cy: WARD_LABELS[p.ward].cy, ward_en: WARD_LABELS[p.ward].en }));
 ---
 <Layout title_cy="Cofrestru Buddiannau" title_en="Register of Interests">
   <div class="page-banner"><h1><span lang="cy">Cofrestru Buddiannau</span><span lang="en">Register of Interests</span></h1></div>
@@ -25,8 +26,8 @@ const allActive = councillors.wards.flatMap(w =>
         <div class="minutes-item">
           <div>
             <strong>{c.name}</strong>
-            {c.role_en && c.role_en !== 'Councillor' && (
-              <> — <em><span lang="cy">{c.role_cy}</span><span lang="en">{c.role_en}</span></em></>
+            {c.role !== 'councillor' && (
+              <> — <em><span lang="cy">{ROLE_LABELS[c.role].cy}</span><span lang="en">{ROLE_LABELS[c.role].en}</span></em></>
             )}
             <div class="fg-meta"><span lang="cy">{c.ward_cy}</span><span lang="en">{c.ward_en}</span></div>
           </div>

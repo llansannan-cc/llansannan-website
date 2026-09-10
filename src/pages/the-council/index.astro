@@ -2,9 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import config from '../../data/config.json';
 import councillors from '../../data/councillors.json';
+import { ROLE_LABELS } from '../../data/people-lookups.js';
 
 const { council } = config;
-const totalCouncillors = councillors.wards.flatMap(w => w.councillors).filter(c => c.active).length;
+const totalCouncillors = councillors.people.filter(p => p.active && p.ward !== 'staff').length;
+const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <Layout title_cy="Am y Cyngor" title_en="About the Council">
   <div class="page-banner">
@@ -22,12 +25,12 @@ const totalCouncillors = councillors.wards.flatMap(w => w.councillors).filter(c 
     <p lang="en">Llansannan Community Council is the first tier of local government serving the Bro Aled area of Conwy County Borough. It represents the communities of Llansannan, Bylchau and Llannefydd.</p>
 
     <h3 class="sub-sh"><span lang="cy">Cadeirydd</span><span lang="en">Chair</span></h3>
-    <p lang="cy">Y {council.chair_title_cy} presennol yw y Cynghorydd <strong>{council.chair_name}</strong>.</p>
-    <p lang="en">The current {council.chair_title_en} is Councillor <strong>{council.chair_name}</strong>.</p>
+    <p lang="cy">Y {ROLE_LABELS.chair.cy} presennol yw y Cynghorydd <strong>{chairPerson?.name}</strong>.</p>
+    <p lang="en">The current {ROLE_LABELS.chair.en} is Councillor <strong>{chairPerson?.name}</strong>.</p>
 
     <h3 class="sub-sh"><span lang="cy">Y Clerc</span><span lang="en">The Clerk</span></h3>
-    <p lang="cy">Y prif swyddog yw'r Clerc — <strong>{council.clerk_name}</strong>. Mae'r Clerc yn gyfrifol am gynghori'r cyngor, cymryd cofnodion a sicrhau cydymffurfiaeth. <a href="/the-council/clerk/">Mwy am y Clerc →</a></p>
-    <p lang="en">The principal officer is the Clerk — <strong>{council.clerk_name}</strong>. The Clerk is responsible for advising the council, taking minutes and ensuring compliance. <a href="/the-council/clerk/">More about the Clerk →</a></p>
+    <p lang="cy">Y prif swyddog yw'r Clerc — <strong>{clerkPerson?.name}</strong>. Mae'r Clerc yn gyfrifol am gynghori'r cyngor, cymryd cofnodion a sicrhau cydymffurfiaeth. <a href="/the-council/clerk/">Mwy am y Clerc →</a></p>
+    <p lang="en">The principal officer is the Clerk — <strong>{clerkPerson?.name}</strong>. The Clerk is responsible for advising the council, taking minutes and ensuring compliance. <a href="/the-council/clerk/">More about the Clerk →</a></p>
 
     <h3 class="sub-sh"><span lang="cy">Aelodaeth</span><span lang="en">Membership</span></h3>
     <p lang="cy">Mae gan y cyngor {totalCouncillors} aelod ar hyn o bryd, gyda rhai swyddi gwag yn Ward Llannefydd. Mae pob aelod wedi'i gyd-optio. <a href="/councillors/">Gweld eich cynghorwyr →</a></p>

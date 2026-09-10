@@ -1,9 +1,11 @@
 # Decap CMS setup — Llansannan Community Council
 
 This is the one-time setup for the clerk's content editor at `/admin/`. It
-covers four content types only: **Meetings**, **Minutes**, **Agendas**, and
-**Events**. It does not give access to site design, navigation, or any other
-page — those live in files the CMS never touches.
+covers five content types only: **Meetings**, **Minutes**, **Agendas**,
+**Events**, and **Councillors & Officers** (the Chair, the Clerk, every
+councillor, and any vacant seats, with their wards). It does not give access
+to site design, navigation, or any other page — those live in files the CMS
+never touches.
 
 Read this fully before starting. Steps 1–4 are done once by whoever
 administers the GitHub/Cloudflare accounts (currently Tom). Steps 5–6 are

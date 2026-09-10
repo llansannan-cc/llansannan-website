@@ -1,6 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import config from '../../data/config.json';
+import councillors from '../../data/councillors.json';
+
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <Layout title_cy="Datganiad Hygyrchedd" title_en="Accessibility Statement">
   <div class="page-banner">
@@ -42,7 +45,7 @@ import config from '../../data/config.json';
 
       <h3 class="sub-sh">Feedback and contact information</h3>
       <p>If you need information on this website in a different format, such as accessible PDF, large print, easy read, audio recording or braille, contact:</p>
-      <p><strong>{config.council.clerk_name}</strong>, {config.site.name_en}<br>
+      <p><strong>{clerkPerson?.name}</strong>, {config.site.name_en}<br>
       Email: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
       <p>We will consider your request and get back to you within 5 working days.</p>
 
@@ -72,7 +75,7 @@ import config from '../../data/config.json';
 
       <h3 class="sub-sh">Adborth a gwybodaeth gyswllt</h3>
       <p>Os oes angen y wybodaeth ar y wefan hon arnoch mewn fformat gwahanol, megis PDF hygyrch, print bras, hawdd ei ddarllen, recordiad sain neu braille, cysylltwch â:</p>
-      <p><strong>{config.council.clerk_name}</strong>, {config.site.name_cy}<br>
+      <p><strong>{clerkPerson?.name}</strong>, {config.site.name_cy}<br>
       E-bost: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
 
       <h3 class="sub-sh">Gweithdrefn gorfodi</h3>

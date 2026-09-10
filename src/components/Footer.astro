@@ -1,6 +1,10 @@
 ---
 import config from '../data/config.json';
+import councillors from '../data/councillors.json';
+import { ROLE_LABELS } from '../data/people-lookups.js';
+
 const { council, site } = config;
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <footer>
   <div class="footer-grid">
@@ -10,8 +14,8 @@ const { council, site } = config;
       <p class="fg-meta">
         <span lang="cy">{site.area_cy}</span>
         <span lang="en">{site.area_en}</span><br>
-        <span lang="cy">{council.clerk_title_cy}: {council.clerk_name}</span>
-        <span lang="en">{council.clerk_title_en}: {council.clerk_name}</span><br>
+        <span lang="cy">{ROLE_LABELS.clerk.cy}: {clerkPerson?.name}</span>
+        <span lang="en">{ROLE_LABELS.clerk.en}: {clerkPerson?.name}</span><br>
         <a href={`mailto:${council.email}`}>{council.email}</a>
       </p>
     </div>

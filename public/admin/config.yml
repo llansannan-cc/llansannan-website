@@ -135,3 +135,47 @@ collections:
               - { name: "location_en", label: "Location (English)", widget: "string" }
               - { name: "description_cy", label: "Disgrifiad (Cymraeg)", widget: "text", required: false }
               - { name: "description_en", label: "Description (English)", widget: "text", required: false }
+
+  - name: "people"
+    label: "Councillors & Officers"
+    label_singular: "Person"
+    files:
+      - name: "people"
+        file: "src/data/councillors.json"
+        label: "Councillors, Chair, Clerk & Officers"
+        description: "One list for everyone: the Chair, the Clerk, all councillors, and any vacant seats. This is the ONLY place their names live -- every page that mentions the Chair or Clerk by name reads from here, so there's nothing else to keep in sync."
+        fields:
+          - name: "people"
+            label: "People"
+            widget: "list"
+            summary: "{{name}} - {{fields.role}} ({{fields.ward}})"
+            fields:
+              - name: "name"
+                label: "Name"
+                widget: "string"
+                required: false
+                hint: "Leave blank for a vacant seat and set Active to No."
+              - name: "role"
+                label: "Role"
+                widget: "select"
+                options:
+                  - { label: "Chair", value: "chair" }
+                  - { label: "Vice-Chair", value: "vice_chair" }
+                  - { label: "Councillor", value: "councillor" }
+                  - { label: "Clerk", value: "clerk" }
+                  - { label: "Responsible Financial Officer", value: "rfo" }
+                  - { label: "Vacant seat", value: "vacant" }
+                hint: "Exactly one active person should be 'Chair' and one 'Clerk' at a time -- both are shown by name across the site."
+              - name: "ward"
+                label: "Ward"
+                widget: "select"
+                options:
+                  - { label: "Llansannan Ward", value: "llansannan" }
+                  - { label: "Bylchau Ward", value: "bylchau" }
+                  - { label: "Llannefydd Ward", value: "llannefydd" }
+                  - { label: "Council Staff (not ward-elected, e.g. Clerk)", value: "staff" }
+              - name: "active"
+                label: "Active"
+                widget: "boolean"
+                default: true
+                hint: "Set to No for a vacant seat, or when someone has stood down, instead of deleting the entry."

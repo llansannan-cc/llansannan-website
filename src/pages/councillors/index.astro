@@ -1,6 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import councillors from '../../data/councillors.json';
+import { ROLE_LABELS, WARD_LABELS, ELECTED_WARDS } from '../../data/people-lookups.js';
+
+const wards = ELECTED_WARDS.map(key => ({
+  key,
+  ...WARD_LABELS[key],
+  people: councillors.people.filter(p => p.ward === key),
+}));
 ---
 <Layout title_cy="Eich Cynghorwyr" title_en="Your Councillors">
   <div class="page-banner">
@@ -20,27 +27,27 @@ import councillors from '../../data/councillors.json';
       <span lang="en">Members as confirmed at the most recent meeting. All members are co-opted.</span>
     </div>
 
-    {councillors.wards.map(ward => (
-      <section aria-label={ward.name_en}>
+    {wards.map(ward => (
+      <section aria-label={ward.en}>
         <p class="ward-label">
-          <span lang="cy">{ward.name_cy}</span>
-          <span lang="en">{ward.name_en}</span>
+          <span lang="cy">{ward.cy}</span>
+          <span lang="en">{ward.en}</span>
         </p>
         <div class="cllr-grid">
-          {ward.councillors.map(cllr => (
-            cllr.active ? (
+          {ward.people.map(p => (
+            p.active ? (
               <div class="cllr-card">
-                <div class="cllr-name">{cllr.name}</div>
+                <div class="cllr-name">{p.name}</div>
                 <div class="cllr-role">
-                  <span lang="cy">{cllr.role_cy}</span>
-                  <span lang="en">{cllr.role_en}</span>
+                  <span lang="cy">{ROLE_LABELS[p.role].cy}</span>
+                  <span lang="en">{ROLE_LABELS[p.role].en}</span>
                 </div>
               </div>
             ) : (
               <div class="cllr-card cllr-vacancy">
                 <div class="cllr-name">
-                  <span lang="cy">{cllr.role_cy}</span>
-                  <span lang="en">{cllr.role_en}</span>
+                  <span lang="cy">{ROLE_LABELS[p.role].cy}</span>
+                  <span lang="en">{ROLE_LABELS[p.role].en}</span>
                 </div>
                 <div class="cllr-role">
                   <span lang="cy">Cysylltwch â'r Clerc</span>

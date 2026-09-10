@@ -1,6 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import councillors from '../../data/councillors.json';
+import { ROLE_LABELS, WARD_LABELS, ELECTED_WARDS } from '../../data/people-lookups.js';
+
+const wards = ELECTED_WARDS.map(key => ({
+  key,
+  ...WARD_LABELS[key],
+  people: councillors.people.filter(p => p.ward === key),
+}));
 ---
 <Layout title_cy="Proffiliau Wardiau" title_en="Ward Profiles">
   <div class="page-banner"><h1><span lang="cy">Proffiliau Wardiau</span><span lang="en">Ward Profiles</span></h1></div>
@@ -15,19 +22,19 @@ import councillors from '../../data/councillors.json';
     <p lang="cy">Mae Cyngor Cymuned Llansannan yn cwmpasu tair ward etholiadol. Dyma grynodeb o bob ward.</p>
     <p lang="en">Llansannan Community Council covers three electoral wards. Here is a summary of each ward.</p>
 
-    {councillors.wards.map(ward => {
-      const active = ward.councillors.filter(c => c.active);
-      const vacancies = ward.councillors.filter(c => !c.active);
+    {wards.map(ward => {
+      const active = ward.people.filter(p => p.active);
+      const vacancies = ward.people.filter(p => !p.active);
       return (
         <div style="border:1px solid var(--border);border-radius:6px;padding:1.25rem;margin-bottom:1.5rem">
-          <h3><span lang="cy">{ward.name_cy}</span><span lang="en">{ward.name_en}</span></h3>
-          <p lang="cy"><strong>Seddau:</strong> {ward.councillors.length} &nbsp;|&nbsp; <strong>Yn eistedd:</strong> {active.length}{vacancies.length > 0 ? ` | Swyddi gwag: ${vacancies.length}` : ''}</p>
-          <p lang="en"><strong>Seats:</strong> {ward.councillors.length} &nbsp;|&nbsp; <strong>Sitting:</strong> {active.length}{vacancies.length > 0 ? ` | Vacancies: ${vacancies.length}` : ''}</p>
+          <h3><span lang="cy">{ward.cy}</span><span lang="en">{ward.en}</span></h3>
+          <p lang="cy"><strong>Seddau:</strong> {ward.people.length} &nbsp;|&nbsp; <strong>Yn eistedd:</strong> {active.length}{vacancies.length > 0 ? ` | Swyddi gwag: ${vacancies.length}` : ''}</p>
+          <p lang="en"><strong>Seats:</strong> {ward.people.length} &nbsp;|&nbsp; <strong>Sitting:</strong> {active.length}{vacancies.length > 0 ? ` | Vacancies: ${vacancies.length}` : ''}</p>
           <ul>
-            {active.map(c => (
+            {active.map(p => (
               <li>
-                {c.name}
-                {c.role_en && c.role_en !== 'Councillor' && <> — <em><span lang="cy">{c.role_cy}</span><span lang="en">{c.role_en}</span></em></>}
+                {p.name}
+                {p.role !== 'councillor' && <> — <em><span lang="cy">{ROLE_LABELS[p.role].cy}</span><span lang="en">{ROLE_LABELS[p.role].en}</span></em></>}
               </li>
             ))}
             {vacancies.map(() => (

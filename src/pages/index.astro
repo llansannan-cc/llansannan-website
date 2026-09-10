@@ -3,11 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import config from '../data/config.json';
 import minutes from '../data/minutes.json';
 import news from '../data/news.json';
+import councillors from '../data/councillors.json';
+import { ROLE_LABELS } from '../data/people-lookups.js';
 
 const { council, next_meeting, site } = config;
 const nextMeeting = next_meeting;
 const latestNews = news.items.filter(n => n.featured).slice(0, 3);
 const latestMinutes = minutes.items[0] ?? null;
+const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <Layout
   title_cy="Hafan"
@@ -81,13 +85,13 @@ const latestMinutes = minutes.items[0] ?? null;
           </h2>
           <p lang="cy">
             Mae Cyngor Cymuned Llansannan yn wasanaeth gwirfoddol lleol sy'n gwasanaethu ardal Bro Aled yng Nghonwy.
-            Y <strong>{council.chair_title_cy} yw y Cynghorydd {council.chair_name}</strong>.
-            Mae'r Clerc, <strong>{council.clerk_name}</strong>, yn gyswllt cyntaf ar gyfer ymholiadau.
+            Y <strong>{ROLE_LABELS.chair.cy} yw y Cynghorydd {chairPerson?.name}</strong>.
+            Mae'r Clerc, <strong>{clerkPerson?.name}</strong>, yn gyswllt cyntaf ar gyfer ymholiadau.
           </p>
           <p lang="en">
             Llansannan Community Council is the first tier of local government serving the Bro Aled area of Conwy.
-            The <strong>{council.chair_title_en} is Councillor {council.chair_name}</strong>.
-            The Clerk, <strong>{council.clerk_name}</strong>, is the first point of contact for enquiries.
+            The <strong>{ROLE_LABELS.chair.en} is Councillor {chairPerson?.name}</strong>.
+            The Clerk, <strong>{clerkPerson?.name}</strong>, is the first point of contact for enquiries.
           </p>
           <p lang="cy">Mae'r cyngor yn cwrdd bob mis ac mae'r cyfarfodydd yn agored i'r cyhoedd.</p>
           <p lang="en">The council meets monthly and all meetings are open to the public.</p>

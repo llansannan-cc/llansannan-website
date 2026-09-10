@@ -1,7 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import config from '../../data/config.json';
+import councillors from '../../data/councillors.json';
+import { ROLE_LABELS } from '../../data/people-lookups.js';
+
 const { council } = config;
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <Layout title_cy="Cysylltu â Ni" title_en="Contact Us">
   <div class="page-banner">
@@ -15,11 +19,11 @@ const { council } = config;
     <h2 class="sh"><span lang="cy">Cysylltu â Chyngor Cymuned Llansannan</span><span lang="en">Contact Llansannan Community Council</span></h2>
     <hr class="sh-rule">
 
-    <p lang="cy">Y Clerc, <strong>{council.clerk_name}</strong>, yw'r pwynt cyswllt cyntaf ar gyfer yr holl ymholiadau.</p>
-    <p lang="en">The Clerk, <strong>{council.clerk_name}</strong>, is the first point of contact for all enquiries.</p>
+    <p lang="cy">Y Clerc, <strong>{clerkPerson?.name}</strong>, yw'r pwynt cyswllt cyntaf ar gyfer yr holl ymholiadau.</p>
+    <p lang="en">The Clerk, <strong>{clerkPerson?.name}</strong>, is the first point of contact for all enquiries.</p>
 
     <div class="contact-card" style="margin:1.5rem 0">
-      <div class="ccard-head">{council.clerk_name} — <span lang="cy">{council.clerk_title_cy}</span><span lang="en">{council.clerk_title_en}</span></div>
+      <div class="ccard-head">{clerkPerson?.name} — <span lang="cy">{ROLE_LABELS.clerk.cy}</span><span lang="en">{ROLE_LABELS.clerk.en}</span></div>
       <div class="crow">
         <span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span>
         <span class="cval"><a href={`mailto:${council.email}`}>{council.email}</a></span>
