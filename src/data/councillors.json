@@ -1,17 +1,82 @@
 {
   "people": [
-    { "name": "Meurig Davies", "role": "chair", "ward": "llansannan", "active": true },
-    { "name": "Tammi Owen", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Trefor Roberts", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Bethan Jones", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Eifion M Jones", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Bethan L. Evans", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Susan Van-Look", "role": "councillor", "ward": "llansannan", "active": true },
-    { "name": "Elwyn Jones", "role": "councillor", "ward": "bylchau", "active": true },
-    { "name": "David Morris", "role": "councillor", "ward": "bylchau", "active": true },
-    { "name": "Ffion Clwyd Edwards", "role": "councillor", "ward": "bylchau", "active": true },
-    { "name": null, "role": "vacant", "ward": "llannefydd", "active": false },
-    { "name": null, "role": "vacant", "ward": "llannefydd", "active": false },
-    { "name": "Delyth Williams", "role": "clerk", "ward": "staff", "active": true }
+    {
+      "name": "Meurig Davies",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Tammi Owen",
+      "role": "chair",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Trefor Roberts",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Bethan Jones",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Eifion M Jones",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Bethan L. Evans",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Susan Van-Look",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
+      "name": "Elwyn Jones",
+      "role": "councillor",
+      "ward": "bylchau",
+      "active": true
+    },
+    {
+      "name": "David Morris",
+      "role": "councillor",
+      "ward": "bylchau",
+      "active": true
+    },
+    {
+      "name": "Ffion Clwyd Edwards",
+      "role": "councillor",
+      "ward": "bylchau",
+      "active": true
+    },
+    {
+      "name": null,
+      "role": "vacant",
+      "ward": "llannefydd",
+      "active": false
+    },
+    {
+      "name": null,
+      "role": "vacant",
+      "ward": "llannefydd",
+      "active": false
+    },
+    {
+      "name": "Delyth Williams",
+      "role": "clerk",
+      "ward": "staff",
+      "active": true
+    }
   ]
 }
