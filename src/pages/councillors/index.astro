@@ -3,6 +3,12 @@ import Layout from '../../layouts/Layout.astro';
 import councillors from '../../data/councillors.json';
 import { ROLE_LABELS, WARD_LABELS, ELECTED_WARDS } from '../../data/people-lookups.js';
 
+// Everything below is derived from src/data/councillors.json -- nothing on
+// this page is hardcoded. Edit the Chair, Clerk, or any councillor via the
+// CMS "Councillors & Officers" collection and this page updates itself.
+const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
+const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
+
 const wards = ELECTED_WARDS.map(key => ({
   key,
   ...WARD_LABELS[key],
@@ -27,6 +33,37 @@ const wards = ELECTED_WARDS.map(key => ({
       <span lang="en">Members as confirmed at the most recent meeting. All members are co-opted.</span>
     </div>
 
+    <!-- Chair and Clerk -->
+    <div class="cllr-leadership">
+      {chairPerson && (
+        <div class="cllr-leader-card">
+          <div class="cllr-leader-role">
+            <span lang="cy">{ROLE_LABELS.chair.cy}</span>
+            <span lang="en">{ROLE_LABELS.chair.en}</span>
+          </div>
+          <div class="cllr-leader-name">{chairPerson.name}</div>
+          <div class="cllr-leader-meta">
+            <span lang="cy">{WARD_LABELS[chairPerson.ward]?.cy}</span>
+            <span lang="en">{WARD_LABELS[chairPerson.ward]?.en}</span>
+          </div>
+        </div>
+      )}
+      {clerkPerson && (
+        <div class="cllr-leader-card">
+          <div class="cllr-leader-role">
+            <span lang="cy">{ROLE_LABELS.clerk.cy}</span>
+            <span lang="en">{ROLE_LABELS.clerk.en}</span>
+          </div>
+          <div class="cllr-leader-name">{clerkPerson.name}</div>
+          <div class="cllr-leader-meta">
+            <a href="/contact/"><span lang="cy">Cysylltu →</span><span lang="en">Contact →</span></a>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Councillors by ward -->
+    <h3 class="sub-sh"><span lang="cy">Cynghorwyr yn ôl Ward</span><span lang="en">Councillors by Ward</span></h3>
     {wards.map(ward => (
       <section aria-label={ward.en}>
         <p class="ward-label">
@@ -63,9 +100,46 @@ const wards = ELECTED_WARDS.map(key => ({
 </Layout>
 
 <style>
+  .cllr-leadership {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .cllr-leader-card {
+    background: var(--white);
+    border-top: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  .cllr-leader-role {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .cllr-leader-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--primary-dark);
+    margin-top: 0.2rem;
+  }
+  .cllr-leader-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+  .cllr-leader-meta a { color: var(--primary); }
+
   .cllr-vacancy {
     background: #fff3cd;
     border-top-color: #ffc107;
     color: #856404;
+  }
+
+  @media (max-width: 600px) {
+    .cllr-leadership { grid-template-columns: 1fr; }
   }
 </style>

@@ -85,17 +85,6 @@ a{color:var(--primary)}
 .btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
 .btn-outline:hover{background:var(--primary);color:#fff}
 
-/* ── HOME PAGE ──────────────────────────────────────────────────────────────── */
-.home-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
-.home-intro h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary);margin-bottom:0.75rem}
-.quick-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
-.qcard{background:#f0f4f8;border-radius:6px;padding:1.2rem;text-align:center;border-top:3px solid var(--primary)}
-.qcard h3{font-size:1rem;color:var(--primary);margin-bottom:0.4rem}
-.qcard p{font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem}
-.qcard-btn{display:inline-block;padding:0.4rem 0.9rem;background:var(--primary);color:#fff;border-radius:3px;font-size:0.78rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background 0.15s}
-.qcard-btn:hover{background:var(--primary-light);color:#fff}
-.home-statue{text-align:center}
-.home-statue img{max-width:100%;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
 .statue-caption{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;font-style:italic}
 .next-meeting{background:var(--primary-dark);color:#fff;border-radius:6px;padding:1.25rem 1.5rem;margin:1.5rem 0}
 .next-meeting .label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.7;margin-bottom:0.25rem}
@@ -203,7 +192,6 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
 @media(max-width:960px){
-  .home-intro-grid{grid-template-columns:1fr}
   .hamburger{display:block}
   .nav-inner .nav-item:not(:first-child){display:none}
   .nav-inner .nav-item:first-child .nav-link{display:none}
@@ -220,20 +208,6 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
 }
-
-/* ── HOME WELCOME SECTION ───────────────────────────────────────────────────── */
-.welcome-section{background:var(--white);border-radius:6px;padding:2rem 2.5rem;margin:2rem 0;border-left:4px solid var(--accent);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
-.welcome-section h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary);margin-bottom:0.75rem}
-.welcome-section ul{margin:0.75rem 0 1rem 1.5rem;line-height:2}
-.welcome-section ul li{font-size:0.9rem}
-.welcome-section p{font-size:0.9rem;color:var(--muted);margin-top:0.75rem}
-
-/* ── 3 HOME ACTION BUTTONS ──────────────────────────────────────────────────── */
-.home-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0 2rem}
-.home-action{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--white);border:2px solid var(--border);border-radius:6px;padding:1.4rem 1rem;text-align:center;text-decoration:none;color:var(--text);transition:all 0.15s;gap:0.5rem}
-.home-action:hover{border-color:var(--primary);background:var(--primary);color:#fff}
-.home-action .ha-icon{font-size:1.8rem;line-height:1}
-.home-action .ha-label{font-size:0.78rem;font-weight:600;letter-spacing:0.04em}
 
 /* ── CONTACT FORM ───────────────────────────────────────────────────────────── */
 .contact-form{background:var(--white);border-radius:6px;padding:2rem;border:1px solid var(--border);margin-top:1.5rem}
@@ -253,46 +227,8 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 .policy-section ul{margin:0.5rem 0 0.5rem 1.5rem}
 
 @media(max-width:680px){
-  .home-actions{grid-template-columns:1fr}
   .cf-row{grid-template-columns:1fr}
 }
-
-/* ── HOME ACTIONS — Llanrwst panel style (overrides earlier rules) ──────────── */
-.home-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0 2.5rem}
-.home-action{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2rem 1.5rem 1.75rem;background:var(--white);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s,transform 0.2s}
-.home-action:hover{box-shadow:0 6px 20px rgba(61,110,153,0.18);transform:translateY(-2px);color:var(--text)}
-.home-action h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--primary-dark);margin-bottom:0.6rem;line-height:1.3}
-.home-action p{font-size:0.83rem;color:var(--muted);margin-bottom:1.25rem;flex:1;line-height:1.6}
-.ha-btn{display:inline-block;border:2px solid var(--primary);color:var(--primary);padding:0.45rem 1.4rem;border-radius:3px;font-size:0.8rem;font-weight:600;letter-spacing:0.03em;font-family:'Open Sans',sans-serif;transition:all 0.15s}
-.home-action:hover .ha-btn{background:var(--primary);color:#fff}
-.ha-icon{display:none}
-.ha-label{display:none}
-
-/* ── QUICK CARDS — more engaging ────────────────────────────────────────────── */
-.quick-cards-section{background:linear-gradient(135deg,#f0ede8 0%,#e8e4de 100%);padding:2rem;margin:0 -2rem;border-top:1px solid var(--border)}
-.quick-cards-section .sh{font-size:1.2rem;margin-bottom:1rem}
-.qcard{background:var(--white);border-radius:6px;padding:1.25rem 1.1rem 1rem;border-top:3px solid var(--primary);box-shadow:0 2px 6px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:0.4rem}
-.qcard h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--primary-dark)}
-.qcard p{font-size:0.8rem;color:var(--muted);flex:1}
-.qcard-btn{align-self:flex-start;font-size:0.78rem;font-weight:600;color:var(--accent);text-decoration:none;margin-top:0.25rem;letter-spacing:0.03em}
-.qcard-btn:hover{color:var(--primary)}
-
-@media(max-width:680px){
-  .home-actions{grid-template-columns:1fr}
-  .quick-cards-section{margin:0 -1rem;padding:1.5rem 1rem}
-}
-
-/* ── HOME PAGE REFINEMENTS ──────────────────────────────────────────────────── */
-/* Subtle panel hover — no colour flip, just a gentle lift */
-.home-action:hover{box-shadow:0 4px 14px rgba(43,79,114,0.12);transform:none;color:var(--text)}
-.home-action:hover .ha-btn{background:transparent;color:var(--primary);border-color:var(--primary-light)}
-
-/* Quick-access card links — primary blue, not orange */
-.qcard-btn{color:var(--primary)}
-.qcard-btn:hover{color:var(--primary-dark)}
-
-/* Quick-cards section flush to footer — no white gap */
-.quick-cards-section{margin-bottom:0}
 
 /* Welcome section responsive */
 @media(max-width:680px){
@@ -311,71 +247,6 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 .hero-frosted-bar .hero-btns{margin-top:0.9rem}
 @media(max-width:768px){.hero-emblem{width:130px;height:130px}}
 @media(max-width:600px){.hero{height:420px}.hero-emblem{width:110px;height:110px}.hero-emblem-wrap{top:16px}.hero-frosted-bar .hero-title{font-size:1.5rem}}
-
-/* Zero hover state on action panels — shadow only, nothing else changes */
-.home-action:hover{
-  background:var(--white)!important;
-  border-color:var(--border)!important;
-  color:var(--text)!important;
-  transform:none!important;
-  box-shadow:0 4px 12px rgba(43,79,114,0.11)!important
-}
-.home-action:hover .ha-btn{
-  background:transparent!important;
-  color:var(--primary)!important;
-  border-color:var(--primary)!important
-}
-
-/* Quick-access button text — larger, darker, clearly readable */
-.qcard-btn{
-  color:var(--primary-dark)!important;
-  font-size:0.83rem!important;
-  font-weight:700!important;
-  text-decoration:underline;
-  text-underline-offset:2px
-}
-.qcard-btn:hover{color:var(--accent)!important;text-decoration:underline}
-
-/* ── HOME ACTION — border turns blue on hover, no shadow ───────────────────── */
-.home-action:hover{
-  box-shadow:none!important;
-  border-color:var(--primary)!important;
-  background:var(--white)!important;
-  color:var(--text)!important;
-  transform:none!important
-}
-
-/* ── QCARD BUTTON — proper filled button, white text ───────────────────────── */
-.qcard-btn{
-  display:inline-block!important;
-  background:var(--primary)!important;
-  color:#fff!important;
-  padding:0.38rem 1rem!important;
-  border-radius:3px!important;
-  font-size:0.78rem!important;
-  font-weight:600!important;
-  text-decoration:none!important;
-  letter-spacing:0.03em!important;
-  margin-top:0.5rem!important;
-  transition:background 0.15s!important
-}
-.qcard-btn:hover{
-  background:var(--primary-dark)!important;
-  color:#fff!important
-}
-
-/* ── QUICK ACCESS UNIFIED SECTION ───────────────────────────────────────────── */
-.quick-access-wrap{background:linear-gradient(135deg,#f0ede8 0%,#e8e4de 100%);padding:2rem;margin:0 -2rem;border-top:1px solid var(--border)}
-.qa-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--primary-dark);margin-bottom:1.25rem;font-weight:700}
-/* Override grid to auto-fill for 7 panels */
-.quick-access-wrap .home-actions{
-  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
-  margin:0!important
-}
-@media(max-width:680px){
-  .quick-access-wrap{margin:0 -1rem;padding:1.5rem 1rem}
-  .quick-access-wrap .home-actions{grid-template-columns:1fr!important}
-}
 
 /* ══════════════════════════════════════════════════════════════════════════════
    ASTRO REBUILD — new nav structure + page components
@@ -424,7 +295,13 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 @media(max-width:480px){.qa-grid{grid-template-columns:1fr}}
 
 /* ── WELCOME SECTION (home) ─────────────────────────────────────────────────── */
-.welcome-section{display:grid;grid-template-columns:1fr 320px;gap:2.5rem;align-items:center;margin:2rem 0}
+/* margin/padding/background/border-left/box-shadow explicitly reset here:
+   an older, no-longer-used version of .welcome-section higher up this file
+   set those, and since this later rule doesn't otherwise touch them they'd
+   still apply and both double the gap between homepage sections and add an
+   unwanted white box/border look. Spacing between homepage sections is
+   handled by .content padding (see index.astro), not by this component. */
+.welcome-section{display:grid;grid-template-columns:1fr 320px;gap:2.5rem;align-items:center;margin:0;padding:0;background:none;border-left:none;box-shadow:none}
 .welcome-text h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary);margin-bottom:0.75rem}
 .welcome-img img{width:100%;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
 .btn-primary{display:inline-block;margin-top:0.75rem;padding:0.55rem 1.3rem;background:var(--primary);color:#fff;border-radius:3px;font-size:0.82rem;font-weight:600;text-decoration:none;transition:background 0.15s}

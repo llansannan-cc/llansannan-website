@@ -76,7 +76,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
 
   <!-- Welcome section -->
   <div class="site-wrap">
-    <div class="content">
+    <div class="content" style="padding-bottom:0">
       <div class="welcome-section">
         <div class="welcome-text">
           <h2>
@@ -109,7 +109,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
 
   <!-- Quick access grid -->
   <div class="site-wrap qa-bg">
-    <div class="content">
+    <div class="content" style={latestNews.length > 0 ? 'padding-bottom:0' : undefined}>
       <h2 class="sh">
         <span lang="cy">Mynediad Cyflym</span>
         <span lang="en">Quick Access</span>
