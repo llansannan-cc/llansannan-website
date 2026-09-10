@@ -68,6 +68,16 @@ html:not([data-lang="en"]) [lang="en"]{display:none!important}
 .site-wrap{background:var(--white);max-width:1200px;margin:0 auto;min-height:60vh}
 .content{padding:2.5rem 2rem;max-width:1200px;margin:0 auto}
 
+/* Homepage stacks FOUR separate .site-wrap bands (next-meeting, welcome,
+   quick-access, latest-news) for the alternating background effect. The
+   60vh min-height above is meant for pages with a single .site-wrap
+   wrapping all their content (so a short page doesn't look too sparse
+   above the footer) -- applied to each stacked band instead, it forced
+   every band to ~60% of viewport height regardless of how little content
+   it held, which is what caused the large empty gaps. Cancel it here so
+   only real content height drives each band's size on the homepage. */
+.page-home .site-wrap{min-height:0}
+
 /* ── TYPOGRAPHY ─────────────────────────────────────────────────────────────── */
 .sh{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--primary);margin-bottom:0.25rem;line-height:1.2}
 .sh .cy{display:block;font-size:1rem;color:var(--muted);font-family:'Open Sans',sans-serif;font-weight:400;margin-top:0.15rem}

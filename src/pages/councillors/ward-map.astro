@@ -27,14 +27,15 @@ import Layout from '../../layouts/Layout.astro';
         <span lang="cy">Ffiniau swyddogol Conwy →</span><span lang="en">Official Conwy boundaries →</span>
       </a>
     </p>
-  </div></div>
-</Layout>
 
-<!-- Leaflet.js -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPeE=" crossorigin=""></script>
+    <!-- Leaflet.js: kept inside the slot content so it lands inside <body>,
+         not after </html>. The integrity hash below must match the actual
+         file unpkg serves -- a wrong hash silently blocks the script and
+         breaks the map with no visible error except in devtools. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-<script is:inline>
+    <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
     // Centre on Llansannan area
     const map = L.map('ward-map').setView([53.195, -3.565], 12);
@@ -71,4 +72,6 @@ import Layout from '../../layouts/Layout.astro';
       });
     });
   });
-</script>
+    </script>
+  </div></div>
+</Layout>
