@@ -13,12 +13,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# The Decap CMS admin needs a looser CSP than the rest of the site: it loads
-# its script from unpkg.com and talks to GitHub's API directly from the
-# browser. Scoped to /admin/* only — the rest of the site keeps the strict
-# policy above.
-/admin/*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://avatars.githubusercontent.com https://*.githubusercontent.com; connect-src 'self' https://api.github.com https://github.com https://llansannan-cms-auth.llansannancc.workers.dev; frame-ancestors 'none'
+# NOTE: the Decap CMS admin (/admin/*) needs a looser Content-Security-Policy
+# than the rest of the site. That override is NOT done here — Cloudflare
+# sends the headers from every matching block, including this catch-all
+# /* one, and browsers enforce the INTERSECTION of multiple CSP headers
+# rather than letting a more specific rule win. So a second CSP block here
+# would just add a second, conflicting header rather than replacing this
+# one. The actual override lives in worker-entry.js, which rewrites the
+# response header for /admin/* after the static asset is served.
 
 /admin/config.yml
   Content-Type: text/yaml; charset=utf-8
