@@ -49,10 +49,22 @@ import Layout from '../../layouts/Layout.astro';
   document.addEventListener('DOMContentLoaded', function () {
     const map = L.map('ward-map', { scrollWheelZoom: false }).setView([53.185, -3.58], 12);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Detailed basemap: standard OpenStreetMap tiles (terrain, land use,
+    // rivers, contours, etc).
+    const detailedTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    });
+
+    // Simple basemap: CARTO "Positron" -- a light, minimal style with
+    // roads and place labels only, no rivers/land-use/contour shading.
+    const simpleTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 18,
+      subdomains: 'abcd',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    });
+
+    detailedTiles.addTo(map);
 
     // Official Llansannan ward boundary -- 338-point polygon sourced from
     // Conwy CBC's KML for ward W05001421. This is the real boundary that
@@ -180,12 +192,16 @@ import Layout from '../../layouts/Layout.astro';
     // Detailed = full official boundary + approximate ward points.
     // Simple = just the highlighted Llansannan marker on a plain map.
     function showDetailed() {
+      map.removeLayer(simpleTiles);
+      detailedTiles.addTo(map);
       detailedLayer.addTo(map);
       map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
     }
     function showSimple() {
       map.removeLayer(detailedLayer);
-      map.setView([53.1677, -3.5582], 12);
+      map.removeLayer(detailedTiles);
+      simpleTiles.addTo(map);
+      map.setView([53.1677, -3.5582], 13);
     }
 
     const detailedBtn = document.getElementById('mapViewDetailed');
