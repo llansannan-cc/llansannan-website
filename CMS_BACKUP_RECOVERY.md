@@ -62,6 +62,23 @@ Work through these in order:
    GitHub's own account recovery — the CMS has no separate login system
    to reset.
 
+## If `/admin/` shows old, broken, or unexpected behaviour after a deploy
+
+Check the response headers in the browser's Network tab for
+`cf-cache-status`. If it says `HIT`, Cloudflare's edge is serving a stale
+cached copy of `/admin/index.html` rather than the newly deployed one.
+
+Cloudflare only invalidates its cache for a static file when that exact
+file's *content* changes — not when `worker-entry.js`, `wrangler.toml`, or
+`_headers` change around it. So a fix that only touches those files can
+deploy successfully while `/admin/` keeps serving a stale cached response
+indefinitely. A cache-busting query string (`/admin/?x=1`) does **not**
+help either — the cache key here is the asset path, not the full URL.
+
+The fix is to make a real edit to `public/admin/index.html` itself (even
+just bumping the `cache-rev:` number in its comment) so Cloudflare treats
+it as new content and invalidates the stale copy on the next deploy.
+
 ## If a build fails after publishing
 
 The CMS will show an error, and the site will keep serving its last
