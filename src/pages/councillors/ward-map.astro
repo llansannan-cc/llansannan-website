@@ -14,18 +14,8 @@ import Layout from '../../layouts/Layout.astro';
     <p lang="cy">Mae'r map isod yn dangos ffiniau tair ward etholiadol Cyngor Cymuned Llansannan: Ward Llansannan, Ward Bylchau a Ward Llannefydd.</p>
     <p lang="en">The map below shows the boundaries of Llansannan Community Council's three electoral wards: Llansannan Ward, Bylchau Ward and Llannefydd Ward.</p>
 
-    <!-- Map view toggle -->
-    <div class="map-view-toggle" role="group" aria-label="Map view / Golwg map">
-      <button type="button" id="mapViewDetailed" class="btn map-view-btn is-active">
-        <span lang="cy">Map Manwl</span><span lang="en">Detailed Map</span>
-      </button>
-      <button type="button" id="mapViewSimple" class="btn-outline map-view-btn">
-        <span lang="cy">Map Syml</span><span lang="en">Simple Map</span>
-      </button>
-    </div>
-
     <!-- Map container -->
-    <div id="ward-map" style="height:480px;border-radius:6px;margin:1rem 0 1.5rem;border:1px solid var(--border)" aria-label="Ward boundary map" role="application"></div>
+    <div id="ward-map" style="height:480px;border-radius:6px;margin:1.5rem 0;border:1px solid var(--border)" aria-label="Ward boundary map" role="application"></div>
 
     <p lang="cy" style="font-size:0.875rem;color:var(--text-muted)">Sylwer: Mae'r ffiniau a ddangosir yn fras yn unig. Am fanylion swyddogol, ewch i wefan Cyngor Sir Conwy.</p>
     <p lang="en" style="font-size:0.875rem;color:var(--text-muted)">Note: The boundaries shown are approximate only. For official details, visit the Conwy County Council website.</p>
@@ -49,14 +39,7 @@ import Layout from '../../layouts/Layout.astro';
   document.addEventListener('DOMContentLoaded', function () {
     const map = L.map('ward-map', { scrollWheelZoom: false }).setView([53.185, -3.58], 12);
 
-    // A single OpenStreetMap tile source is used for both views -- third-party
-    // "simple" basemap providers (CARTO, Esri) now gate their free raster
-    // tiles behind an API key/developer account, which this project
-    // deliberately avoids adding. Instead, Simple mode desaturates the same
-    // OSM tiles with a CSS filter (see the .map-simple rule below), muting
-    // the rivers/land-use colour so the road network reads as the main
-    // feature, with no extra account or external dependency required.
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -165,9 +148,8 @@ import Layout from '../../layouts/Layout.astro';
       html: '<div style="background:#b07420;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,0.45)"></div>',
       iconSize: [16, 16], iconAnchor: [8, 8]
     });
-    const villageMarker = L.marker([53.1677, -3.5582], { icon: villageIcon })
+    L.marker([53.1677, -3.5582], { icon: villageIcon })
       .bindPopup('<strong>Llansannan</strong><br>LL16 5HE')
-      .bindTooltip('Llansannan', { permanent: true, direction: 'top', offset: [0, -10], className: 'village-label' })
       .addTo(map);
 
     // Bylchau and Llannefydd don't have equivalent official KML boundary
@@ -178,73 +160,14 @@ import Layout from '../../layouts/Layout.astro';
       { name_cy: 'Ward Bylchau (bras)', name_en: 'Bylchau Ward (approximate)', lat: 53.205, lng: -3.545 },
       { name_cy: 'Ward Llannefydd (bras)', name_en: 'Llannefydd Ward (approximate)', lat: 53.175, lng: -3.540 }
     ];
-    const otherWardLayer = L.layerGroup(otherWards.map(w =>
-      L.marker([w.lat, w.lng]).bindPopup(`<strong>${isCy() ? w.name_cy : w.name_en}</strong>`)
-    ));
+    otherWards.forEach(w => {
+      L.marker([w.lat, w.lng]).addTo(map)
+        .bindPopup(`<strong>${isCy() ? w.name_cy : w.name_en}</strong>`);
+    });
 
-    const detailedLayer = L.layerGroup([boundaryLayer, otherWardLayer]);
-
-    const mapContainer = document.getElementById('ward-map');
-
-    // Detailed = full-colour OSM tiles + official boundary + approximate
-    // ward points. Simple = desaturated tiles + just the highlighted
-    // Llansannan marker.
-    function showDetailed() {
-      mapContainer.classList.remove('map-simple');
-      detailedLayer.addTo(map);
-      map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
-    }
-    function showSimple() {
-      mapContainer.classList.add('map-simple');
-      map.removeLayer(detailedLayer);
-      map.setView([53.1677, -3.5582], 13);
-    }
-
-    const detailedBtn = document.getElementById('mapViewDetailed');
-    const simpleBtn = document.getElementById('mapViewSimple');
-    function setActive(btn) {
-      [detailedBtn, simpleBtn].forEach(b => {
-        b.classList.toggle('is-active', b === btn);
-        b.classList.toggle('btn', b === btn);
-        b.classList.toggle('btn-outline', b !== btn);
-      });
-    }
-    detailedBtn.addEventListener('click', () => { showDetailed(); setActive(detailedBtn); });
-    simpleBtn.addEventListener('click', () => { showSimple(); setActive(simpleBtn); });
-
-    // Start in Detailed mode (the full boundary).
-    showDetailed();
+    boundaryLayer.addTo(map);
+    map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
   });
     </script>
   </div></div>
 </Layout>
-
-<style>
-  .map-view-toggle {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  .map-view-btn {
-    padding: 0.45rem 1rem;
-    font-size: 0.8rem;
-  }
-  /* Simple mode: desaturate the OSM tiles so rivers/land-use/contour
-     colour fades to grey and the road network becomes the dominant
-     feature, without needing a separate "simple" tile provider (those
-     now require an API key -- see the comment in the script above). */
-  :global(#ward-map.map-simple .leaflet-tile-pane) {
-    filter: grayscale(90%) brightness(1.08) contrast(0.95);
-  }
-  :global(.village-label) {
-    background: var(--primary-dark);
-    color: #fff;
-    border: none;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.15rem 0.5rem;
-  }
-  :global(.village-label::before) {
-    border-top-color: var(--primary-dark);
-  }
-</style>
