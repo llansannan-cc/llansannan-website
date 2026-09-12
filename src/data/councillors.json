@@ -1,6 +1,12 @@
 {
   "people": [
     {
+      "name": "Eifion M Jones",
+      "role": "councillor",
+      "ward": "llansannan",
+      "active": true
+    },
+    {
       "name": "Meurig Davies",
       "role": "councillor",
       "ward": "llansannan",
@@ -20,12 +26,6 @@
     },
     {
       "name": "Bethan Jones",
-      "role": "councillor",
-      "ward": "llansannan",
-      "active": true
-    },
-    {
-      "name": "Eifion M Jones",
       "role": "councillor",
       "ward": "llansannan",
       "active": true
@@ -59,18 +59,6 @@
       "role": "councillor",
       "ward": "bylchau",
       "active": true
-    },
-    {
-      "name": null,
-      "role": "vacant",
-      "ward": "llannefydd",
-      "active": false
-    },
-    {
-      "name": null,
-      "role": "vacant",
-      "ward": "llannefydd",
-      "active": false
     },
     {
       "name": "Delyth Williams",
