@@ -90,7 +90,12 @@ const siteUrl = config.site.url;
 
   <Navigation />
 
-  <main id="main-content" tabindex="-1">
+  <!-- data-pagefind-body scopes indexing to just this element, so the
+       identical nav/footer text on every page doesn't dilute or blur
+       search relevance -- e.g. a search for "contact" should surface the
+       Contact page itself rather than tying with every other page that
+       also happens to have a "Contact" link in its nav. -->
+  <main id="main-content" tabindex="-1" data-pagefind-body>
     <slot />
   </main>
 

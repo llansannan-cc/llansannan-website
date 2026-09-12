@@ -112,6 +112,17 @@ a{color:var(--primary)}
 .ward-label{font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin:1.25rem 0 0.5rem;border-bottom:1px solid var(--border);padding-bottom:0.25rem}
 .vacancy-box{background:#fff3cd;border:1px solid #ffc107;border-radius:4px;padding:0.75rem 1rem;font-size:0.83rem;margin:1rem 0}
 
+/* Chair/Clerk leadership cards (top of /councillors/, and reused by the
+   Decap "people" collection preview) */
+.cllr-leadership{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0 0.5rem}
+.cllr-leader-card{background:var(--white);border-top:4px solid var(--accent);border-radius:6px;padding:1.25rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.cllr-leader-role{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);font-weight:700}
+.cllr-leader-name{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--primary-dark);margin-top:0.2rem}
+.cllr-leader-meta{font-size:0.8rem;color:var(--muted);margin-top:0.3rem}
+.cllr-leader-meta a{color:var(--primary)}
+.cllr-vacancy{background:#fff3cd;border-top-color:#ffc107;color:#856404}
+@media(max-width:600px){.cllr-leadership{grid-template-columns:1fr}}
+
 /* ── WARD STATS ─────────────────────────────────────────────────────────────── */
 .ward-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin:1rem 0}
 .wstat{background:#f0f4f8;border-radius:4px;padding:0.75rem;font-size:0.83rem}
@@ -256,7 +267,10 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 /* overflow:hidden on the wrap clips the zoomed-in image to the circle
    below without growing the circle itself */
 .hero-emblem-wrap{position:absolute;top:28px;left:50%;transform:translateX(-50%);z-index:3;border-radius:50%;overflow:hidden;border:5px solid #fff;box-shadow:0 6px 24px rgba(0,0,0,0.30)}
-.hero-emblem{width:164px;height:164px;border-radius:50%;object-fit:cover;object-position:center center;background:#ede8df;display:block;transform:scale(1.15)}
+/* translateX listed before scale so the 25px shift is a flat visual
+   offset, not scaled up by the 1.15x zoom -- the circle (.hero-emblem-wrap)
+   itself is untouched, only the photo moves inside it */
+.hero-emblem{width:164px;height:164px;border-radius:50%;object-fit:cover;object-position:center center;background:#ede8df;display:block;transform:translateX(25px) scale(1.15)}
 .hero-frosted-bar{width:100%;background:rgba(10,22,40,0.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:1.2rem 2rem 1.5rem;z-index:3;text-align:center;box-sizing:border-box}
 .hero-frosted-bar .hero-title{font-size:2rem;text-shadow:none;position:static;margin:0;line-height:1.2}
 .hero-frosted-bar .hero-btns{margin-top:0.9rem}
@@ -386,3 +400,15 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .news-card time{display:block;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem}
 .news-card h3{font-size:1rem;color:var(--primary);margin-bottom:0.5rem;font-family:'Playfair Display',serif}
 .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin:1rem 0}
+
+/* ── DECAP CMS PREVIEW PANE ─────────────────────────────────────────────────── */
+/* This stylesheet is loaded into the CMS preview iframe (see the
+   registerPreviewStyle call in public/admin/index.html) so the preview
+   reuses the site's real classes (.mtg-table, .minutes-item, .cal-item,
+   .cllr-card, etc) instead of the CMS's default unstyled field dump. This
+   wrapper just gives that content sensible padding/width inside the
+   iframe, since there's no .site-wrap/.content around it there. */
+.cms-preview{padding:1.5rem;max-width:900px;background:var(--white)}
+.cms-preview h2{font-family:'Playfair Display',serif;color:var(--primary-dark);font-size:1.1rem;margin-bottom:1rem}
+.cms-preview .minutes-list,.cms-preview .cal-list{margin-top:0.75rem}
+.cms-preview .cllr-grid{margin-top:0.75rem}

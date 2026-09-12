@@ -17,5 +17,139 @@
     then bump the version number here as a deliberate, reviewed change.
   -->
   <script src="https://unpkg.com/decap-cms@3.16.1/dist/decap-cms.js"></script>
+
+  <!--
+    Custom preview templates.
+
+    Without these, Decap's default preview just dumps every field as a
+    plain label/value list, deeply nested for each item in a "list" widget
+    -- unreadable for these file collections since each one holds a whole
+    array of meetings/minutes/events/people in one entry. These templates
+    render each collection using the SAME CSS classes as the live pages
+    (.mtg-table, .minutes-item, .cal-item, .cllr-card, ...), and
+    registerPreviewStyle loads the real site stylesheet into the preview
+    iframe, so the preview looks like the actual site instead of a raw
+    form dump. `createClass` and `h` are globals exposed by decap-cms.js
+    itself for exactly this no-build-step registration pattern.
+  -->
+  <script>
+    function toJS(value) { return value && value.toJS ? value.toJS() : (value || []); }
+
+    var MeetingsPreview = createClass({
+      render: function () {
+        var rows = toJS(this.props.entry.getIn(['data', 'schedule_2026']));
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Meeting Schedule'),
+          h('table', { className: 'mtg-table' },
+            h('thead', {}, h('tr', {},
+              h('th', {}, 'Date'), h('th', {}, 'Type'), h('th', {}, 'Time'), h('th', {}, 'Status')
+            )),
+            h('tbody', {}, rows.map(function (m, i) {
+              return h('tr', { key: i, className: m.status === 'next' ? 'next-row' : '' },
+                h('td', {}, m.date_en || m.date_cy),
+                h('td', {}, (m.type_en || m.type_cy) + (m.status === 'next' ? ' — Next' : '')),
+                h('td', {}, m.time),
+                h('td', {}, m.status)
+              );
+            }))
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('meetings', MeetingsPreview);
+
+    var MinutesPreview = createClass({
+      render: function () {
+        var items = toJS(this.props.entry.getIn(['data', 'items']));
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Meeting Minutes'),
+          h('div', { className: 'minutes-list' }, items.map(function (m, i) {
+            return h('article', { className: 'minutes-item', key: i },
+              h('h3', {}, (m.meeting_type_en || m.meeting_type_cy) + ' — ' + m.meeting_date),
+              h('p', {}, 'Status: ' + (m.status === 'approved' ? 'Approved (visible on site)' : 'Draft (not shown on site)')),
+              h('ul', { className: 'doc-links' },
+                m.minutes_en_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Minutes (English) — PDF')) : null,
+                m.minutes_cy_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Cofnodion (Cymraeg) — PDF')) : null
+              )
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('minutes', MinutesPreview);
+
+    var AgendasPreview = createClass({
+      render: function () {
+        var items = toJS(this.props.entry.getIn(['data', 'items']));
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Meeting Agendas'),
+          h('div', { className: 'minutes-list' }, items.map(function (m, i) {
+            return h('article', { className: 'minutes-item', key: i },
+              h('h3', {}, (m.meeting_type_en || m.meeting_type_cy) + ' — ' + m.meeting_date),
+              h('ul', { className: 'doc-links' },
+                m.agenda_en_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Agenda (English) — PDF')) : null,
+                m.agenda_cy_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Agenda (Cymraeg) — PDF')) : null
+              )
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('agendas', AgendasPreview);
+
+    var EventsPreview = createClass({
+      render: function () {
+        var items = toJS(this.props.entry.getIn(['data', 'items']));
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Community Events'),
+          h('div', { className: 'cal-list' }, items.map(function (e, i) {
+            return h('div', { className: 'cal-item', key: i },
+              h('div', { className: 'cal-date-box' },
+                h('div', { className: 'cal-day' }, (e.date || '').slice(8, 10)),
+                h('div', { className: 'cal-month' }, (e.date || '').slice(5, 7))
+              ),
+              h('div', {},
+                h('div', { className: 'cal-title' }, e.title_en || e.title_cy),
+                h('div', { className: 'cal-detail' }, (e.time ? e.time + ' · ' : '') + (e.location_en || e.location_cy)),
+                (e.description_en || e.description_cy) ? h('p', { className: 'cal-desc' }, e.description_en || e.description_cy) : null
+              )
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('events', EventsPreview);
+
+    var PeoplePreview = createClass({
+      render: function () {
+        var people = toJS(this.props.entry.getIn(['data', 'people']));
+        var chair = people.filter(function (p) { return p.role === 'chair' && p.active; })[0];
+        var clerk = people.filter(function (p) { return p.role === 'clerk' && p.active; })[0];
+        var others = people.filter(function (p) { return p.role !== 'chair' && p.role !== 'clerk'; });
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Councillors & Officers'),
+          h('div', { className: 'cllr-leadership' },
+            chair ? h('div', { className: 'cllr-leader-card' },
+              h('div', { className: 'cllr-leader-role' }, 'Chair'),
+              h('div', { className: 'cllr-leader-name' }, chair.name)
+            ) : null,
+            clerk ? h('div', { className: 'cllr-leader-card' },
+              h('div', { className: 'cllr-leader-role' }, 'Clerk'),
+              h('div', { className: 'cllr-leader-name' }, clerk.name)
+            ) : null
+          ),
+          h('div', { className: 'cllr-grid' }, others.map(function (p, i) {
+            return h('div', { className: 'cllr-card' + (p.active ? '' : ' cllr-vacancy'), key: i },
+              h('div', { className: 'cllr-name' }, p.name || 'Vacant seat'),
+              h('div', { className: 'cllr-role' }, p.role + ' — ' + p.ward)
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('people', PeoplePreview);
+
+    CMS.registerPreviewStyle('/assets/css/style.css');
+  </script>
 </body>
 </html>

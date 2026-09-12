@@ -152,19 +152,6 @@ import Layout from '../../layouts/Layout.astro';
       .bindPopup('<strong>Llansannan</strong><br>LL16 5HE')
       .addTo(map);
 
-    // Bylchau and Llannefydd don't have equivalent official KML boundary
-    // data in this project -- shown as approximate reference points only,
-    // clearly distinct from the surveyed Llansannan boundary above.
-    const isCy = () => document.documentElement.getAttribute('data-lang') !== 'en';
-    const otherWards = [
-      { name_cy: 'Ward Bylchau (bras)', name_en: 'Bylchau Ward (approximate)', lat: 53.205, lng: -3.545 },
-      { name_cy: 'Ward Llannefydd (bras)', name_en: 'Llannefydd Ward (approximate)', lat: 53.175, lng: -3.540 }
-    ];
-    otherWards.forEach(w => {
-      L.marker([w.lat, w.lng]).addTo(map)
-        .bindPopup(`<strong>${isCy() ? w.name_cy : w.name_en}</strong>`);
-    });
-
     boundaryLayer.addTo(map);
     map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
   });

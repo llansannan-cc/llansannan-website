@@ -9,10 +9,12 @@ import { ROLE_LABELS, WARD_LABELS, ELECTED_WARDS } from '../../data/people-looku
 const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 
+// The Chair is already shown once, above, in the leadership section --
+// exclude them from the ward lists below so they don't appear twice.
 const wards = ELECTED_WARDS.map(key => ({
   key,
   ...WARD_LABELS[key],
-  people: councillors.people.filter(p => p.ward === key),
+  people: councillors.people.filter(p => p.ward === key && p.role !== 'chair'),
 }));
 ---
 <Layout title_cy="Eich Cynghorwyr" title_en="Your Councillors">
@@ -99,47 +101,8 @@ const wards = ELECTED_WARDS.map(key => ({
   </div></div>
 </Layout>
 
-<style>
-  .cllr-leadership {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin: 1.5rem 0 0.5rem;
-  }
-  .cllr-leader-card {
-    background: var(--white);
-    border-top: 4px solid var(--accent);
-    border-radius: 6px;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-  .cllr-leader-role {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    font-weight: 700;
-  }
-  .cllr-leader-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    color: var(--primary-dark);
-    margin-top: 0.2rem;
-  }
-  .cllr-leader-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
-  .cllr-leader-meta a { color: var(--primary); }
-
-  .cllr-vacancy {
-    background: #fff3cd;
-    border-top-color: #ffc107;
-    color: #856404;
-  }
-
-  @media (max-width: 600px) {
-    .cllr-leadership { grid-template-columns: 1fr; }
-  }
-</style>
+<!-- .cllr-leadership / .cllr-leader-* / .cllr-vacancy styles now live in
+     public/assets/css/style.css (moved from here) so the Decap CMS preview
+     for the "people" collection can reuse them too via registerPreviewStyle
+     -- an Astro scoped <style> block like this one only applies to this
+     page's own output, not to the CMS admin's preview iframe. -->
