@@ -253,8 +253,10 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 /* Option 2: aerial village photo, statue circle top-centre, frosted title bar at bottom */
 .hero{height:520px;background:url('/assets/img/village-aerial.jpg') center 73%/cover no-repeat;flex-direction:column;justify-content:flex-end;align-items:stretch}
 .hero-overlay{background:rgba(10,22,40,0.08)}
-.hero-emblem-wrap{position:absolute;top:28px;left:50%;transform:translateX(-50%);z-index:3}
-.hero-emblem{width:164px;height:164px;border-radius:50%;border:5px solid #fff;box-shadow:0 6px 24px rgba(0,0,0,0.30);object-fit:cover;object-position:center center;background:#ede8df;display:block}
+/* overflow:hidden on the wrap clips the zoomed-in image to the circle
+   below without growing the circle itself */
+.hero-emblem-wrap{position:absolute;top:28px;left:50%;transform:translateX(-50%);z-index:3;border-radius:50%;overflow:hidden;border:5px solid #fff;box-shadow:0 6px 24px rgba(0,0,0,0.30)}
+.hero-emblem{width:164px;height:164px;border-radius:50%;object-fit:cover;object-position:center center;background:#ede8df;display:block;transform:scale(1.15)}
 .hero-frosted-bar{width:100%;background:rgba(10,22,40,0.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:1.2rem 2rem 1.5rem;z-index:3;text-align:center;box-sizing:border-box}
 .hero-frosted-bar .hero-title{font-size:2rem;text-shadow:none;position:static;margin:0;line-height:1.2}
 .hero-frosted-bar .hero-btns{margin-top:0.9rem}
@@ -264,11 +266,6 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 /* ══════════════════════════════════════════════════════════════════════════════
    ASTRO REBUILD — new nav structure + page components
    ══════════════════════════════════════════════════════════════════════════════ */
-
-/* ── NAV LOGO ───────────────────────────────────────────────────────────────── */
-.nav-logo{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 1rem;text-decoration:none;color:#fff;flex-shrink:0}
-.nav-logo img{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.4)}
-.nav-logo-text{font-size:0.72rem;font-weight:600;line-height:1.3;opacity:0.9}
 
 /* ── NAV LINKS LIST ─────────────────────────────────────────────────────────── */
 .nav-links{list-style:none;display:flex;align-items:stretch;margin:0;padding:0;flex:1}
@@ -297,7 +294,7 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
   .hamburger{display:none}
 }
 
-/* ── QUICK ACCESS GRID (home page) ──────────────────────────────────────────── */
+/* ── QUICK ACCESS GRID (small cards -- used on The Council / Llansannan / Documents pages) ── */
 .qa-bg{background:linear-gradient(135deg,#f0ede8 0%,#e8e4de 100%);border-top:1px solid var(--border)}
 .qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1rem 0}
 .qa-card{display:flex;flex-direction:column;gap:0.4rem;background:var(--white);border-radius:6px;padding:1.25rem 1rem 1rem;border-top:3px solid var(--primary);box-shadow:0 2px 6px rgba(0,0,0,0.06);text-decoration:none;color:var(--text);transition:box-shadow 0.15s,border-color 0.15s}
@@ -306,6 +303,25 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .qa-desc{font-size:0.8rem;color:var(--muted);flex:1;line-height:1.5}
 @media(max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.qa-grid{grid-template-columns:1fr}}
+
+/* ── QUICK ACCESS -- bigger square blocks (home page only) ──────────────────────
+   Restored to the original pre-Astro design: the homepage previously used
+   this larger, bordered-panel style (.home-actions/.home-action/.ha-btn);
+   it was replaced by the smaller .qa-card grid above during the Astro
+   rebuild and is brought back here at the user's request. */
+.quick-access-wrap{background:linear-gradient(135deg,#f0ede8 0%,#e8e4de 100%);padding:2rem;margin:0 -2rem;border-top:1px solid var(--border)}
+.qa-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--primary-dark);margin-bottom:1.25rem;font-weight:700}
+.home-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.5rem;margin:0}
+.home-action{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2rem 1.5rem 1.75rem;background:var(--white);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s,transform 0.2s}
+.home-action:hover{box-shadow:none;border-color:var(--primary);background:var(--white);color:var(--text);transform:none}
+.home-action h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--primary-dark);margin-bottom:0.6rem;line-height:1.3}
+.home-action p{font-size:0.83rem;color:var(--muted);margin-bottom:1.25rem;flex:1;line-height:1.6}
+.ha-btn{display:inline-block;border:2px solid var(--primary);color:var(--primary);padding:0.45rem 1.4rem;border-radius:3px;font-size:0.8rem;font-weight:600;letter-spacing:0.03em;font-family:'Open Sans',sans-serif;transition:all 0.15s}
+.home-action:hover .ha-btn{background:transparent;color:var(--primary);border-color:var(--primary)}
+@media(max-width:680px){
+  .quick-access-wrap{margin:0 -1rem;padding:1.5rem 1rem}
+  .home-actions{grid-template-columns:1fr}
+}
 
 /* ── WELCOME SECTION (home) ─────────────────────────────────────────────────── */
 /* margin/padding/background/border-left/box-shadow explicitly reset here:

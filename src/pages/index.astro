@@ -107,47 +107,56 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
     </div>
   </div>
 
-  <!-- Quick access grid -->
-  <div class="site-wrap qa-bg">
+  <!-- Quick access -- bigger square blocks, restored to the original design -->
+  <div class="site-wrap">
     <div class="content" style={latestNews.length > 0 ? 'padding-bottom:0' : undefined}>
-      <h2 class="sh">
-        <span lang="cy">Mynediad Cyflym</span>
-        <span lang="en">Quick Access</span>
-      </h2>
-      <hr class="sh-rule">
-      <div class="qa-grid">
-        <a href="/meetings/minutes/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Cofnodion</span><span lang="en">Minutes</span></div>
-          <div class="qa-desc"><span lang="cy">Cofnodion cyfarfodydd diweddaraf</span><span lang="en">Latest meeting minutes</span></div>
-        </a>
-        <a href="/meetings/agendas/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Agendâu</span><span lang="en">Agendas</span></div>
-          <div class="qa-desc"><span lang="cy">Agendâu cyfarfodydd sydd i ddod</span><span lang="en">Upcoming meeting agendas</span></div>
-        </a>
-        <a href="/councillors/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Cynghorwyr</span><span lang="en">Councillors</span></div>
-          <div class="qa-desc"><span lang="cy">Eich cynrychiolwyr etholedig</span><span lang="en">Your elected representatives</span></div>
-        </a>
-        <a href="/planning/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Cynllunio</span><span lang="en">Planning</span></div>
-          <div class="qa-desc"><span lang="cy">Ceisiadau cynllunio lleol</span><span lang="en">Local planning applications</span></div>
-        </a>
-        <a href="/the-council/grants/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Grantiau</span><span lang="en">Grants</span></div>
-          <div class="qa-desc"><span lang="cy">Grantiau a rhoddion cymunedol</span><span lang="en">Community grants &amp; donations</span></div>
-        </a>
-        <a href="/contact/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Cysylltu</span><span lang="en">Contact</span></div>
-          <div class="qa-desc"><span lang="cy">Cysylltwch â'r clerc</span><span lang="en">Get in touch with the clerk</span></div>
-        </a>
-        <a href="/documents/" class="qa-card">
-          <div class="qa-label"><span lang="cy">Dogfennau</span><span lang="en">Documents</span></div>
-          <div class="qa-desc"><span lang="cy">Polisïau a rheoliadau'r cyngor</span><span lang="en">Council policies &amp; regulations</span></div>
-        </a>
-        <a href="/llansannan/" class="qa-card">
-          <div class="qa-label">Llansannan</div>
-          <div class="qa-desc"><span lang="cy">Gwybodaeth am y pentref</span><span lang="en">Information about the village</span></div>
-        </a>
+      <div class="quick-access-wrap">
+        <h2 class="qa-title">
+          <span lang="cy">Mynediad Cyflym</span>
+          <span lang="en">Quick Access</span>
+        </h2>
+        <div class="home-actions">
+          <a href="/meetings/minutes/" class="home-action">
+            <h3><span lang="cy">Cofnodion</span><span lang="en">Minutes</span></h3>
+            <p><span lang="cy">Cofnodion cyfarfodydd diweddaraf</span><span lang="en">Latest meeting minutes</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Cofnodion</span><span lang="en">View Minutes</span></span>
+          </a>
+          <a href="/meetings/agendas/" class="home-action">
+            <h3><span lang="cy">Agendâu</span><span lang="en">Agendas</span></h3>
+            <p><span lang="cy">Agendâu cyfarfodydd sydd i ddod</span><span lang="en">Upcoming meeting agendas</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Agendâu</span><span lang="en">View Agendas</span></span>
+          </a>
+          <a href="/councillors/" class="home-action">
+            <h3><span lang="cy">Cynghorwyr</span><span lang="en">Councillors</span></h3>
+            <p><span lang="cy">Eich cynrychiolwyr etholedig</span><span lang="en">Your elected representatives</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Cynghorwyr</span><span lang="en">View Councillors</span></span>
+          </a>
+          <a href="/planning/" class="home-action">
+            <h3><span lang="cy">Cynllunio</span><span lang="en">Planning</span></h3>
+            <p><span lang="cy">Ceisiadau cynllunio lleol</span><span lang="en">Local planning applications</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Ceisiadau</span><span lang="en">View Applications</span></span>
+          </a>
+          <a href="/the-council/grants/" class="home-action">
+            <h3><span lang="cy">Grantiau</span><span lang="en">Grants</span></h3>
+            <p><span lang="cy">Grantiau a rhoddion cymunedol</span><span lang="en">Community grants &amp; donations</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Grantiau</span><span lang="en">View Grants</span></span>
+          </a>
+          <a href="/contact/" class="home-action">
+            <h3><span lang="cy">Cysylltu</span><span lang="en">Contact</span></h3>
+            <p><span lang="cy">Cysylltwch â'r clerc</span><span lang="en">Get in touch with the clerk</span></p>
+            <span class="ha-btn"><span lang="cy">Cysylltu â Ni</span><span lang="en">Contact Us</span></span>
+          </a>
+          <a href="/documents/" class="home-action">
+            <h3><span lang="cy">Dogfennau</span><span lang="en">Documents</span></h3>
+            <p><span lang="cy">Polisïau a rheoliadau'r cyngor</span><span lang="en">Council policies &amp; regulations</span></p>
+            <span class="ha-btn"><span lang="cy">Gweld Dogfennau</span><span lang="en">View Documents</span></span>
+          </a>
+          <a href="/llansannan/" class="home-action">
+            <h3>Llansannan</h3>
+            <p><span lang="cy">Gwybodaeth am y pentref</span><span lang="en">Information about the village</span></p>
+            <span class="ha-btn"><span lang="cy">Darllen Mwy</span><span lang="en">Read More</span></span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
