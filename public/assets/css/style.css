@@ -271,7 +271,7 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
    not scaled up by the zoom -- the circle (.hero-emblem-wrap) itself is
    untouched, only the photo moves/zooms inside it. Small rightward
    nudge to centre the statue figure a little better in the frame. */
-.hero-emblem{width:164px;height:164px;border-radius:50%;object-fit:cover;object-position:center center;background:#ede8df;display:block;transform:translateX(8px) scale(1.10)}
+.hero-emblem{width:164px;height:164px;border-radius:50%;object-fit:cover;object-position:center center;background:#ede8df;display:block;transform:translateX(8px) scale(1.40)}
 .hero-frosted-bar{width:100%;background:rgba(10,22,40,0.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:1.2rem 2rem 1.5rem;z-index:3;text-align:center;box-sizing:border-box}
 .hero-frosted-bar .hero-title{font-size:2rem;text-shadow:none;position:static;margin:0;line-height:1.2}
 .hero-frosted-bar .hero-btns{margin-top:0.9rem}
