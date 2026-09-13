@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
 import events from '../../data/events.json';
 
-const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const monthNamesEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const monthNamesCy = ['Ionawr','Chwefror','Mawrth','Ebrill','Mai','Mehefin','Gorffennaf','Awst','Medi','Hydref','Tachwedd','Rhagfyr'];
 
 // Meeting dates are stored as free-text ("Thursday, 15 January 2026") since
 // that's what the CMS list widget collects. Parse a real ISO date out of it
@@ -12,7 +13,7 @@ const monthNames = ['January','February','March','April','May','June','July','Au
 function parseMeetingDate(dateEn: string): string | null {
   const m = dateEn.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
   if (!m) return null;
-  const idx = monthNames.indexOf(m[2]);
+  const idx = monthNamesEn.indexOf(m[2]);
   if (idx === -1) return null;
   return `${m[3]}-${String(idx + 1).padStart(2, '0')}-${String(parseInt(m[1], 10)).padStart(2, '0')}`;
 }
@@ -56,47 +57,39 @@ const calendarItems = [...meetingItems, ...eventItems].sort((a, b) => a.iso.loca
 
 const todayIso = new Date().toISOString().slice(0, 10);
 const upcomingItems = calendarItems.filter(it => it.iso >= todayIso);
-const nextItem = upcomingItems[0];
 
-// Build the current month's grid server-side so it renders correctly with
-// no JavaScript required. Rebuilt daily by the scheduled rebuild, so "this
-// month" stays current without a new commit.
+// Build a month's grid: a Monday-first array of day numbers (null = padding
+// before the 1st), plus a lookup of items by day-of-month.
+function buildMonthGrid(year: number, month: number) {
+  const first = new Date(year, month, 1);
+  const startOffset = (first.getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const byDay: Record<number, CalItem[]> = {};
+  calendarItems.forEach(it => {
+    const d = new Date(it.iso + 'T00:00:00');
+    if (d.getFullYear() === year && d.getMonth() === month) {
+      (byDay[d.getDate()] ||= []).push(it);
+    }
+  });
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < startOffset; i++) cells.push(null);
+  for (let day = 1; day <= daysInMonth; day++) cells.push(day);
+  return { cells, byDay };
+}
+
+// Rendered server-side for the current month so the calendar works with no
+// JavaScript; the client script takes over month navigation from there.
+// Rebuilt daily by the scheduled rebuild, so "this month" stays current
+// without a new commit.
 const now = new Date();
-const gridYear = now.getFullYear();
-const gridMonth = now.getMonth();
-const firstOfMonth = new Date(gridYear, gridMonth, 1);
-const startOffset = (firstOfMonth.getDay() + 6) % 7; // Monday-first grid
-const daysInMonth = new Date(gridYear, gridMonth + 1, 0).getDate();
-
-const byDay: Record<number, CalItem[]> = {};
-calendarItems.forEach(it => {
-  const d = new Date(it.iso + 'T00:00:00');
-  if (d.getFullYear() === gridYear && d.getMonth() === gridMonth) {
-    const day = d.getDate();
-    (byDay[day] ||= []).push(it);
-  }
-});
-
-const cells: (number | null)[] = [];
-for (let i = 0; i < startOffset; i++) cells.push(null);
-for (let day = 1; day <= daysInMonth; day++) cells.push(day);
+const initialYear = now.getFullYear();
+const initialMonth = now.getMonth();
+const { cells, byDay } = buildMonthGrid(initialYear, initialMonth);
 
 const weekdayLabels_en = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const weekdayLabels_cy = ['Llun','Maw','Mer','Iau','Gwe','Sad','Sul'];
-const monthLabel_en = firstOfMonth.toLocaleString('en-GB', { month: 'long', year: 'numeric' });
-const monthLabel_cy = monthLabel_en; // month/year names aren't translated site-wide elsewhere either
-
-// Data for the click-to-reveal detail panel, keyed by day number (as a
-// string, since JSON object keys are always strings).
-const dayData: Record<string, CalItem[]> = {};
-Object.entries(byDay).forEach(([day, items]) => { dayData[day] = items; });
-
-// Pre-select the soonest upcoming item if it falls within the month shown.
-let initialDay: number | null = null;
-if (nextItem) {
-  const nd = new Date(nextItem.iso + 'T00:00:00');
-  if (nd.getFullYear() === gridYear && nd.getMonth() === gridMonth) initialDay = nd.getDate();
-}
+const monthLabel_en = `${monthNamesEn[initialMonth]} ${initialYear}`;
+const monthLabel_cy = `${monthNamesCy[initialMonth]} ${initialYear}`;
 ---
 <Layout title_cy="Calendr" title_en="Calendar">
   <div class="page-banner"><h1><span lang="cy">Calendr Cymunedol</span><span lang="en">Community Calendar</span></h1></div>
@@ -108,70 +101,111 @@ if (nextItem) {
     <p lang="en">One calendar for council meetings and community events.</p>
 
     <div class="cal-layout">
-    <div class="cal-grid-wrap">
-      <div class="cal-grid-head"><span lang="en">{monthLabel_en}</span><span lang="cy">{monthLabel_cy}</span></div>
-      <div class="cal-grid-weekdays">
-        {weekdayLabels_en.map((w, i) => (
-          <div><span lang="en">{w}</span><span lang="cy">{weekdayLabels_cy[i]}</span></div>
-        ))}
+      <div class="cal-grid-wrap">
+        <div class="cal-grid-head">
+          <button type="button" id="calPrev" class="cal-nav-btn" aria-label="Previous month">&lsaquo;</button>
+          <span class="cal-grid-month"><span lang="en" id="calMonthLabelEn">{monthLabel_en}</span><span lang="cy" id="calMonthLabelCy">{monthLabel_cy}</span></span>
+          <button type="button" id="calNext" class="cal-nav-btn" aria-label="Next month">&rsaquo;</button>
+        </div>
+        <div class="cal-grid-weekdays">
+          {weekdayLabels_en.map((w, i) => (
+            <div><span lang="en">{w}</span><span lang="cy">{weekdayLabels_cy[i]}</span></div>
+          ))}
+        </div>
+        <div class="cal-grid" id="calGrid" data-year={initialYear} data-month={initialMonth}>
+          {cells.map(day => {
+            if (day === null) return <div class="cal-cell cal-cell-pad"></div>;
+            const dayItems = byDay[day] || [];
+            const isoDay = `${initialYear}-${String(initialMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const isToday = isoDay === todayIso;
+            const first = dayItems[0];
+            return (
+              <div
+                class:list={['cal-cell', dayItems.length > 0 && 'has-items', isToday && 'is-today']}
+                data-day={day}
+                tabindex="0"
+                role="button"
+                aria-label={`${day}${dayItems.length > 0 ? `, ${dayItems.length} item${dayItems.length > 1 ? 's' : ''}` : ''}`}
+              >
+                <span class="cal-cell-num">{day}</span>
+                {first && (
+                  <span class:list={['cal-cell-label', first.kind === 'event' && 'cal-cell-label-event']}>
+                    {first.kind === 'meeting' ? (
+                      first.time
+                    ) : (
+                      <>
+                        <span lang="cy">{first.label_cy}</span>
+                        <span lang="en">{first.label_en}</span>
+                      </>
+                    )}
+                  </span>
+                )}
+                {dayItems.length > 1 && <span class="cal-cell-more">+{dayItems.length - 1}</span>}
+              </div>
+            );
+          })}
+        </div>
+        <p class="cal-legend">
+          <span><span class="cal-dot cal-dot-meeting"></span><span lang="cy">Cyfarfod cyngor</span><span lang="en">Council meeting</span></span>
+          <span><span class="cal-dot cal-dot-event"></span><span lang="cy">Digwyddiad cymunedol</span><span lang="en">Community event</span></span>
+        </p>
       </div>
-      <div class="cal-grid" id="calGrid" data-initial-day={initialDay ?? ''}>
-        {cells.map(day => {
-          if (day === null) return <div class="cal-cell cal-cell-pad"></div>;
-          const dayItems = byDay[day] || [];
-          const isoDay = `${gridYear}-${String(gridMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          const isToday = isoDay === todayIso;
-          const first = dayItems[0];
-          return (
-            <div
-              class:list={['cal-cell', dayItems.length > 0 && 'has-items', isToday && 'is-today']}
-              data-day={day}
-              tabindex={dayItems.length > 0 ? 0 : undefined}
-              role={dayItems.length > 0 ? 'button' : undefined}
-              aria-label={dayItems.length > 0 ? `${day} ${monthLabel_en}, ${dayItems.length} item${dayItems.length > 1 ? 's' : ''}` : undefined}
-            >
-              <span class="cal-cell-num">{day}</span>
-              {first && (
-                <span class:list={['cal-cell-label', first.kind === 'event' && 'cal-cell-label-event']}>
-                  {first.kind === 'meeting' ? (
-                    first.time
-                  ) : (
-                    <>
-                      <span lang="cy">{first.label_cy}</span>
-                      <span lang="en">{first.label_en}</span>
-                    </>
-                  )}
-                </span>
-              )}
-              {dayItems.length > 1 && <span class="cal-cell-more">+{dayItems.length - 1}</span>}
-            </div>
-          );
-        })}
-      </div>
-      <p class="cal-legend">
-        <span><span class="cal-dot cal-dot-meeting"></span><span lang="cy">Cyfarfod cyngor</span><span lang="en">Council meeting</span></span>
-        <span><span class="cal-dot cal-dot-event"></span><span lang="cy">Digwyddiad cymunedol</span><span lang="en">Community event</span></span>
-      </p>
-    </div>
       <div class="cal-detail-panel" id="calDetail" aria-live="polite">
-        <p class="cal-detail-empty" lang="cy">Cyffyrddwch â diwrnod wedi'i amlygu i weld manylion.</p>
-        <p class="cal-detail-empty" lang="en">Tap a highlighted day to see details.</p>
+        <p class="cal-detail-empty" lang="cy">Cyffyrddwch â diwrnod i weld manylion.</p>
+        <p class="cal-detail-empty" lang="en">Tap a day to see details.</p>
       </div>
     </div>
 
-    <script define:vars={{ dayData }}>
+    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy, todayIso }}>
       function escapeHtml(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
           return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
       }
-      function renderDay(day) {
-        var items = dayData[day] || [];
-        var panel = document.getElementById('calDetail');
-        if (!items.length) {
+
+      var grid = document.getElementById('calGrid');
+      var monthLabelEn = document.getElementById('calMonthLabelEn');
+      var monthLabelCy = document.getElementById('calMonthLabelCy');
+      var panel = document.getElementById('calDetail');
+      var state = { year: parseInt(grid.dataset.year, 10), month: parseInt(grid.dataset.month, 10) };
+
+      function itemsByDay(year, month) {
+        var byDay = {};
+        allItems.forEach(function (it) {
+          var d = new Date(it.iso + 'T00:00:00');
+          if (d.getFullYear() === year && d.getMonth() === month) {
+            var day = d.getDate();
+            if (!byDay[day]) byDay[day] = [];
+            byDay[day].push(it);
+          }
+        });
+        return byDay;
+      }
+
+      function cellHtml(day, items, year, month) {
+        if (day === null) return '<div class="cal-cell cal-cell-pad"></div>';
+        var isoDay = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+        var isToday = isoDay === todayIso;
+        var cls = 'cal-cell' + (items.length > 0 ? ' has-items' : '') + (isToday ? ' is-today' : '');
+        var first = items[0];
+        var labelHtml = '';
+        if (first) {
+          var labelCls = 'cal-cell-label' + (first.kind === 'event' ? ' cal-cell-label-event' : '');
+          labelHtml = first.kind === 'meeting'
+            ? '<span class="' + labelCls + '">' + escapeHtml(first.time) + '</span>'
+            : '<span class="' + labelCls + '"><span lang="cy">' + escapeHtml(first.label_cy) + '</span><span lang="en">' + escapeHtml(first.label_en) + '</span></span>';
+        }
+        var moreHtml = items.length > 1 ? '<span class="cal-cell-more">+' + (items.length - 1) + '</span>' : '';
+        var label = day + (items.length ? ', ' + items.length + ' item' + (items.length > 1 ? 's' : '') : '');
+        return '<div class="' + cls + '" data-day="' + day + '" tabindex="0" role="button" aria-label="' + label + '">' +
+          '<span class="cal-cell-num">' + day + '</span>' + labelHtml + moreHtml + '</div>';
+      }
+
+      function renderDetail(items) {
+        if (!items || !items.length) {
           panel.innerHTML =
-            '<p class="cal-detail-empty" lang="cy">Dim byd y diwrnod hwn.</p>' +
-            '<p class="cal-detail-empty" lang="en">Nothing on this day.</p>';
+            '<p class="cal-detail-empty" lang="cy">Dim byd wedi’i drefnu’r mis hwn.</p>' +
+            '<p class="cal-detail-empty" lang="en">Nothing scheduled this month.</p>';
           return;
         }
         panel.innerHTML = items.map(function (it) {
@@ -194,21 +228,75 @@ if (nextItem) {
           );
         }).join('');
       }
-      var cells = document.querySelectorAll('#calGrid .cal-cell.has-items');
-      cells.forEach(function (cell) {
-        cell.addEventListener('click', function () {
-          cells.forEach(function (c) { c.classList.remove('is-selected'); });
-          cell.classList.add('is-selected');
-          renderDay(cell.dataset.day);
-        });
-        cell.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cell.click(); }
-        });
+
+      function pickDefaultDay(year, month, byDay) {
+        var todayDate = new Date(todayIso + 'T00:00:00');
+        if (todayDate.getFullYear() === year && todayDate.getMonth() === month && (byDay[todayDate.getDate()] || []).length) {
+          return todayDate.getDate();
+        }
+        var days = Object.keys(byDay).map(Number).sort(function (a, b) { return a - b; });
+        for (var k = 0; k < days.length; k++) {
+          var iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(days[k]).padStart(2, '0');
+          if (iso >= todayIso) return days[k];
+        }
+        return null;
+      }
+
+      function renderMonth(year, month) {
+        var first = new Date(year, month, 1);
+        var startOffset = (first.getDay() + 6) % 7;
+        var daysInMonth = new Date(year, month + 1, 0).getDate();
+        var byDay = itemsByDay(year, month);
+        var html = '';
+        for (var i = 0; i < startOffset; i++) html += cellHtml(null, [], year, month);
+        for (var day = 1; day <= daysInMonth; day++) html += cellHtml(day, byDay[day] || [], year, month);
+        grid.innerHTML = html;
+        grid.dataset.year = year;
+        grid.dataset.month = month;
+        monthLabelEn.textContent = monthNamesEn[month] + ' ' + year;
+        monthLabelCy.textContent = monthNamesCy[month] + ' ' + year;
+
+        var selectDay = pickDefaultDay(year, month, byDay);
+        if (selectDay) {
+          var cell = grid.querySelector('.cal-cell[data-day="' + selectDay + '"]');
+          if (cell) cell.classList.add('is-selected');
+          renderDetail(byDay[selectDay] || []);
+        } else {
+          renderDetail([]);
+        }
+      }
+
+      grid.addEventListener('click', function (e) {
+        var cell = e.target.closest('.cal-cell[data-day]');
+        if (!cell) return;
+        var day = parseInt(cell.dataset.day, 10);
+        var byDay = itemsByDay(state.year, state.month);
+        grid.querySelectorAll('.cal-cell.is-selected').forEach(function (c) { c.classList.remove('is-selected'); });
+        cell.classList.add('is-selected');
+        renderDetail(byDay[day] || []);
       });
-      var initialDay = document.getElementById('calGrid').dataset.initialDay;
-      var initialCell = initialDay ? document.querySelector('#calGrid .cal-cell[data-day="' + initialDay + '"]') : null;
-      if (!initialCell) initialCell = cells[0];
-      if (initialCell) initialCell.click();
+      grid.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var cell = e.target.closest('.cal-cell[data-day]');
+        if (!cell) return;
+        e.preventDefault();
+        cell.click();
+      });
+
+      document.getElementById('calPrev').addEventListener('click', function () {
+        state.month -= 1;
+        if (state.month < 0) { state.month = 11; state.year -= 1; }
+        renderMonth(state.year, state.month);
+      });
+      document.getElementById('calNext').addEventListener('click', function () {
+        state.month += 1;
+        if (state.month > 11) { state.month = 0; state.year += 1; }
+        renderMonth(state.year, state.month);
+      });
+
+      // Refresh the server-rendered current month through the same code path,
+      // so selection state and markup stay consistent with navigated months.
+      renderMonth(state.year, state.month);
     </script>
 
     <div class="cal-list-fallback">
