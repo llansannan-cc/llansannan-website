@@ -141,16 +141,26 @@ import Layout from '../../layouts/Layout.astro';
       fillColor: '#3d6e99', fillOpacity: 0.18
     });
 
-    // Highlighted Llansannan village marker -- larger, high-contrast dot
-    // with a permanent label, so it reads clearly on its own in Simple mode.
+    // Village markers -- larger, high-contrast dots for the three
+    // settlements the council covers. Coordinates are each village's
+    // actual centre (checked against independent sources), not the old
+    // placeholder point that had Llansannan's marker sitting outside the
+    // village itself.
     const villageIcon = L.divIcon({
       className: '',
       html: '<div style="background:#b07420;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,0.45)"></div>',
       iconSize: [16, 16], iconAnchor: [8, 8]
     });
-    L.marker([53.1677, -3.5582], { icon: villageIcon })
-      .bindPopup('<strong>Llansannan</strong><br>LL16 5HE')
-      .addTo(map);
+    const villages = [
+      { lat: 53.17976, lng: -3.59841, label: 'Llansannan<br>LL16 5HE' },
+      { lat: 53.2233, lng: -3.5260, label: 'Llannefydd' },
+      { lat: 53.15336, lng: -3.53274, label: 'Bylchau' }
+    ];
+    villages.forEach(v => {
+      L.marker([v.lat, v.lng], { icon: villageIcon })
+        .bindPopup(`<strong>${v.label}</strong>`)
+        .addTo(map);
+    });
 
     boundaryLayer.addTo(map);
     map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });
