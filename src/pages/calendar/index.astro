@@ -3,86 +3,184 @@ import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
 import events from '../../data/events.json';
 
-const upcoming = meetings.schedule_2026.filter(m => m.status === 'next' || m.status === 'upcoming');
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-// Events automatically drop off the site once their date has passed —
-// this runs at build time, so the site must be rebuilt periodically
-// (see the daily scheduled rebuild) for expiry to take effect without a new commit.
-const today = new Date().toISOString().slice(0, 10);
-const upcomingEvents = events.items
-  .filter(e => e.date >= today)
-  .sort((a, b) => a.date.localeCompare(b.date));
+// Meeting dates are stored as free-text ("Thursday, 15 January 2026") since
+// that's what the CMS list widget collects. Parse a real ISO date out of it
+// so meetings can be placed on the grid alongside events (which already use
+// a proper date field).
+function parseMeetingDate(dateEn: string): string | null {
+  const m = dateEn.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!m) return null;
+  const idx = monthNames.indexOf(m[2]);
+  if (idx === -1) return null;
+  return `${m[3]}-${String(idx + 1).padStart(2, '0')}-${String(parseInt(m[1], 10)).padStart(2, '0')}`;
+}
+
+type CalItem = {
+  iso: string;
+  kind: 'meeting' | 'event';
+  time: string;
+  status: string;
+  label_cy: string;
+  label_en: string;
+  date_cy?: string;
+  date_en?: string;
+  location_cy?: string;
+  location_en?: string;
+  description_cy?: string;
+  description_en?: string;
+};
+
+const meetingItems: CalItem[] = meetings.schedule_2026
+  .map((m): CalItem | null => {
+    const iso = parseMeetingDate(m.date_en);
+    if (!iso) return null;
+    return {
+      iso, kind: 'meeting', time: m.time, status: m.status,
+      label_cy: m.type_cy, label_en: m.type_en,
+      date_cy: m.date_cy, date_en: m.date_en
+    };
+  })
+  .filter((x): x is CalItem => x !== null);
+
+const eventItems: CalItem[] = events.items.map((e): CalItem => ({
+  iso: e.date, kind: 'event', time: e.time || '', status: '',
+  label_cy: e.title_cy, label_en: e.title_en,
+  location_cy: e.location_cy, location_en: e.location_en,
+  description_cy: e.description_cy || '', description_en: e.description_en || ''
+}));
+
+// One merged, sorted feed of council meetings and community events.
+const calendarItems = [...meetingItems, ...eventItems].sort((a, b) => a.iso.localeCompare(b.iso));
+
+const todayIso = new Date().toISOString().slice(0, 10);
+const upcomingItems = calendarItems.filter(it => it.iso >= todayIso);
+const nextItem = upcomingItems[0];
+
+// Build the current month's grid server-side so it renders correctly with
+// no JavaScript required. Rebuilt daily by the scheduled rebuild, so "this
+// month" stays current without a new commit.
+const now = new Date();
+const gridYear = now.getFullYear();
+const gridMonth = now.getMonth();
+const firstOfMonth = new Date(gridYear, gridMonth, 1);
+const startOffset = (firstOfMonth.getDay() + 6) % 7; // Monday-first grid
+const daysInMonth = new Date(gridYear, gridMonth + 1, 0).getDate();
+
+const byDay: Record<number, CalItem[]> = {};
+calendarItems.forEach(it => {
+  const d = new Date(it.iso + 'T00:00:00');
+  if (d.getFullYear() === gridYear && d.getMonth() === gridMonth) {
+    const day = d.getDate();
+    (byDay[day] ||= []).push(it);
+  }
+});
+
+const cells: (number | null)[] = [];
+for (let i = 0; i < startOffset; i++) cells.push(null);
+for (let day = 1; day <= daysInMonth; day++) cells.push(day);
+
+const weekdayLabels_en = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const weekdayLabels_cy = ['Llun','Maw','Mer','Iau','Gwe','Sad','Sul'];
+const monthLabel_en = firstOfMonth.toLocaleString('en-GB', { month: 'long', year: 'numeric' });
+const monthLabel_cy = monthLabel_en; // month/year names aren't translated site-wide elsewhere either
 ---
 <Layout title_cy="Calendr" title_en="Calendar">
   <div class="page-banner"><h1><span lang="cy">Calendr Cymunedol</span><span lang="en">Community Calendar</span></h1></div>
   <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <span lang="cy">Calendr</span><span lang="en">Calendar</span></div>
-  <div class="site-wrap"><div class="content">
+  <div class="site-wrap"><div class="content" data-pagefind-body>
     <h2 class="sh"><span lang="cy">Calendr</span><span lang="en">Calendar</span></h2><hr class="sh-rule">
 
-    <h3 class="sub-sh"><span lang="cy">Cyfarfodydd y Cyngor Sydd i Ddod</span><span lang="en">Upcoming Council Meetings</span></h3>
-    <div class="cal-list">
-      {upcoming.map(m => {
-        const dateParts = m.date_en.split(', ');
-        const [, dayMonth] = dateParts;
-        const [day, month] = (dayMonth || '').split(' ');
-        return (
-          <div class="cal-item">
-            <div class="cal-date-box">
-              <div class="cal-day">{day}</div>
-              <div class="cal-month">{month?.slice(0,3)}</div>
-            </div>
-            <div>
-              <div class="cal-title">
-                <span lang="cy">{m.type_cy}</span>
-                <span lang="en">{m.type_en}</span>
-                {m.status === 'next' && <strong> — <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>}
-              </div>
-              <div class="cal-detail">
-                <span lang="cy">{m.date_cy}</span>
-                <span lang="en">{m.date_en}</span>
-                {' '} &middot; {m.time}
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-    <p style="margin-top:1rem"><a href="/meetings/"><span lang="cy">Gweld pob dyddiad →</span><span lang="en">View all dates →</span></a></p>
+    <p lang="cy">Un calendr ar gyfer cyfarfodydd y cyngor a digwyddiadau cymunedol.</p>
+    <p lang="en">One calendar for council meetings and community events.</p>
 
-    <h3 class="sub-sh" style="margin-top:2rem"><span lang="cy">Digwyddiadau Cymunedol</span><span lang="en">Community Events</span></h3>
-    {upcomingEvents.length === 0 ? (
-      <>
-        <p lang="cy">Nid oes digwyddiadau cymunedol wedi'u trefnu ar hyn o bryd.</p>
-        <p lang="en">No community events are currently scheduled.</p>
-      </>
-    ) : (
-      <div class="cal-list">
-        {upcomingEvents.map(e => (
-          <div class="cal-item">
-            <div class="cal-date-box">
-              <div class="cal-day">{e.date.slice(8, 10)}</div>
-              <div class="cal-month">{new Date(e.date).toLocaleString('en-GB', { month: 'short' })}</div>
-            </div>
-            <div>
-              <div class="cal-title">
-                <span lang="cy">{e.title_cy}</span>
-                <span lang="en">{e.title_en}</span>
-              </div>
-              <div class="cal-detail">
-                {e.time && <>{e.time} &middot; </>}
-                <span lang="cy">{e.location_cy}</span>
-                <span lang="en">{e.location_en}</span>
-              </div>
-              {(e.description_cy || e.description_en) && (
-                <p class="cal-desc">
-                  <span lang="cy">{e.description_cy}</span>
-                  <span lang="en">{e.description_en}</span>
-                </p>
-              )}
-            </div>
-          </div>
+    <div class="cal-grid-wrap">
+      <div class="cal-grid-head"><span lang="en">{monthLabel_en}</span><span lang="cy">{monthLabel_cy}</span></div>
+      <div class="cal-grid-weekdays">
+        {weekdayLabels_en.map((w, i) => (
+          <div><span lang="en">{w}</span><span lang="cy">{weekdayLabels_cy[i]}</span></div>
         ))}
       </div>
-    )}
+      <div class="cal-grid">
+        {cells.map(day => {
+          if (day === null) return <div class="cal-cell cal-cell-pad"></div>;
+          const dayItems = byDay[day] || [];
+          const isoDay = `${gridYear}-${String(gridMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isToday = isoDay === todayIso;
+          return (
+            <div class:list={['cal-cell', dayItems.length > 0 && 'has-items', isToday && 'is-today']}>
+              <span class="cal-cell-num">{day}</span>
+              {dayItems.length > 0 && (
+                <span class="cal-cell-dots">
+                  {dayItems.map(it => <span class={`cal-dot cal-dot-${it.kind}`}></span>)}
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <p class="cal-legend">
+        <span><span class="cal-dot cal-dot-meeting"></span><span lang="cy">Cyfarfod cyngor</span><span lang="en">Council meeting</span></span>
+        <span><span class="cal-dot cal-dot-event"></span><span lang="cy">Digwyddiad cymunedol</span><span lang="en">Community event</span></span>
+      </p>
+      {nextItem && (
+        <p class="cal-next-note">
+          <span lang="cy">Nesaf: </span><span lang="en">Next up: </span>
+          <span lang="cy">{nextItem.label_cy}</span><span lang="en">{nextItem.label_en}</span>
+          {' — '}
+          <span lang="cy">{nextItem.date_cy || nextItem.iso}</span><span lang="en">{nextItem.date_en || nextItem.iso}</span>
+          {nextItem.time && <>{' · '}{nextItem.time}</>}
+        </p>
+      )}
+    </div>
+
+    <div class="cal-list-fallback">
+      <h3 class="sub-sh"><span lang="cy">I Ddod</span><span lang="en">Coming up</span></h3>
+      {upcomingItems.length === 0 ? (
+        <>
+          <p lang="cy">Nid oes dim wedi'i drefnu ar hyn o bryd.</p>
+          <p lang="en">Nothing is currently scheduled.</p>
+        </>
+      ) : (
+        <div class="cal-list">
+          {upcomingItems.map(it => {
+            const d = new Date(it.iso + 'T00:00:00');
+            const dayNum = d.getDate();
+            const monthShort = d.toLocaleString('en-GB', { month: 'short' });
+            return (
+              <div class="cal-item">
+                <div class:list={['cal-date-box', it.kind === 'event' && 'cal-date-box-event']}>
+                  <div class="cal-day">{dayNum}</div>
+                  <div class="cal-month">{monthShort}</div>
+                </div>
+                <div>
+                  <div class="cal-title">
+                    <span lang="cy">{it.label_cy}</span>
+                    <span lang="en">{it.label_en}</span>
+                    {it.status === 'next' && <strong> — <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>}
+                  </div>
+                  <div class="cal-detail">
+                    {it.kind === 'meeting' ? (
+                      <><span lang="cy">{it.date_cy}</span><span lang="en">{it.date_en}</span>{' · '}{it.time}</>
+                    ) : (
+                      <>{it.time && <>{it.time}{' · '}</>}<span lang="cy">{it.location_cy}</span><span lang="en">{it.location_en}</span></>
+                    )}
+                  </div>
+                  {it.kind === 'event' && (it.description_cy || it.description_en) && (
+                    <p class="cal-desc">
+                      <span lang="cy">{it.description_cy}</span>
+                      <span lang="en">{it.description_en}</span>
+                    </p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+
+    <p style="margin-top:1rem"><a href="/meetings/"><span lang="cy">Gweld pob cyfarfod →</span><span lang="en">View all meetings →</span></a></p>
   </div></div>
 </Layout>

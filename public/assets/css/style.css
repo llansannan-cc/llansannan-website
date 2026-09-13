@@ -188,6 +188,33 @@ a{color:var(--primary)}
 .cal-month{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;opacity:0.85}
 .cal-title{font-weight:600;font-size:0.9rem;margin-bottom:0.2rem}
 .cal-detail{font-size:0.8rem;color:var(--muted)}
+.cal-desc{font-size:0.82rem;color:var(--text);margin-top:0.35rem}
+.cal-date-box-event{background:var(--accent)}
+
+/* One merged feed (meetings + events): a month grid on wider screens,
+   falling back automatically to the plain list above on narrow ones. */
+.cal-grid-wrap{margin:1rem 0}
+.cal-grid-head{font-family:'Playfair Display',serif;color:var(--primary-dark);font-size:1.05rem;margin-bottom:0.75rem}
+.cal-grid-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.cal-grid-weekdays div{text-align:center;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);padding:0.25rem 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-cell{aspect-ratio:1;border:1px solid var(--border);border-radius:4px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:2px}
+.cal-cell-pad{border:none;background:transparent}
+.cal-cell-num{font-size:0.82rem;color:var(--text)}
+.cal-cell.is-today{border-color:var(--primary);border-width:2px}
+.cal-cell.has-items{background:#f0f4f8}
+.cal-cell-dots{display:flex;gap:3px}
+.cal-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.cal-dot-meeting{background:var(--primary)}
+.cal-dot-event{background:var(--accent)}
+.cal-legend{display:flex;gap:1.5rem;font-size:0.78rem;color:var(--muted);margin-top:0.75rem}
+.cal-legend span{display:inline-flex;align-items:center;gap:0.4rem}
+.cal-next-note{font-size:0.85rem;color:var(--text);margin-top:0.75rem;background:#f0f4f8;border-left:4px solid var(--primary);padding:0.6rem 0.9rem;border-radius:0 4px 4px 0}
+.cal-list-fallback{display:none}
+@media (max-width:640px){
+  .cal-grid-wrap{display:none}
+  .cal-list-fallback{display:block}
+}
 
 /* ── FINANCE TABLE ──────────────────────────────────────────────────────────── */
 .fin-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:1rem 0}
