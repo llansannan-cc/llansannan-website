@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 ---
 <Layout
   title_cy="Telerau Defnydd"
@@ -41,6 +41,6 @@ import config from '../../data/config.json';
     <p lang="cy">Llywodraethir y telerau hyn gan gyfraith Cymru a Lloegr.</p>
     <p lang="en">These terms are governed by the law of England and Wales.</p>
 
-    <p style="margin-top:2rem"><a href={`mailto:${config.council.email}`} class="btn-primary"><span lang="cy">Cysylltu â ni</span><span lang="en">Contact us</span></a></p>
+    <p style="margin-top:2rem"><a href={`mailto:${settings.council.email}`} class="btn-primary"><span lang="cy">Cysylltu â ni</span><span lang="en">Contact us</span></a></p>
   </div></div>
 </Layout>

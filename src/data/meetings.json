@@ -1,16 +1,16 @@
 {
   "schedule_2026": [
-    { "date_cy": "Dydd Iau, 15 Ionawr 2026",    "date_en": "Thursday, 15 January 2026",    "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 19 Chwefror 2026",  "date_en": "Thursday, 19 February 2026",  "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 19 Mawrth 2026",    "date_en": "Thursday, 19 March 2026",     "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 16 Ebrill 2026",    "date_en": "Thursday, 16 April 2026",     "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 21 Mai 2026",       "date_en": "Thursday, 21 May 2026",       "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 18 Mehefin 2026",   "date_en": "Thursday, 18 June 2026",      "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 16 Gorffennaf 2026","date_en": "Thursday, 16 July 2026",      "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 20 Awst 2026",      "date_en": "Thursday, 20 August 2026",    "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date_cy": "Dydd Iau, 17 Medi 2026",      "date_en": "Thursday, 17 September 2026", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "next" },
-    { "date_cy": "Dydd Iau, 15 Hydref 2026",    "date_en": "Thursday, 15 October 2026",   "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
-    { "date_cy": "Dydd Iau, 19 Tachwedd 2026",  "date_en": "Thursday, 19 November 2026",  "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
-    { "date_cy": "Dydd Iau, 17 Rhagfyr 2026",   "date_en": "Thursday, 17 December 2026",  "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" }
+    { "date": "2026-01-15", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-02-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-03-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-04-16", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-05-21", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-06-18", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-07-16", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-08-20", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
+    { "date": "2026-09-17", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "next" },
+    { "date": "2026-10-15", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
+    { "date": "2026-11-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
+    { "date": "2026-12-17", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" }
   ]
 }

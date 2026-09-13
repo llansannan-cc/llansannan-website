@@ -5,21 +5,5 @@
     "area_cy": "Bro Aled, Conwy, Cymru",
     "area_en": "Bro Aled, Conwy, Wales",
     "url": "https://llansannan-cc.gov.uk"
-  },
-  "council": {
-    "email": "llansannancc@gmail.com",
-    "address_cy": "Cyngor Cymuned Llansannan, Bro Aled, Conwy",
-    "address_en": "Llansannan Community Council, Bro Aled, Conwy"
-  },
-  "next_meeting": {
-    "date_cy": "Dydd Iau, 17 Medi 2026",
-    "date_en": "Thursday, 17 September 2026",
-    "time": "19:00",
-    "location_cy": "Neuadd Bentref Llansannan",
-    "location_en": "Llansannan Village Hall"
-  },
-  "social": {
-    "facebook": "",
-    "twitter": ""
   }
 }

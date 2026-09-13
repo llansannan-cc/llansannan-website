@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import documents from '../../data/documents.json';
+import DocLinks from '../../components/DocLinks.astro';
 ---
 <Layout title_cy="Rheolau Sefydlog" title_en="Standing Orders">
   <div class="page-banner"><h1><span lang="cy">Rheolau Sefydlog</span><span lang="en">Standing Orders</span></h1></div>
@@ -20,10 +22,7 @@ import Layout from '../../layouts/Layout.astro';
           <strong><span lang="cy">Rheolau Sefydlog — yn cael eu hadolygu</span><span lang="en">Standing Orders — under review</span></strong>
           <div class="fg-meta"><span lang="cy">Fersiwn bresennol</span><span lang="en">Current version</span></div>
         </div>
-        <div class="doc-links">
-          <span class="doc-link upload-note" style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
-          <span class="doc-link upload-note" style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
-        </div>
+        <DocLinks doc={documents.standing_orders} />
       </div>
     </div>
 

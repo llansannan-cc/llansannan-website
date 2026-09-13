@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import documents from '../../data/documents.json';
+import DocLinks from '../../components/DocLinks.astro';
 ---
 <Layout title_cy="Polisi Bioamrywiaeth" title_en="Biodiversity Policy">
   <div class="page-banner"><h1><span lang="cy">Polisi Bioamrywiaeth</span><span lang="en">Biodiversity Policy</span></h1></div>
@@ -34,10 +36,7 @@ import Layout from '../../layouts/Layout.astro';
           <strong><span lang="cy">Polisi Bioamrywiaeth — yn cael ei lunio</span><span lang="en">Biodiversity Policy — being drafted</span></strong>
           <div class="fg-meta"><span lang="cy">2025–2030</span><span lang="en">2025–2030</span></div>
         </div>
-        <div class="doc-links">
-          <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
-          <span style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
-        </div>
+        <DocLinks doc={documents.biodiversity} />
       </div>
     </div>
 

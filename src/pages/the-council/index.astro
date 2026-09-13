@@ -1,10 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import config from '../../data/config.json';
 import councillors from '../../data/councillors.json';
 import { ROLE_LABELS } from '../../data/people-lookups.js';
 
-const { council } = config;
 const totalCouncillors = councillors.people.filter(p => p.active && p.ward !== 'staff').length;
 const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);

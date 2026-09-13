@@ -1,9 +1,11 @@
 ---
 import config from '../data/config.json';
+import settings from '../data/site-settings.json';
 import councillors from '../data/councillors.json';
 import { ROLE_LABELS } from '../data/people-lookups.js';
 
-const { council, site } = config;
+const { site } = config;
+const { council, social } = settings;
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <footer>
@@ -46,6 +48,8 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
         <li><a href="https://senedd.wales" target="_blank" rel="noopener noreferrer">Senedd Cymru</a></li>
         <li><a href="https://onevoicewales.org.uk" target="_blank" rel="noopener noreferrer">One Voice Wales</a></li>
         <li><a href="/contact/"><span lang="cy">Cysylltu</span><span lang="en">Contact</span></a></li>
+        {social.facebook && <li><a href={social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></li>}
+        {social.twitter && <li><a href={social.twitter} target="_blank" rel="noopener noreferrer">Twitter / X</a></li>}
       </ul>
     </div>
   </div>

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import documents from '../../data/documents.json';
+import DocLinks from '../../components/DocLinks.astro';
 ---
 <Layout title_cy="Canllaw Cyfryngau Cymdeithasol" title_en="Social Media Guidelines">
   <div class="page-banner"><h1><span lang="cy">Canllawiau Cyfryngau Cymdeithasol</span><span lang="en">Social Media Guidelines</span></h1></div>
@@ -36,10 +38,7 @@ import Layout from '../../layouts/Layout.astro';
           <strong><span lang="cy">Polisi Cyfryngau Cymdeithasol — yn cael ei adolygu</span><span lang="en">Social Media Policy — under review</span></strong>
           <div class="fg-meta"><span lang="cy">Fersiwn bresennol</span><span lang="en">Current version</span></div>
         </div>
-        <div class="doc-links">
-          <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
-          <span style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
-        </div>
+        <DocLinks doc={documents.social_media} />
       </div>
     </div>
 

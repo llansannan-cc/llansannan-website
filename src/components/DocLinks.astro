@@ -1,0 +1,21 @@
+---
+// Renders a real PDF download link once a document has been uploaded via
+// the CMS's "Policy Documents" collection, and falls back to "Coming soon"
+// text before that -- so pages don't need editing once the file arrives.
+interface Props {
+  doc: { file_cy?: string; file_en?: string };
+}
+const { doc } = Astro.props;
+---
+<div class="doc-links">
+  {doc.file_en ? (
+    <a href={doc.file_en} class="doc-link pdf" lang="en">Download (English) — PDF</a>
+  ) : (
+    <span style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
+  )}
+  {doc.file_cy ? (
+    <a href={doc.file_cy} class="doc-link pdf" lang="cy">Lawrlwytho (Cymraeg) — PDF</a>
+  ) : (
+    <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
+  )}
+</div>

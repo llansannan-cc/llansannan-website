@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import documents from '../../data/documents.json';
+import DocLinks from '../../components/DocLinks.astro';
 ---
 <Layout title_cy="Ffurflen Flynyddol" title_en="Annual Return">
   <div class="page-banner"><h1><span lang="cy">Ffurflen Flynyddol</span><span lang="en">Annual Return</span></h1></div>
@@ -34,10 +36,7 @@ import Layout from '../../layouts/Layout.astro';
           <strong><span lang="cy">AGAR 2024/25</span><span lang="en">AGAR 2024/25</span></strong>
           <div class="fg-meta"><span lang="cy">Wedi'i archwilio</span><span lang="en">Audited</span></div>
         </div>
-        <div class="doc-links">
-          <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
-          <span style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
-        </div>
+        <DocLinks doc={documents.annual_return} />
       </div>
     </div>
 

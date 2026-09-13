@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import documents from '../../data/documents.json';
+import DocLinks from '../../components/DocLinks.astro';
 ---
 <Layout title_cy="Rheoliadau Ariannol" title_en="Financial Regulations">
   <div class="page-banner"><h1><span lang="cy">Rheoliadau Ariannol</span><span lang="en">Financial Regulations</span></h1></div>
@@ -20,10 +22,7 @@ import Layout from '../../layouts/Layout.astro';
           <strong><span lang="cy">Rheoliadau Ariannol — yn cael eu hadolygu</span><span lang="en">Financial Regulations — under review</span></strong>
           <div class="fg-meta"><span lang="cy">Fersiwn bresennol</span><span lang="en">Current version</span></div>
         </div>
-        <div class="doc-links">
-          <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
-          <span style="font-style:italic;font-size:0.9rem" lang="en">Coming soon</span>
-        </div>
+        <DocLinks doc={documents.financial_regulations} />
       </div>
     </div>
 

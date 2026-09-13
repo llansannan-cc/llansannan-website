@@ -35,6 +35,15 @@
   <script>
     function toJS(value) { return value && value.toJS ? value.toJS() : (value || []); }
 
+    var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var WEEKDAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    function formatIsoDate(iso) {
+      if (!iso) return '';
+      var d = new Date(iso + 'T00:00:00');
+      if (isNaN(d.getTime())) return iso;
+      return WEEKDAY_NAMES[d.getDay()] + ', ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
     var MeetingsPreview = createClass({
       render: function () {
         var rows = toJS(this.props.entry.getIn(['data', 'schedule_2026']));
@@ -46,9 +55,9 @@
             )),
             h('tbody', {}, rows.map(function (m, i) {
               return h('tr', { key: i, className: m.status === 'next' ? 'next-row' : '' },
-                h('td', {}, m.date_en || m.date_cy),
+                h('td', {}, formatIsoDate(m.date)),
                 h('td', {}, (m.type_en || m.type_cy) + (m.status === 'next' ? ' — Next' : '')),
-                h('td', {}, m.time),
+                h('td', {}, m.time || 'All day'),
                 h('td', {}, m.status)
               );
             }))
@@ -148,6 +157,83 @@
       }
     });
     CMS.registerPreviewTemplate('people', PeoplePreview);
+
+    var NewsPreview = createClass({
+      render: function () {
+        var items = toJS(this.props.entry.getIn(['data', 'items']));
+        var todayIso = new Date().toISOString().slice(0, 10);
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'News Posts'),
+          h('div', { className: 'news-grid' }, items.map(function (n, i) {
+            var expired = n.expires && n.expires < todayIso;
+            return h('article', { className: 'news-card', key: i, style: expired ? { opacity: 0.5 } : {} },
+              h('time', {}, formatIsoDate(n.date)),
+              h('h3', {}, (n.title_en || n.title_cy) + (n.featured ? ' — Featured on homepage' : '') + (expired ? ' — Expired (hidden)' : '')),
+              h('p', {}, n.body_en || n.body_cy)
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('news', NewsPreview);
+
+    var SettingsPreview = createClass({
+      render: function () {
+        var data = toJS(this.props.entry.getIn(['data']));
+        var council = data.council || {};
+        var meetingDefaults = data.meeting_defaults || {};
+        var social = data.social || {};
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Contact & Social Details'),
+          h('div', { className: 'contact-card' },
+            h('div', { className: 'ccard-head' }, 'Council contact'),
+            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Email'), h('span', { className: 'cval' }, council.email)),
+            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Address'), h('span', { className: 'cval' }, council.address_en || council.address_cy))
+          ),
+          h('div', { className: 'contact-card', style: { marginTop: '1rem' } },
+            h('div', { className: 'ccard-head' }, 'Usual meeting venue'),
+            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Venue'), h('span', { className: 'cval' }, meetingDefaults.location_en || meetingDefaults.location_cy))
+          ),
+          h('div', { className: 'contact-card', style: { marginTop: '1rem' } },
+            h('div', { className: 'ccard-head' }, 'Social links'),
+            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Facebook'), h('span', { className: 'cval' }, social.facebook || '(not set)')),
+            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Twitter / X'), h('span', { className: 'cval' }, social.twitter || '(not set)'))
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('settings', SettingsPreview);
+
+    var DOCUMENT_LABELS = {
+      payments: 'Councillor Payments (2025/26)',
+      what_we_spend: '2026/27 Budget and Precept',
+      annual_return: 'AGAR 2024/25',
+      standing_orders: 'Standing Orders',
+      financial_regulations: 'Financial Regulations',
+      social_media: 'Social Media Policy',
+      biodiversity: 'Biodiversity Policy'
+    };
+    var DocumentsPreview = createClass({
+      render: function () {
+        var data = toJS(this.props.entry.getIn(['data']));
+        return h('div', { className: 'cms-preview' },
+          h('h2', {}, 'Policy & Financial Documents'),
+          h('div', { className: 'minutes-list' }, Object.keys(DOCUMENT_LABELS).map(function (key, i) {
+            var doc = data[key] || {};
+            var uploaded = doc.file_en || doc.file_cy;
+            return h('div', { className: 'minutes-item', key: i },
+              h('div', {}, h('strong', {}, DOCUMENT_LABELS[key])),
+              h('div', { className: 'doc-links' },
+                uploaded
+                  ? h('span', { className: 'doc-link pdf' }, 'Uploaded — will show as a real download link')
+                  : h('span', { style: { fontStyle: 'italic', fontSize: '0.9rem' } }, 'Coming soon (no file uploaded yet)')
+              )
+            );
+          }))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('documents', DocumentsPreview);
 
     CMS.registerPreviewStyle('/assets/css/style.css');
   </script>

@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
+import { formatDateBilingual } from '../../lib/dates';
 ---
 <Layout title_cy="Dyddiadau Cyfarfodydd" title_en="Meeting Dates">
   <div class="page-banner">
@@ -16,8 +17,8 @@ import config from '../../data/config.json';
     <hr class="sh-rule">
 
     <div class="notice">
-      <span lang="cy">Cynhelir cyfarfodydd am {config.next_meeting.time} yn {config.next_meeting.location_cy}. Mae pob cyfarfod yn agored i'r cyhoedd.</span>
-      <span lang="en">Meetings are held at {config.next_meeting.time} in {config.next_meeting.location_en}. All meetings are open to the public.</span>
+      <span lang="cy">Cynhelir cyfarfodydd yn {settings.meeting_defaults.location_cy}. Mae pob cyfarfod yn agored i'r cyhoedd.</span>
+      <span lang="en">Meetings are held at {settings.meeting_defaults.location_en}. All meetings are open to the public.</span>
     </div>
 
     <table class="mtg-table" aria-label="Meeting dates / Dyddiadau cyfarfodydd">
@@ -29,11 +30,13 @@ import config from '../../data/config.json';
         </tr>
       </thead>
       <tbody>
-        {meetings.schedule_2026.map(m => (
+        {meetings.schedule_2026.map(m => {
+          const { cy: dateCy, en: dateEn } = formatDateBilingual(m.date);
+          return (
           <tr class={m.status === 'next' ? 'next-row' : ''}>
             <td>
-              <span lang="cy">{m.date_cy}</span>
-              <span lang="en">{m.date_en}</span>
+              <span lang="cy">{dateCy}</span>
+              <span lang="en">{dateEn}</span>
               {m.status === 'next' && <strong> ◀ <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>}
             </td>
             <td>
@@ -42,13 +45,14 @@ import config from '../../data/config.json';
             </td>
             <td>{m.time}</td>
           </tr>
-        ))}
+          );
+        })}
       </tbody>
     </table>
 
     <p style="margin-top:1.5rem;font-size:0.85rem">
-      <span lang="cy">Am ragor o wybodaeth cysylltwch â'r Clerc: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></span>
-      <span lang="en">For further information contact the Clerk: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></span>
+      <span lang="cy">Am ragor o wybodaeth cysylltwch â'r Clerc: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></span>
+      <span lang="en">For further information contact the Clerk: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></span>
     </p>
   </div></div>
 </Layout>

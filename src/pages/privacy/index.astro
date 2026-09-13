@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 ---
 <Layout
   title_cy="Polisi Preifatrwydd"
@@ -18,8 +18,8 @@ import config from '../../data/config.json';
     <p lang="en"><strong>Last updated:</strong> September 2026</p>
 
     <h3 class="sub-sh"><span lang="cy">Pwy ydym ni</span><span lang="en">Who we are</span></h3>
-    <p lang="cy">Cyngor Cymuned Llansannan yw'r rheolwr data ar gyfer y wefan hon. Gallwch gysylltu â ni drwy e-bost: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
-    <p lang="en">Llansannan Community Council is the data controller for this website. You can contact us by email: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
+    <p lang="cy">Cyngor Cymuned Llansannan yw'r rheolwr data ar gyfer y wefan hon. Gallwch gysylltu â ni drwy e-bost: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
+    <p lang="en">Llansannan Community Council is the data controller for this website. You can contact us by email: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
 
     <h3 class="sub-sh"><span lang="cy">Pa ddata rydym yn ei gasglu</span><span lang="en">What data we collect</span></h3>
     <p lang="cy">Rydym yn casglu'r wybodaeth ganlynol yn unig:</p>

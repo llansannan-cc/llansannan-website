@@ -1,6 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import news from '../../data/news.json';
+import { getActiveNews } from '../../lib/news';
+
+const items = getActiveNews(news.items);
 ---
 <Layout title_cy="Newyddion a Hysbysiadau" title_en="News &amp; Notices">
   <div class="page-banner">
@@ -14,12 +17,12 @@ import news from '../../data/news.json';
     <h2 class="sh"><span lang="cy">Newyddion a Hysbysiadau</span><span lang="en">News &amp; Notices</span></h2>
     <hr class="sh-rule">
 
-    {news.items.length === 0 ? (
+    {items.length === 0 ? (
       <p lang="cy">Nid oes eitemau newyddion ar hyn o bryd.</p>
       <p lang="en">There are no news items at this time.</p>
     ) : (
       <div class="news-grid">
-        {news.items.map(item => (
+        {items.map(item => (
           <article class="news-card" data-pagefind-body>
             <time datetime={item.date}>{item.date}</time>
             <h3>

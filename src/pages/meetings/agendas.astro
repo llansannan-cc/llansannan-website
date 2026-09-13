@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import agendas from '../../data/agendas.json';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 
 const withAgendas = agendas.items
   .filter(m => m.agenda_en_file || m.agenda_cy_file)
@@ -54,8 +54,8 @@ const withAgendas = agendas.items
         <span lang="cy">Mynediad at Agendâu</span>
         <span lang="en">Accessing Agendas</span>
       </h3>
-      <p lang="cy">Os na allwch gael mynediad at agenda, cysylltwch â'r Clerc: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
-      <p lang="en">If you cannot access an agenda, please contact the Clerk: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
+      <p lang="cy">Os na allwch gael mynediad at agenda, cysylltwch â'r Clerc: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
+      <p lang="en">If you cannot access an agenda, please contact the Clerk: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
     </section>
   </div></div>
 </Layout>

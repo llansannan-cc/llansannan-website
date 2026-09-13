@@ -2,21 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
 import events from '../../data/events.json';
-
-const monthNamesEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const monthNamesCy = ['Ionawr','Chwefror','Mawrth','Ebrill','Mai','Mehefin','Gorffennaf','Awst','Medi','Hydref','Tachwedd','Rhagfyr'];
-
-// Meeting dates are stored as free-text ("Thursday, 15 January 2026") since
-// that's what the CMS list widget collects. Parse a real ISO date out of it
-// so meetings can be placed on the grid alongside events (which already use
-// a proper date field).
-function parseMeetingDate(dateEn: string): string | null {
-  const m = dateEn.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
-  if (!m) return null;
-  const idx = monthNamesEn.indexOf(m[2]);
-  if (idx === -1) return null;
-  return `${m[3]}-${String(idx + 1).padStart(2, '0')}-${String(parseInt(m[1], 10)).padStart(2, '0')}`;
-}
+import { monthNamesEn, monthNamesCy, formatDateBilingual } from '../../lib/dates';
 
 type CalItem = {
   iso: string;
@@ -33,17 +19,14 @@ type CalItem = {
   description_en?: string;
 };
 
-const meetingItems: CalItem[] = meetings.schedule_2026
-  .map((m): CalItem | null => {
-    const iso = parseMeetingDate(m.date_en);
-    if (!iso) return null;
-    return {
-      iso, kind: 'meeting', time: m.time, status: m.status,
-      label_cy: m.type_cy, label_en: m.type_en,
-      date_cy: m.date_cy, date_en: m.date_en
-    };
-  })
-  .filter((x): x is CalItem => x !== null);
+const meetingItems: CalItem[] = meetings.schedule_2026.map((m): CalItem => {
+  const { cy: date_cy, en: date_en } = formatDateBilingual(m.date);
+  return {
+    iso: m.date, kind: 'meeting', time: m.time, status: m.status,
+    label_cy: m.type_cy, label_en: m.type_en,
+    date_cy, date_en
+  };
+});
 
 const eventItems: CalItem[] = events.items.map((e): CalItem => ({
   iso: e.date, kind: 'event', time: e.time || '', status: '',

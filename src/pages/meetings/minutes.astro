@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import minutes from '../../data/minutes.json';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 import councillors from '../../data/councillors.json';
 
 const approved = minutes.items
@@ -71,12 +71,12 @@ const chair = councillors.people.find(p => p.role === 'chair' && p.active)?.name
       </h3>
       <p lang="cy">
         Os na allwch gael mynediad at ddogfen PDF, cysylltwch â'r Clerc —
-        <a href={`mailto:${config.council.email}`}>{config.council.email}</a> —
+        <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a> —
         a byddwn yn darparu'r ddogfen mewn fformat hygyrch.
       </p>
       <p lang="en">
         If you cannot access a PDF document, please contact the Clerk —
-        <a href={`mailto:${config.council.email}`}>{config.council.email}</a> —
+        <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a> —
         and we will provide the document in an accessible format.
       </p>
     </section>

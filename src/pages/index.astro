@@ -1,14 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import config from '../data/config.json';
+import settings from '../data/site-settings.json';
 import minutes from '../data/minutes.json';
 import news from '../data/news.json';
+import meetings from '../data/meetings.json';
 import councillors from '../data/councillors.json';
 import { ROLE_LABELS } from '../data/people-lookups.js';
+import { formatDateBilingual } from '../lib/dates';
+import { getActiveNews } from '../lib/news';
 
-const { council, next_meeting, site } = config;
-const nextMeeting = next_meeting;
-const latestNews = news.items.filter(n => n.featured).slice(0, 3);
+const { site } = config;
+
+// The "next meeting" banner is derived from the CMS-edited meeting schedule
+// rather than a separately hand-maintained date, so it can never drift out
+// of sync with the Meetings page. Prefers the meeting marked "Next meeting"
+// in the CMS; falls back to the soonest future date if that flag is ever
+// left unset.
+const todayIso = new Date().toISOString().slice(0, 10);
+const nextMeetingEntry = meetings.schedule_2026.find(m => m.status === 'next')
+  ?? meetings.schedule_2026.find(m => m.date >= todayIso)
+  ?? null;
+const nextMeetingDate = nextMeetingEntry ? formatDateBilingual(nextMeetingEntry.date) : null;
+const nextMeeting = nextMeetingEntry ? {
+  date_cy: nextMeetingDate.cy,
+  date_en: nextMeetingDate.en,
+  time: nextMeetingEntry.time,
+  location_cy: settings.meeting_defaults.location_cy,
+  location_en: settings.meeting_defaults.location_en
+} : null;
+
+const latestNews = getActiveNews(news.items).filter(n => n.featured).slice(0, 3);
 const latestMinutes = minutes.items[0] ?? null;
 const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
@@ -51,28 +73,30 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
   </div>
 
   <!-- Next meeting banner -->
-  <div class="site-wrap">
-    <div class="content" style="padding-bottom:0">
-      <div class="next-meeting" aria-label="Next meeting / Cyfarfod nesaf">
-        <div class="label">
-          <span lang="cy">Cyfarfod Nesaf</span>
-          <span lang="en">Next Meeting</span>
+  {nextMeeting && (
+    <div class="site-wrap">
+      <div class="content" style="padding-bottom:0">
+        <div class="next-meeting" aria-label="Next meeting / Cyfarfod nesaf">
+          <div class="label">
+            <span lang="cy">Cyfarfod Nesaf</span>
+            <span lang="en">Next Meeting</span>
+          </div>
+          <div class="date">
+            <span lang="cy">{nextMeeting.date_cy}</span>
+            <span lang="en">{nextMeeting.date_en}</span>
+          </div>
+          <div class="nm-meta">
+            <span lang="cy">{nextMeeting.time} — {nextMeeting.location_cy}</span>
+            <span lang="en">{nextMeeting.time} — {nextMeeting.location_en}</span>
+          </div>
+          <a href="/meetings/" class="nm-link">
+            <span lang="cy">Gweld yr Agenda →</span>
+            <span lang="en">View Agenda →</span>
+          </a>
         </div>
-        <div class="date">
-          <span lang="cy">{nextMeeting.date_cy}</span>
-          <span lang="en">{nextMeeting.date_en}</span>
-        </div>
-        <div class="nm-meta">
-          <span lang="cy">{nextMeeting.time} — {nextMeeting.location_cy}</span>
-          <span lang="en">{nextMeeting.time} — {nextMeeting.location_en}</span>
-        </div>
-        <a href="/meetings/" class="nm-link">
-          <span lang="cy">Gweld yr Agenda →</span>
-          <span lang="en">View Agenda →</span>
-        </a>
       </div>
     </div>
-  </div>
+  )}
 
   <!-- Welcome section -->
   <div class="site-wrap">

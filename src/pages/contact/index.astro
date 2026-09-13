@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 import councillors from '../../data/councillors.json';
 import { ROLE_LABELS } from '../../data/people-lookups.js';
 
-const { council } = config;
+const { council } = settings;
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
 ---
 <Layout title_cy="Cysylltu â Ni" title_en="Contact Us">

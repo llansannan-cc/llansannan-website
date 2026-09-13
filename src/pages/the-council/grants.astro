@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 ---
 <Layout title_cy="Grantiau a Rhoddion" title_en="Grants &amp; Donations">
   <div class="page-banner"><h1><span lang="cy">Grantiau a Rhoddion</span><span lang="en">Grants &amp; Donations</span></h1></div>
@@ -20,8 +20,8 @@ import config from '../../data/config.json';
     <p lang="en">To apply for a grant, write to the Clerk stating: the group's name, the amount requested, the purpose of the funding, and how it will benefit the community.</p>
 
     <p>
-      <a href={`mailto:${config.council.email}`} class="btn" lang="cy">Anfon Cais →</a>
-      <a href={`mailto:${config.council.email}`} class="btn" lang="en">Submit Application →</a>
+      <a href={`mailto:${settings.council.email}`} class="btn" lang="cy">Anfon Cais →</a>
+      <a href={`mailto:${settings.council.email}`} class="btn" lang="en">Submit Application →</a>
     </p>
 
     <div class="notice" style="margin-top:2rem">

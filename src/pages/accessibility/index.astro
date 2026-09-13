@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import config from '../../data/config.json';
+import settings from '../../data/site-settings.json';
 import councillors from '../../data/councillors.json';
 
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
@@ -46,11 +47,11 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <h3 class="sub-sh">Feedback and contact information</h3>
       <p>If you need information on this website in a different format, such as accessible PDF, large print, easy read, audio recording or braille, contact:</p>
       <p><strong>{clerkPerson?.name}</strong>, {config.site.name_en}<br>
-      Email: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
+      Email: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
       <p>We will consider your request and get back to you within 5 working days.</p>
 
       <h3 class="sub-sh">Reporting accessibility problems</h3>
-      <p>We are always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we are not meeting accessibility requirements, contact us at <a href={`mailto:${config.council.email}`}>{config.council.email}</a>.</p>
+      <p>We are always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we are not meeting accessibility requirements, contact us at <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a>.</p>
 
       <h3 class="sub-sh">Enforcement procedure</h3>
       <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" target="_blank" rel="noopener">contact the Equality Advisory and Support Service (EASS)</a>.</p>
@@ -76,7 +77,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <h3 class="sub-sh">Adborth a gwybodaeth gyswllt</h3>
       <p>Os oes angen y wybodaeth ar y wefan hon arnoch mewn fformat gwahanol, megis PDF hygyrch, print bras, hawdd ei ddarllen, recordiad sain neu braille, cysylltwch â:</p>
       <p><strong>{clerkPerson?.name}</strong>, {config.site.name_cy}<br>
-      E-bost: <a href={`mailto:${config.council.email}`}>{config.council.email}</a></p>
+      E-bost: <a href={`mailto:${settings.council.email}`}>{settings.council.email}</a></p>
 
       <h3 class="sub-sh">Gweithdrefn gorfodi</h3>
       <p>Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy'n gyfrifol am orfodi'r rheoliadau hygyrchedd. Os nad ydych yn hapus â sut rydym yn ymateb i'ch cwyn, <a href="https://www.equalityadvisoryservice.com/" target="_blank" rel="noopener">cysylltwch â'r Gwasanaeth Cynghori a Chefnogi Cydraddoldeb (EASS)</a>.</p>
