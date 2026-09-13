@@ -73,6 +73,16 @@ const weekdayLabels_en = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const weekdayLabels_cy = ['Llun','Maw','Mer','Iau','Gwe','Sad','Sul'];
 const monthLabel_en = `${monthNamesEn[initialMonth]} ${initialYear}`;
 const monthLabel_cy = `${monthNamesCy[initialMonth]} ${initialYear}`;
+
+// The mobile view (grid above is desktop-only) shows one month's items at a
+// time as a plain list, with the same prev/next month navigation as the
+// grid. Rendered server-side for the current month so it works with no JS.
+const initialMonthItems = calendarItems
+  .filter(it => {
+    const d = new Date(it.iso + 'T00:00:00');
+    return d.getFullYear() === initialYear && d.getMonth() === initialMonth;
+  })
+  .sort((a, b) => a.iso.localeCompare(b.iso));
 ---
 <Layout title_cy="Calendr" title_en="Calendar">
   <div class="page-banner"><h1><span lang="cy">Calendr Cymunedol</span><span lang="en">Community Calendar</span></h1></div>
@@ -284,14 +294,19 @@ const monthLabel_cy = `${monthNamesCy[initialMonth]} ${initialYear}`;
 
     <div class="cal-list-fallback">
       <h3 class="sub-sh"><span lang="cy">I Ddod</span><span lang="en">Coming up</span></h3>
-      {upcomingItems.length === 0 ? (
-        <>
-          <p lang="cy">Nid oes dim wedi'i drefnu ar hyn o bryd.</p>
-          <p lang="en">Nothing is currently scheduled.</p>
-        </>
-      ) : (
-        <div class="cal-list">
-          {upcomingItems.map(it => {
+      <div class="cal-grid-head">
+        <button type="button" id="calMobilePrev" class="cal-nav-btn" aria-label="Previous month">&lsaquo;</button>
+        <span class="cal-grid-month"><span lang="en" id="calMobileMonthEn">{monthLabel_en}</span><span lang="cy" id="calMobileMonthCy">{monthLabel_cy}</span></span>
+        <button type="button" id="calMobileNext" class="cal-nav-btn" aria-label="Next month">&rsaquo;</button>
+      </div>
+      <div class="cal-list" id="calMobileList">
+        {initialMonthItems.length === 0 ? (
+          <>
+            <p lang="cy">Nid oes dim wedi'i drefnu'r mis hwn.</p>
+            <p lang="en">Nothing scheduled this month.</p>
+          </>
+        ) : (
+          initialMonthItems.map(it => {
             const d = new Date(it.iso + 'T00:00:00');
             const dayNum = d.getDate();
             const monthShort = d.toLocaleString('en-GB', { month: 'short' });
@@ -323,10 +338,84 @@ const monthLabel_cy = `${monthNamesCy[initialMonth]} ${initialYear}`;
                 </div>
               </div>
             );
-          })}
-        </div>
-      )}
+          })
+        )}
+      </div>
     </div>
+
+    <script is:inline>
+      // Reuses allItems, monthNamesEn, monthNamesCy, todayIso and escapeHtml
+      // from the calendar grid's script above (classic scripts on the same
+      // page share one global scope, so nothing needs redeclaring here).
+      var mobileList = document.getElementById('calMobileList');
+      var mobileMonthEn = document.getElementById('calMobileMonthEn');
+      var mobileMonthCy = document.getElementById('calMobileMonthCy');
+      var mobileNow = new Date();
+      var mobileState = { year: mobileNow.getFullYear(), month: mobileNow.getMonth() };
+
+      function itemsForMonth(year, month) {
+        return allItems.filter(function (it) {
+          var d = new Date(it.iso + 'T00:00:00');
+          return d.getFullYear() === year && d.getMonth() === month;
+        }).sort(function (a, b) { return a.iso.localeCompare(b.iso); });
+      }
+
+      function mobileItemHtml(it) {
+        var d = new Date(it.iso + 'T00:00:00');
+        var dayNum = d.getDate();
+        var monthShort = monthNamesEn[d.getMonth()].slice(0, 3);
+        var dateBoxCls = 'cal-date-box' + (it.kind === 'event' ? ' cal-date-box-event' : '');
+        var titleCy = escapeHtml(it.label_cy);
+        var titleEn = escapeHtml(it.label_en);
+        var detailEn, detailCy;
+        if (it.kind === 'meeting') {
+          detailEn = escapeHtml(it.date_en) + ' &middot; ' + escapeHtml(it.time);
+          detailCy = escapeHtml(it.date_cy) + ' &middot; ' + escapeHtml(it.time);
+        } else {
+          detailEn = (it.time ? escapeHtml(it.time) + ' &middot; ' : '') + escapeHtml(it.location_en);
+          detailCy = (it.time ? escapeHtml(it.time) + ' &middot; ' : '') + escapeHtml(it.location_cy);
+        }
+        var descHtml = '';
+        if (it.kind === 'event' && (it.description_cy || it.description_en)) {
+          descHtml = '<p class="cal-desc"><span lang="cy">' + escapeHtml(it.description_cy) + '</span><span lang="en">' + escapeHtml(it.description_en) + '</span></p>';
+        }
+        var nextBadge = it.status === 'next' ? ' <strong> — <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>' : '';
+        return (
+          '<div class="cal-item">' +
+            '<div class="' + dateBoxCls + '"><div class="cal-day">' + dayNum + '</div><div class="cal-month">' + monthShort + '</div></div>' +
+            '<div>' +
+              '<div class="cal-title"><span lang="cy">' + titleCy + '</span><span lang="en">' + titleEn + '</span>' + nextBadge + '</div>' +
+              '<div class="cal-detail"><span lang="cy">' + detailCy + '</span><span lang="en">' + detailEn + '</span></div>' +
+              descHtml +
+            '</div>' +
+          '</div>'
+        );
+      }
+
+      function renderMobileMonth(year, month) {
+        var items = itemsForMonth(year, month);
+        mobileMonthEn.textContent = monthNamesEn[month] + ' ' + year;
+        mobileMonthCy.textContent = monthNamesCy[month] + ' ' + year;
+        if (!items.length) {
+          mobileList.innerHTML =
+            '<p lang="cy">Nid oes dim wedi’i drefnu’r mis hwn.</p>' +
+            '<p lang="en">Nothing scheduled this month.</p>';
+        } else {
+          mobileList.innerHTML = items.map(mobileItemHtml).join('');
+        }
+      }
+
+      document.getElementById('calMobilePrev').addEventListener('click', function () {
+        mobileState.month -= 1;
+        if (mobileState.month < 0) { mobileState.month = 11; mobileState.year -= 1; }
+        renderMobileMonth(mobileState.year, mobileState.month);
+      });
+      document.getElementById('calMobileNext').addEventListener('click', function () {
+        mobileState.month += 1;
+        if (mobileState.month > 11) { mobileState.month = 0; mobileState.year += 1; }
+        renderMobileMonth(mobileState.year, mobileState.month);
+      });
+    </script>
 
     <p style="margin-top:1rem"><a href="/meetings/"><span lang="cy">Gweld pob cyfarfod →</span><span lang="en">View all meetings →</span></a></p>
   </div></div>
