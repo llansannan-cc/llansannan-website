@@ -343,10 +343,17 @@ const initialMonthItems = calendarItems
       </div>
     </div>
 
-    <script is:inline>
-      // Reuses allItems, monthNamesEn, monthNamesCy, todayIso and escapeHtml
-      // from the calendar grid's script above (classic scripts on the same
-      // page share one global scope, so nothing needs redeclaring here).
+    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy, todayIso }}>
+      // Astro's define:vars wraps each script in its own isolated function
+      // scope, so nothing from the grid's script above (including allItems
+      // and escapeHtml) is actually reachable here -- everything this script
+      // needs is redeclared/passed in independently below.
+      function escapeHtml(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
       var mobileList = document.getElementById('calMobileList');
       var mobileMonthEn = document.getElementById('calMobileMonthEn');
       var mobileMonthCy = document.getElementById('calMobileMonthCy');
