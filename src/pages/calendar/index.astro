@@ -85,6 +85,18 @@ const weekdayLabels_en = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const weekdayLabels_cy = ['Llun','Maw','Mer','Iau','Gwe','Sad','Sul'];
 const monthLabel_en = firstOfMonth.toLocaleString('en-GB', { month: 'long', year: 'numeric' });
 const monthLabel_cy = monthLabel_en; // month/year names aren't translated site-wide elsewhere either
+
+// Data for the click-to-reveal detail panel, keyed by day number (as a
+// string, since JSON object keys are always strings).
+const dayData: Record<string, CalItem[]> = {};
+Object.entries(byDay).forEach(([day, items]) => { dayData[day] = items; });
+
+// Pre-select the soonest upcoming item if it falls within the month shown.
+let initialDay: number | null = null;
+if (nextItem) {
+  const nd = new Date(nextItem.iso + 'T00:00:00');
+  if (nd.getFullYear() === gridYear && nd.getMonth() === gridMonth) initialDay = nd.getDate();
+}
 ---
 <Layout title_cy="Calendr" title_en="Calendar">
   <div class="page-banner"><h1><span lang="cy">Calendr Cymunedol</span><span lang="en">Community Calendar</span></h1></div>
@@ -102,20 +114,35 @@ const monthLabel_cy = monthLabel_en; // month/year names aren't translated site-
           <div><span lang="en">{w}</span><span lang="cy">{weekdayLabels_cy[i]}</span></div>
         ))}
       </div>
-      <div class="cal-grid">
+      <div class="cal-grid" id="calGrid" data-initial-day={initialDay ?? ''}>
         {cells.map(day => {
           if (day === null) return <div class="cal-cell cal-cell-pad"></div>;
           const dayItems = byDay[day] || [];
           const isoDay = `${gridYear}-${String(gridMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
           const isToday = isoDay === todayIso;
+          const first = dayItems[0];
           return (
-            <div class:list={['cal-cell', dayItems.length > 0 && 'has-items', isToday && 'is-today']}>
+            <div
+              class:list={['cal-cell', dayItems.length > 0 && 'has-items', isToday && 'is-today']}
+              data-day={day}
+              tabindex={dayItems.length > 0 ? 0 : undefined}
+              role={dayItems.length > 0 ? 'button' : undefined}
+              aria-label={dayItems.length > 0 ? `${day} ${monthLabel_en}, ${dayItems.length} item${dayItems.length > 1 ? 's' : ''}` : undefined}
+            >
               <span class="cal-cell-num">{day}</span>
-              {dayItems.length > 0 && (
-                <span class="cal-cell-dots">
-                  {dayItems.map(it => <span class={`cal-dot cal-dot-${it.kind}`}></span>)}
+              {first && (
+                <span class:list={['cal-cell-label', first.kind === 'event' && 'cal-cell-label-event']}>
+                  {first.kind === 'meeting' ? (
+                    first.time
+                  ) : (
+                    <>
+                      <span lang="cy">{first.label_cy}</span>
+                      <span lang="en">{first.label_en}</span>
+                    </>
+                  )}
                 </span>
               )}
+              {dayItems.length > 1 && <span class="cal-cell-more">+{dayItems.length - 1}</span>}
             </div>
           );
         })}
@@ -124,16 +151,63 @@ const monthLabel_cy = monthLabel_en; // month/year names aren't translated site-
         <span><span class="cal-dot cal-dot-meeting"></span><span lang="cy">Cyfarfod cyngor</span><span lang="en">Council meeting</span></span>
         <span><span class="cal-dot cal-dot-event"></span><span lang="cy">Digwyddiad cymunedol</span><span lang="en">Community event</span></span>
       </p>
-      {nextItem && (
-        <p class="cal-next-note">
-          <span lang="cy">Nesaf: </span><span lang="en">Next up: </span>
-          <span lang="cy">{nextItem.label_cy}</span><span lang="en">{nextItem.label_en}</span>
-          {' — '}
-          <span lang="cy">{nextItem.date_cy || nextItem.iso}</span><span lang="en">{nextItem.date_en || nextItem.iso}</span>
-          {nextItem.time && <>{' · '}{nextItem.time}</>}
-        </p>
-      )}
+      <div class="cal-detail-panel" id="calDetail" aria-live="polite">
+        <p class="cal-detail-empty" lang="cy">Cyffyrddwch â diwrnod wedi'i amlygu i weld manylion.</p>
+        <p class="cal-detail-empty" lang="en">Tap a highlighted day to see details.</p>
+      </div>
     </div>
+
+    <script define:vars={{ dayData }}>
+      function escapeHtml(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function renderDay(day) {
+        var items = dayData[day] || [];
+        var panel = document.getElementById('calDetail');
+        if (!items.length) {
+          panel.innerHTML =
+            '<p class="cal-detail-empty" lang="cy">Dim byd y diwrnod hwn.</p>' +
+            '<p class="cal-detail-empty" lang="en">Nothing on this day.</p>';
+          return;
+        }
+        panel.innerHTML = items.map(function (it) {
+          var titleCy = escapeHtml(it.label_cy);
+          var titleEn = escapeHtml(it.label_en);
+          var metaEn = it.kind === 'meeting'
+            ? escapeHtml(it.date_en) + ' &middot; ' + escapeHtml(it.time)
+            : (it.time ? escapeHtml(it.time) + ' &middot; ' : '') + escapeHtml(it.location_en);
+          var metaCy = it.kind === 'meeting'
+            ? escapeHtml(it.date_cy) + ' &middot; ' + escapeHtml(it.time)
+            : (it.time ? escapeHtml(it.time) + ' &middot; ' : '') + escapeHtml(it.location_cy);
+          return (
+            '<div class="cal-detail-item">' +
+              '<span class="cal-detail-dot cal-dot-' + it.kind + '"></span>' +
+              '<div>' +
+                '<div class="cal-detail-title"><span lang="cy">' + titleCy + '</span><span lang="en">' + titleEn + '</span></div>' +
+                '<div class="cal-detail-meta"><span lang="cy">' + metaCy + '</span><span lang="en">' + metaEn + '</span></div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+      }
+      var cells = document.querySelectorAll('#calGrid .cal-cell.has-items');
+      cells.forEach(function (cell) {
+        cell.addEventListener('click', function () {
+          cells.forEach(function (c) { c.classList.remove('is-selected'); });
+          cell.classList.add('is-selected');
+          renderDay(cell.dataset.day);
+        });
+        cell.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cell.click(); }
+        });
+      });
+      var initialDay = document.getElementById('calGrid').dataset.initialDay;
+      var initialCell = initialDay ? document.querySelector('#calGrid .cal-cell[data-day="' + initialDay + '"]') : null;
+      if (!initialCell) initialCell = cells[0];
+      if (initialCell) initialCell.click();
+    </script>
 
     <div class="cal-list-fallback">
       <h3 class="sub-sh"><span lang="cy">I Ddod</span><span lang="en">Coming up</span></h3>
