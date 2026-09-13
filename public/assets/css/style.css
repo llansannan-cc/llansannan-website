@@ -194,8 +194,11 @@ a{color:var(--primary)}
 /* One merged feed (meetings + events): a compact, clickable month grid on
    wider screens, falling back automatically to the plain list above on
    narrow ones. Cells are a small fixed height regardless of content, and
-   show a short label inline so most days don't need a click to be useful. */
-.cal-grid-wrap{margin:1rem 0;max-width:420px}
+   show a short label inline so most days don't need a click to be useful.
+   On desktop the grid and the detail panel sit side by side, so clicking
+   a day updates the panel in place instead of pushing the page down. */
+.cal-layout{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;margin:1rem 0}
+.cal-grid-wrap{flex:0 0 300px}
 .cal-grid-head{font-family:'Playfair Display',serif;color:var(--primary-dark);font-size:0.95rem;margin-bottom:0.5rem}
 .cal-grid-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px}
 .cal-grid-weekdays div{text-align:center;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted)}
@@ -215,7 +218,7 @@ a{color:var(--primary)}
 .cal-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .cal-dot-meeting{background:var(--primary)}
 .cal-dot-event{background:var(--accent)}
-.cal-detail-panel{margin-top:0.75rem;background:#f0f4f8;border-left:4px solid var(--primary);border-radius:0 4px 4px 0;padding:0.75rem 1rem;min-height:1.5rem}
+.cal-detail-panel{flex:1 1 220px;background:#f0f4f8;border-left:4px solid var(--primary);border-radius:0 4px 4px 0;padding:0.75rem 1rem;min-height:1.5rem;align-self:stretch}
 .cal-detail-item{display:flex;gap:0.6rem;align-items:flex-start;padding:0.35rem 0}
 .cal-detail-item+.cal-detail-item{border-top:1px solid var(--border)}
 .cal-detail-dot{width:8px;height:8px;border-radius:50%;margin-top:0.35rem;flex-shrink:0}
@@ -224,7 +227,7 @@ a{color:var(--primary)}
 .cal-detail-empty{font-size:0.85rem;color:var(--muted);margin:0}
 .cal-list-fallback{display:none}
 @media (max-width:640px){
-  .cal-grid-wrap{display:none}
+  .cal-layout{display:none}
   .cal-list-fallback{display:block}
 }
 
