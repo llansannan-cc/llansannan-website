@@ -38,7 +38,7 @@ collections:
             widget: "list"
             summary: "{{fields.date}} -{{fields.type_en}}"
             fields:
-              - { name: "date", label: "Meeting date", widget: "date", format: "YYYY-MM-DD", hint: "The Welsh and English date shown on the site is generated automatically from this." }
+              - { name: "date", label: "Meeting date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "The Welsh and English date shown on the site is generated automatically from this." }
               - { name: "type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
               - { name: "type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
               - name: "time"
@@ -68,7 +68,7 @@ collections:
             widget: "list"
             summary: "{{meeting_date}} -{{meeting_type_en}} ({{status}})"
             fields:
-              - { name: "meeting_date", label: "Meeting date", widget: "date", format: "YYYY-MM-DD" }
+              - { name: "meeting_date", label: "Meeting date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
               - { name: "meeting_type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
               - { name: "meeting_type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
               - name: "status"
@@ -103,7 +103,7 @@ collections:
             widget: "list"
             summary: "{{meeting_date}} -{{meeting_type_en}}"
             fields:
-              - { name: "meeting_date", label: "Meeting date", widget: "date", format: "YYYY-MM-DD" }
+              - { name: "meeting_date", label: "Meeting date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
               - { name: "meeting_type_cy", label: "Math o gyfarfod (Cymraeg)", widget: "string", default: "Cyfarfod Cyffredin" }
               - { name: "meeting_type_en", label: "Meeting type (English)", widget: "string", default: "Ordinary Meeting" }
               - name: "agenda_cy_file"
@@ -132,7 +132,7 @@ collections:
             fields:
               - { name: "title_cy", label: "Teitl (Cymraeg)", widget: "string" }
               - { name: "title_en", label: "Title (English)", widget: "string" }
-              - { name: "date", label: "Date", widget: "date", format: "YYYY-MM-DD", hint: "Events drop off the public calendar automatically once this date has passed." }
+              - { name: "date", label: "Date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "Events drop off the public calendar automatically once this date has passed." }
               - name: "time"
                 label: "Time"
                 widget: "select"
@@ -232,7 +232,7 @@ collections:
             fields:
               - { name: "title_cy", label: "Teitl (Cymraeg)", widget: "string" }
               - { name: "title_en", label: "Title (English)", widget: "string" }
-              - { name: "date", label: "Date", widget: "date", format: "YYYY-MM-DD" }
+              - { name: "date", label: "Date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
               - { name: "body_cy", label: "Corff y neges (Cymraeg)", widget: "text" }
               - { name: "body_en", label: "Body text (English)", widget: "text" }
               - name: "featured"
@@ -242,8 +242,11 @@ collections:
                 hint: "Featured posts appear at the top of the homepage. Only the 3 most recent featured posts are shown there."
               - name: "expires"
                 label: "Expiry date"
-                widget: "date"
+                widget: "datetime"
                 format: "YYYY-MM-DD"
+                date_format: "YYYY-MM-DD"
+                time_format: false
+                picker_utc: true
                 required: false
                 hint: "Optional. Once this date has passed, the post stops appearing on the site automatically -- like events do. Leave blank to keep it up indefinitely."
 
