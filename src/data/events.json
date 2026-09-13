@@ -1,12 +1,3 @@
 {
-  "items": [
-    {
-      "date": "2026-09-18",
-      "time": "10:00",
-      "title_en": "TEST EVENT ",
-      "location_en": "Canolfan",
-      "title_cy": "TESTIO ",
-      "location_cy": "Canolfan"
-    }
-  ]
+  "items": []
 }
