@@ -1,5 +1,9 @@
 /* ── Llansannan Community Council — Stylesheet ─────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+/* Google Fonts is loaded via a <link> in Layout.astro's <head>, not an
+   @import here -- an @import inside a stylesheet is a hidden, serial
+   dependency the browser can't discover until this whole file has already
+   downloaded, adding a full extra round trip to first render. A sibling
+   <link> lets the browser fetch both in parallel from the start. */
 
 :root{
   --primary:#3d6e99;--primary-dark:#2b4f72;--primary-light:#5088be;

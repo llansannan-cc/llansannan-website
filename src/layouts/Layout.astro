@@ -59,6 +59,13 @@ const siteUrl = config.site.url;
   <link rel="alternate" hreflang="x-default" href={canonical}>
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 
+  <!-- Fonts: preconnect starts the connection as early as possible, and a
+       real <link> (rather than a CSS @import) lets the browser discover and
+       fetch this in parallel with style.css instead of after it. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap">
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content={canonical}>
@@ -71,8 +78,12 @@ const siteUrl = config.site.url;
   <!-- Stylesheets -->
   <link rel="stylesheet" href={`/assets/css/style.css?v=${cssVersion}`}>
 
-  <!-- Pagefind search UI -->
-  <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+  <!-- Pagefind search UI: not needed until someone opens search, so it's
+       loaded without blocking the initial render. preload fetches it early
+       (still off the critical path); the onload swap then activates it as
+       a real stylesheet. noscript covers browsers with JS disabled. -->
+  <link rel="preload" href="/pagefind/pagefind-ui.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/pagefind/pagefind-ui.css"></noscript>
 </head>
 <body class={pageClass}>
 
