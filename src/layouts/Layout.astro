@@ -32,6 +32,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   pageClass?: string;
+  preloadImage?: string;
 }
 
 const {
@@ -41,7 +42,8 @@ const {
   description_en = config.site.name_en,
   canonical = Astro.url.href,
   ogImage = '/assets/img/village-aerial.jpg',
-  pageClass = ''
+  pageClass = '',
+  preloadImage
 } = Astro.props;
 
 const siteUrl = config.site.url;
@@ -61,6 +63,17 @@ const siteUrl = config.site.url;
   <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <link rel="manifest" href="/assets/img/site.webmanifest">
+
+  <!-- LCP image preload: the hero is a CSS background-image, which the
+       browser's preload scanner cannot discover until it has downloaded
+       and parsed style.css -- costing real time before the fetch even
+       starts. This <link rel="preload"> puts the URL directly in the raw
+       HTML so the scanner finds and starts fetching it immediately, and
+       fetchpriority="high" tells the browser to fetch it ahead of
+       lower-priority requests (fonts, Pagefind CSS) competing for
+       bandwidth on the same connection. Only set on pages that actually
+       use that background image (currently just the homepage). -->
+  {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high">}
 
   <!-- Fonts: preconnect starts the connection as early as possible. The
        stylesheet itself is loaded as a non-blocking preload+swap (same
