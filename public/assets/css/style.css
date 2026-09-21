@@ -8,7 +8,7 @@
 :root{
   --primary:#3d6e99;--primary-dark:#2b4f72;--primary-light:#5088be;
   --accent:#b07420;--accent-light:#d4944a;
-  --text:#2c2c2c;--muted:#777;--danger:#c0392b;
+  --text:#2c2c2c;--muted:#5a5a5a;--danger:#c0392b;
   --bg:#edeae5;--white:#ffffff;--border:#d4cfc5;
 }
 

@@ -88,8 +88,10 @@ const siteUrl = config.site.url;
 <body class={pageClass}>
 
   <!-- Skip to content (WCAG 2.2 requirement) -->
-  <a href="#main-content" class="skip-link" lang="cy">Neidio i'r prif gynnwys</a>
-  <a href="#main-content" class="skip-link" lang="en">Skip to main content</a>
+  <a href="#main-content" class="skip-link">
+    <span lang="cy">Neidio i'r prif gynnwys</span>
+    <span lang="en">Skip to main content</span>
+  </a>
 
   <!-- Language toggle bar -->
   <div class="lang-bar" role="navigation" aria-label="Language selection">
