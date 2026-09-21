@@ -62,12 +62,20 @@ const siteUrl = config.site.url;
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <link rel="manifest" href="/assets/img/site.webmanifest">
 
-  <!-- Fonts: preconnect starts the connection as early as possible, and a
-       real <link> (rather than a CSS @import) lets the browser discover and
-       fetch this in parallel with style.css instead of after it. -->
+  <!-- Fonts: preconnect starts the connection as early as possible. The
+       stylesheet itself is loaded as a non-blocking preload+swap (same
+       pattern as the Pagefind CSS below) rather than a plain <link
+       rel="stylesheet"> -- preconnect alone only speeds up the connection
+       handshake, it does NOT stop a normal stylesheet link from blocking
+       first paint, and PageSpeed was still measuring ~750ms of render-block
+       time from this exact request even with preconnect in place. The font
+       URL's own "display=swap" param means text still renders immediately
+       in a fallback font and swaps to the webfont once it arrives, so this
+       is a pure win with no added flash-of-invisible-text risk. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap"></noscript>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
