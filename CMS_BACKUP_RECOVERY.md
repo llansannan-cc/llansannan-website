@@ -43,7 +43,7 @@ Work through these in order:
 
 4. **Check `ALLOWED_ORIGIN` in `cms-oauth-worker/wrangler.toml`.** It
    must exactly match the site's real address (e.g.
-   `https://llansannan-cc.gov.uk`, not `www.` if the site doesn't use
+   `https://llansannan-cc.gov.wales`, not `www.` if the site doesn't use
    `www.`, correct `https://`). If the site's domain ever changes, this
    must be updated and redeployed (`npx wrangler deploy` from
    `cms-oauth-worker/`).

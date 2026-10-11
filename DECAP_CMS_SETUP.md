@@ -37,7 +37,7 @@ password.
    your plan).
 2. Fill in:
    - **Application name**: `Llansannan Council CMS`
-   - **Homepage URL**: your live site URL, e.g. `https://llansannan-cc.gov.uk`
+   - **Homepage URL**: your live site URL, e.g. `https://llansannan-cc.gov.wales`
    - **Authorization callback URL**: `https://<your-worker-subdomain>.workers.dev/callback`
      (you'll get the exact Worker URL in step 3 — come back and set this
      precisely once you know it; a mismatch here is the #1 cause of login
@@ -60,7 +60,7 @@ Then:
 
 1. Open `cms-oauth-worker/wrangler.toml` and set:
    - `GITHUB_CLIENT_ID` — from step 2
-   - `ALLOWED_ORIGIN` — the exact site origin, e.g. `https://llansannan-cc.gov.uk`
+   - `ALLOWED_ORIGIN` — the exact site origin, e.g. `https://llansannan-cc.gov.wales`
      (no trailing slash). This is what stops the login token being handed
      to any page other than the council's own site.
 2. Set the secret (never goes in a file, never goes in git):
