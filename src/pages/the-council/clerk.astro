@@ -41,7 +41,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
     <h3 class="sub-sh"><span lang="cy">Cysylltu</span><span lang="en">Contact</span></h3>
     <div class="contact-card">
       <div class="ccard-head">{clerkPerson?.name} — <span lang="cy">{ROLE_LABELS.clerk.cy}</span><span lang="en">{ROLE_LABELS.clerk.en}</span></div>
-      <div class="crow"><span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span><span class="cval"><a href={`mailto:${council.email}`}>{council.email}</a></span></div>
+      <div class="crow"><span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span><span class="cval"><a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a></span></div>
       <div class="crow"><span class="clabel"><span lang="cy">Cyfeiriad</span><span lang="en">Address</span></span><span class="cval"><span lang="cy">{council.address_cy}</span><span lang="en">{council.address_en}</span></span></div>
     </div>
 

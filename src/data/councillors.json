@@ -1,7 +1,7 @@
 {
   "people": [
     {
-      "name": "Eifion M Jones",
+      "name": "Eifion Jones",
       "role": "councillor",
       "ward": "llansannan",
       "active": true
@@ -31,13 +31,13 @@
       "active": true
     },
     {
-      "name": "Bethan L. Evans",
+      "name": "Bethan Evans",
       "role": "councillor",
       "ward": "llansannan",
       "active": true
     },
     {
-      "name": "Susan Van-Look",
+      "name": "Sue Van-Loock",
       "role": "councillor",
       "ward": "llansannan",
       "active": true

@@ -262,7 +262,8 @@ collections:
             label: "Council contact details"
             widget: "object"
             fields:
-              - { name: "email", label: "Contact email", widget: "string", hint: "Shown across the site (contact page, footer, meetings, policies). Must be a real, monitored inbox." }
+              - { name: "email", label: "General contact email", widget: "string", hint: "Shown in the footer, privacy, accessibility, terms and grants pages. Must be a real, monitored inbox." }
+              - { name: "clerk_email", label: "Clerk's email", widget: "string", hint: "Shown on the contact page, Clerk page and meetings pages. Must be a real, monitored inbox." }
               - { name: "address_cy", label: "Cyfeiriad post (Cymraeg)", widget: "string" }
               - { name: "address_en", label: "Postal address (English)", widget: "string" }
           - name: "meeting_defaults"
