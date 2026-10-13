@@ -10,7 +10,7 @@
   },
   "form": {
     "endpoint": "https://forms.llansannan-cc.llyw.cymru/contact.php",
-    "turnstile_site_key": "YOUR_TURNSTILE_SITE_KEY"
+    "turnstile_site_key": "0x4AAAAAAFVuTbrNKGXLb6Sp"
   },
   "meeting_defaults": {
     "location_cy": "Neuadd Bentref Llansannan",

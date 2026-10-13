@@ -11,7 +11,7 @@ return [
     'to_address'      => 'clerk@llansannan-cc.gov.wales',
 
     // Sender shown on the email. Must be an address on a domain you host here.
-    'from_address'    => 'website@llansannan-cc.gov.wales',
+    'from_address'    => 'info@llansannan-cc.gov.wales',
     'from_name'       => 'Llansannan Council Website',
 
     // Cloudflare Turnstile SECRET key (from the Cloudflare dashboard). Keep private.

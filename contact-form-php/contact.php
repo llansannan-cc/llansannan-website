@@ -125,7 +125,7 @@ if ($name === '' || $len($name) > 100
 }
 
 // 7. Build and send a plain-text email to the Clerk.
-$subjectLine = '[Website] ' . ($subject !== '' ? $subject : 'Message from ' . $name);
+$subjectLine = 'Website form submission' . ($subject !== '' ? ': ' . $subject : ' from ' . $name);
 $body = "A message was sent through the council website contact form.\n\n"
       . "Name:  $name\n"
       . "Email: $email\n"
