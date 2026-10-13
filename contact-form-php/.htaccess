@@ -1,3 +1,8 @@
+# This folder sits inside public_html, whose top-level .htaccess redirects
+# visitors to the main website. Turning the rewrite engine on here (with no
+# rules) stops those inherited redirect rules applying to this folder.
+RewriteEngine On
+
 # Never serve the config, sample or docs over the web.
 <FilesMatch "^(config(\.sample)?\.php|README\.md)$">
   Require all denied
