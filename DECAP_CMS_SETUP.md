@@ -1,11 +1,18 @@
 # Decap CMS setup — Llansannan Community Council
 
 This is the one-time setup for the clerk's content editor at `/admin/`. It
-covers five content types only: **Meetings**, **Minutes**, **Agendas**,
-**Events**, and **Councillors & Officers** (the Chair, the Clerk, every
-councillor, and any vacant seats, with their wards). It does not give access
-to site design, navigation, or any other page — those live in files the CMS
-never touches.
+covers these content types: **Meetings**, **Minutes**, **Agendas**,
+**Events**, **News**, **Documents**, **Councillors & Officers** (the Chair,
+the Clerk, every councillor, and any vacant seats, with their wards, party
+and committees) and **Contact & Social Details** (the council's general,
+Clerk and Chair email addresses in English and Welsh, telephone number,
+postal address and usual meeting venue). It does not give access to site
+design, navigation, or any other page — those live in files the CMS never
+touches.
+
+The live site is at **https://llansannan-cc.gov.wales** (the
+`llansannan-cc.llyw.cymru` address redirects to it). Wherever this guide
+says "your live site URL", use the `.gov.wales` address.
 
 Read this fully before starting. Steps 1–4 are done once by whoever
 administers the GitHub/Cloudflare accounts (currently Tom). Steps 5–6 are
@@ -41,7 +48,9 @@ password.
    - **Authorization callback URL**: `https://<your-worker-subdomain>.workers.dev/callback`
      (you'll get the exact Worker URL in step 3 — come back and set this
      precisely once you know it; a mismatch here is the #1 cause of login
-     failing).
+     failing). This is the **Worker's** address, not the website's, so it does
+     not change when the website's domain changes. Currently:
+     `https://llansannan-cms-auth.llansannancc.workers.dev/callback`.
 3. After creating it, copy the **Client ID**, and generate a **Client
    secret** — copy it immediately, it's only shown once.
 
@@ -104,6 +113,18 @@ Commit and push. Cloudflare will rebuild automatically.
 4. Fill in the Welsh and English fields, upload the PDF where asked, and
    click **Publish**. The site rebuilds automatically within a couple of
    minutes.
+
+### Keeping the site legally compliant
+
+Welsh Government guidance for community councils (section 55 of the Local
+Government (Democracy) (Wales) Act 2013) expects the website to show: a
+telephone number, postal address and generic email address; every member's
+name, how to contact them, party (or "Independent"), ward and any
+committees; published minutes and the papers they refer to; the audited
+annual accounts; and meeting notices and agendas at least 3 clear days
+before each meeting. The CMS has fields for most of these — fill in
+**Telephone number** under Contact & Social Details, and **Political party**
+and **Committees** for each person under Councillors & Officers.
 
 ### Accessible PDFs
 

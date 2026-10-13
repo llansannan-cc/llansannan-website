@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Human-readable site map. Add new pages here when you add them to the site.
+const sections = [
+  {
+    cy: 'Hafan', en: 'Home', href: '/',
+    links: []
+  },
+  {
+    cy: 'Y Cyngor', en: 'The Council', href: '/the-council/',
+    links: [
+      { cy: 'Am y Cyngor', en: 'About Us', href: '/the-council/' },
+      { cy: 'Beth Rydym yn ei Wneud', en: 'What We Do', href: '/the-council/what-we-do/' },
+      { cy: 'Beth Rydym yn ei Wario', en: 'What We Spend', href: '/the-council/what-we-spend/' },
+      { cy: 'Eich Cyfraniad', en: 'Your Contribution', href: '/the-council/financial-contribution/' },
+      { cy: 'Ffurflen Flynyddol', en: 'Annual Return', href: '/the-council/annual-return/' },
+      { cy: 'Grantiau a Rhoddion', en: 'Grants & Donations', href: '/the-council/grants/' },
+      { cy: 'Ein Clerc', en: 'Our Clerk', href: '/the-council/clerk/' },
+    ]
+  },
+  {
+    cy: 'Cynghorwyr', en: 'Councillors', href: '/councillors/',
+    links: [
+      { cy: 'Eich Cynghorwyr', en: 'Your Councillors', href: '/councillors/' },
+      { cy: 'Map yr Ward', en: 'Ward Map', href: '/councillors/ward-map/' },
+      { cy: 'Proffiliau Ward', en: 'Ward Profiles', href: '/councillors/ward-profiles/' },
+      { cy: 'Taliadau Cynghorwyr', en: 'Councillor Payments', href: '/councillors/payments/' },
+      { cy: 'Datganiadau Diddordeb', en: 'Interest Declarations', href: '/councillors/interests/' },
+    ]
+  },
+  {
+    cy: 'Cyfarfodydd', en: 'Meetings', href: '/meetings/',
+    links: [
+      { cy: 'Dyddiadau', en: 'Dates', href: '/meetings/' },
+      { cy: 'Agendâu', en: 'Agendas', href: '/meetings/agendas/' },
+      { cy: 'Cofnodion', en: 'Minutes', href: '/meetings/minutes/' },
+      { cy: 'Calendr', en: 'Calendar', href: '/calendar/' },
+    ]
+  },
+  {
+    cy: 'Dogfennau', en: 'Documents', href: '/documents/',
+    links: [
+      { cy: 'Pob Dogfen', en: 'All Documents', href: '/documents/' },
+      { cy: 'Rheolau Sefydlog', en: 'Standing Orders', href: '/documents/standing-orders/' },
+      { cy: 'Rheoliadau Ariannol', en: 'Financial Regulations', href: '/documents/financial-regulations/' },
+      { cy: 'Côd Ymddygiad', en: 'Code of Conduct', href: '/documents/code-of-conduct/' },
+      { cy: 'Bioamrywiaeth', en: 'Biodiversity', href: '/documents/biodiversity/' },
+      { cy: 'Polisi Cyfryngau Cymdeithasol', en: 'Social Media Policy', href: '/documents/social-media/' },
+      { cy: 'Egwyddorion Nolan', en: 'Nolan Principles', href: '/documents/nolan-principles/' },
+    ]
+  },
+  {
+    cy: 'Llansannan', en: 'Llansannan', href: '/llansannan/',
+    links: [
+      { cy: 'Am Llansannan', en: 'About Llansannan', href: '/llansannan/' },
+      { cy: 'Llansannan A–Z', en: 'Llansannan A–Z', href: '/llansannan/az/' },
+      { cy: 'Busnesau a Grwpiau', en: 'Businesses & Groups', href: '/llansannan/business/' },
+      { cy: 'Cipolwg Hanesyddol', en: 'Historical Glimpses', href: '/llansannan/history/' },
+      { cy: 'Oriel', en: 'Gallery', href: '/llansannan/gallery/' },
+    ]
+  },
+  {
+    cy: 'Gwybodaeth arall', en: 'Other pages', href: null,
+    links: [
+      { cy: 'Newyddion', en: 'News', href: '/news/' },
+      { cy: 'Cynllunio', en: 'Planning', href: '/planning/' },
+      { cy: 'Cysylltu â Ni', en: 'Contact Us', href: '/contact/' },
+      { cy: 'Chwilio', en: 'Search', href: '/search/' },
+      { cy: 'Hygyrchedd', en: 'Accessibility', href: '/accessibility/' },
+      { cy: 'Polisi Preifatrwydd', en: 'Privacy Policy', href: '/privacy/' },
+      { cy: 'Telerau Defnydd', en: 'Terms of Use', href: '/terms/' },
+    ]
+  },
+];
+---
+<Layout
+  title_cy="Map y Safle"
+  title_en="Site Map"
+  description_cy="Rhestr o holl dudalennau gwefan Cyngor Cymuned Llansannan"
+  description_en="A list of all pages on the Llansannan Community Council website">
+
+  <div class="page-banner"><h1><span lang="cy">Map y Safle</span><span lang="en">Site Map</span></h1></div>
+  <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <span lang="cy">Map y Safle</span><span lang="en">Site Map</span></div>
+
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Holl dudalennau'r wefan</span><span lang="en">All pages on this website</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Defnyddiwch y rhestr hon i ddod o hyd i unrhyw dudalen ar y wefan. Gallwch hefyd <a href="/search/">chwilio'r wefan</a>.</p>
+    <p lang="en">Use this list to find any page on the website. You can also <a href="/search/">search the website</a>.</p>
+
+    {sections.map(section => (
+      <section style="margin-top:1.5rem">
+        <h3 class="sub-sh">
+          {section.href
+            ? <a href={section.href}><span lang="cy">{section.cy}</span><span lang="en">{section.en}</span></a>
+            : <><span lang="cy">{section.cy}</span><span lang="en">{section.en}</span></>}
+        </h3>
+        {section.links.length > 0 && (
+          <ul style="margin:0.5rem 0 0 1.5rem;line-height:2">
+            {section.links.map(link => (
+              <li><a href={link.href}><span lang="cy">{link.cy}</span><span lang="en">{link.en}</span></a></li>
+            ))}
+          </ul>
+        )}
+      </section>
+    ))}
+  </div></div>
+</Layout>

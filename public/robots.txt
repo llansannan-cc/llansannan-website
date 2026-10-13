@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://llansannan-cc.gov.wales/sitemap.xml
+Sitemap: https://llansannan-cc.gov.wales/sitemap-index.xml

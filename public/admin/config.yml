@@ -210,6 +210,16 @@ collections:
                   - { label: "Bylchau Ward", value: "bylchau" }
                   - { label: "Llannefydd Ward", value: "llannefydd" }
                   - { label: "Council Staff (not ward-elected, e.g. Clerk)", value: "staff" }
+              - name: "party"
+                label: "Political party"
+                widget: "string"
+                required: false
+                hint: "Required by Welsh Government guidance for every member. Write the party name, or 'Independent' / 'Annibynnol' if none. Not needed for the Clerk."
+              - name: "committees"
+                label: "Committees / offices held"
+                widget: "string"
+                required: false
+                hint: "Any committees or offices the member holds within the council, e.g. 'Finance Committee'. Leave blank if none."
               - name: "active"
                 label: "Active"
                 widget: "boolean"
@@ -267,6 +277,7 @@ collections:
               - { name: "clerk_email_cy", label: "Clerk's email (Welsh pages)", widget: "string", hint: "Welsh-language address (clerc@), shown on the Welsh version of the same pages." }
               - { name: "chair_email", label: "Chair's email (English pages)", widget: "string", hint: "Shown on the English version of the contact page." }
               - { name: "chair_email_cy", label: "Chair's email (Welsh pages)", widget: "string", hint: "Welsh-language address (cadeirydd@), shown on the Welsh version of the contact page." }
+              - { name: "phone", label: "Telephone number", widget: "string", required: false, hint: "Required by law to be published (Clerk's number if the council has no office). Shown on the contact page." }
               - { name: "address_cy", label: "Cyfeiriad post (Cymraeg)", widget: "string" }
               - { name: "address_en", label: "Postal address (English)", widget: "string" }
           - name: "meeting_defaults"

@@ -29,6 +29,12 @@ const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active)
         <span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span>
         <span class="cval"><a lang="cy" href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a><a lang="en" href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a></span>
       </div>
+      {council.phone && (
+        <div class="crow">
+          <span class="clabel"><span lang="cy">Ffôn</span><span lang="en">Telephone</span></span>
+          <span class="cval"><a href={`tel:${council.phone.replace(/\s+/g, '')}`}>{council.phone}</a></span>
+        </div>
+      )}
       <div class="crow">
         <span class="clabel"><span lang="cy">Cyfeiriad</span><span lang="en">Address</span></span>
         <span class="cval"><span lang="cy">{council.address_cy}</span><span lang="en">{council.address_en}</span></span>

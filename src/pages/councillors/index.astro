@@ -47,6 +47,8 @@ const wards = ELECTED_WARDS.map(key => ({
           <div class="cllr-leader-meta">
             <span lang="cy">{WARD_LABELS[chairPerson.ward]?.cy}</span>
             <span lang="en">{WARD_LABELS[chairPerson.ward]?.en}</span>
+            {chairPerson.party && <><br>{chairPerson.party}</>}
+            {chairPerson.committees && <><br>{chairPerson.committees}</>}
           </div>
         </div>
       )}
@@ -63,6 +65,9 @@ const wards = ELECTED_WARDS.map(key => ({
         </div>
       )}
     </div>
+
+    <p lang="cy">I gysylltu ag unrhyw gynghorydd, cysylltwch â'r Clerc drwy'r <a href="/contact/">dudalen gyswllt</a>.</p>
+    <p lang="en">To contact any councillor, please get in touch with the Clerk via the <a href="/contact/">contact page</a>.</p>
 
     <!-- Councillors by ward -->
     <h3 class="sub-sh"><span lang="cy">Cynghorwyr yn ôl Ward</span><span lang="en">Councillors by Ward</span></h3>
@@ -81,6 +86,8 @@ const wards = ELECTED_WARDS.map(key => ({
                   <span lang="cy">{ROLE_LABELS[p.role].cy}</span>
                   <span lang="en">{ROLE_LABELS[p.role].en}</span>
                 </div>
+                {p.party && <div class="cllr-role">{p.party}</div>}
+                {p.committees && <div class="cllr-role">{p.committees}</div>}
               </div>
             ) : (
               <div class="cllr-card cllr-vacancy">
