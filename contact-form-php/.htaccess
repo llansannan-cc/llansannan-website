@@ -1,0 +1,5 @@
+# Never serve the config, sample or docs over the web.
+<FilesMatch "^(config(\.sample)?\.php|README\.md)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

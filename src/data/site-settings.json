@@ -2,8 +2,15 @@
   "council": {
     "email": "info@llansannan-cc.gov.wales",
     "clerk_email": "clerk@llansannan-cc.gov.wales",
+    "clerk_email_cy": "clerc@llansannan-cc.gov.wales",
+    "chair_email": "chair@llansannan-cc.gov.wales",
+    "chair_email_cy": "cadeirydd@llansannan-cc.gov.wales",
     "address_cy": "Cyngor Cymuned Llansannan, Bro Aled, Conwy",
     "address_en": "Llansannan Community Council, Bro Aled, Conwy"
+  },
+  "form": {
+    "endpoint": "https://forms.llansannan-cc.llyw.cymru/contact.php",
+    "turnstile_site_key": "YOUR_TURNSTILE_SITE_KEY"
   },
   "meeting_defaults": {
     "location_cy": "Neuadd Bentref Llansannan",

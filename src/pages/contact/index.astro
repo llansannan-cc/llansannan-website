@@ -6,6 +6,7 @@ import { ROLE_LABELS } from '../../data/people-lookups.js';
 
 const { council } = settings;
 const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active);
+const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active);
 ---
 <Layout title_cy="Cysylltu â Ni" title_en="Contact Us">
   <div class="page-banner">
@@ -26,7 +27,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <div class="ccard-head">{clerkPerson?.name} — <span lang="cy">{ROLE_LABELS.clerk.cy}</span><span lang="en">{ROLE_LABELS.clerk.en}</span></div>
       <div class="crow">
         <span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span>
-        <span class="cval"><a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a></span>
+        <span class="cval"><a lang="cy" href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a><a lang="en" href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a></span>
       </div>
       <div class="crow">
         <span class="clabel"><span lang="cy">Cyfeiriad</span><span lang="en">Address</span></span>
@@ -34,8 +35,45 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       </div>
     </div>
 
+    {chairPerson && (
+      <div class="contact-card" style="margin:1.5rem 0">
+        <div class="ccard-head">{chairPerson.name} — <span lang="cy">{ROLE_LABELS.chair.cy}</span><span lang="en">{ROLE_LABELS.chair.en}</span></div>
+        <div class="crow">
+          <span class="clabel"><span lang="cy">E-bost</span><span lang="en">Email</span></span>
+          <span class="cval"><a lang="cy" href={`mailto:${council.chair_email_cy}`}>{council.chair_email_cy}</a><a lang="en" href={`mailto:${council.chair_email}`}>{council.chair_email}</a></span>
+        </div>
+      </div>
+    )}
+
     <h3 class="sub-sh"><span lang="cy">Ffurflen Gyswllt</span><span lang="en">Contact Form</span></h3>
-    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" aria-label="Contact form">
+    <div id="form-status" tabindex="-1">
+      <div class="notice" role="status" data-status="sent" hidden>
+        <span lang="cy">Diolch. Mae eich neges wedi'i hanfon at y Clerc.</span>
+        <span lang="en">Thank you. Your message has been sent to the Clerk.</span>
+      </div>
+      <div class="notice" role="alert" data-status="invalid" hidden>
+        <span lang="cy">Gwiriwch eich manylion a rhowch gynnig arall arni.</span>
+        <span lang="en">Please check your details and try again.</span>
+      </div>
+      <div class="notice" role="alert" data-status="spam" hidden>
+        <span lang="cy">Nid oedd modd gwirio'r ffurflen. Rhowch gynnig arall arni neu e-bostiwch ni'n uniongyrchol.</span>
+        <span lang="en">We couldn't verify the form. Please try again or email us directly.</span>
+      </div>
+      <div class="notice" role="alert" data-status="toomany" hidden>
+        <span lang="cy">Gormod o negeseuon. Arhoswch ychydig a rhowch gynnig arall arni.</span>
+        <span lang="en">Too many messages. Please wait a while and try again.</span>
+      </div>
+      <div class="notice" role="alert" data-status="error" hidden>
+        <span lang="cy">Ni ellid anfon eich neges. E-bostiwch ni'n uniongyrchol.</span>
+        <span lang="en">Your message could not be sent. Please email us directly.</span>
+      </div>
+    </div>
+
+    <form class="contact-form" action={settings.form.endpoint} method="POST" aria-label="Contact form">
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+        <label for="website">Leave this field empty</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
       <div class="cf-row">
         <div class="cf-field">
           <label for="name"><span lang="cy">Eich Enw</span><span lang="en">Your Name</span> <span aria-hidden="true">*</span></label>
@@ -55,11 +93,21 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
         <textarea id="message" name="message" rows="6" required aria-required="true"></textarea>
       </div>
       <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem" lang="cy">Mae'n rhaid llenwi meysydd sydd wedi'u marcio â * <span lang="en">Fields marked * are required</span></p>
+      <div class="cf-turnstile" data-sitekey={settings.form.turnstile_site_key} data-language="auto" style="margin-bottom:1rem"></div>
       <button type="submit" class="cf-submit">
         <span lang="cy">Anfon Neges</span>
         <span lang="en">Send Message</span>
       </button>
     </form>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+    <script is:inline>
+      (function () {
+        var s = new URLSearchParams(location.search).get('status');
+        if (!s) return;
+        var el = document.querySelector('#form-status [data-status="' + s + '"]');
+        if (el) { el.hidden = false; document.getElementById('form-status').focus(); }
+      })();
+    </script>
 
     <div class="notice" style="margin-top:2rem">
       <strong><span lang="cy">Hysbysiad Preifatrwydd</span><span lang="en">Privacy Notice</span></strong><br>

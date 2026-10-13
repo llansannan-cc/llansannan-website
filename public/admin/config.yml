@@ -263,7 +263,10 @@ collections:
             widget: "object"
             fields:
               - { name: "email", label: "General contact email", widget: "string", hint: "Shown in the footer, privacy, accessibility, terms and grants pages. Must be a real, monitored inbox." }
-              - { name: "clerk_email", label: "Clerk's email", widget: "string", hint: "Shown on the contact page, Clerk page and meetings pages. Must be a real, monitored inbox." }
+              - { name: "clerk_email", label: "Clerk's email (English pages)", widget: "string", hint: "Shown on the English version of the contact page, Clerk page and meetings pages. Must be a real, monitored inbox." }
+              - { name: "clerk_email_cy", label: "Clerk's email (Welsh pages)", widget: "string", hint: "Welsh-language address (clerc@), shown on the Welsh version of the same pages." }
+              - { name: "chair_email", label: "Chair's email (English pages)", widget: "string", hint: "Shown on the English version of the contact page." }
+              - { name: "chair_email_cy", label: "Chair's email (Welsh pages)", widget: "string", hint: "Welsh-language address (cadeirydd@), shown on the Welsh version of the contact page." }
               - { name: "address_cy", label: "Cyfeiriad post (Cymraeg)", widget: "string" }
               - { name: "address_en", label: "Postal address (English)", widget: "string" }
           - name: "meeting_defaults"
