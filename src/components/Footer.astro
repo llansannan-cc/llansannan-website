@@ -16,6 +16,8 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <p class="fg-meta">
         <span lang="cy">{site.area_cy}</span>
         <span lang="en">{site.area_en}</span><br>
+        <span lang="cy">{council.address_cy}</span>
+        <span lang="en">{council.address_en}</span><br>
         <span lang="cy">{ROLE_LABELS.clerk.cy}: {clerkPerson?.name}</span>
         <span lang="en">{ROLE_LABELS.clerk.en}: {clerkPerson?.name}</span><br>
         <a href={`mailto:${council.email}`}>{council.email}</a>
