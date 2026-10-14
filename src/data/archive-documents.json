@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "title_cy": "Rheolau Sefydlog",
+      "title_en": "Standing Orders",
+      "file": "/documents/policies/standing-orders.pdf"
+    },
+    {
+      "title_cy": "Côd Ymddygiad",
+      "title_en": "Code of Conduct",
+      "file": "/documents/policies/code-of-conduct.pdf"
+    },
+    {
+      "title_cy": "Rheoliadau Ariannol",
+      "title_en": "Financial Regulations",
+      "file": "/documents/policies/financial-regulations.pdf"
+    },
+    {
+      "title_cy": "Adroddiad Ariannol Blynyddol a Hysbysiadau Archwilio",
+      "title_en": "Annual Financial Report and Audit Notices",
+      "file": "/documents/policies/annual-financial-report-and-audit-notices.pdf"
+    },
+    {
+      "title_cy": "Hysbysiad Hawliau Etholwyr",
+      "title_en": "Notice of Electors' Rights (Audit 2025/26)",
+      "file": "/documents/policies/audit-notice-electors-rights-2026.pdf"
+    },
+    {
+      "title_cy": "Adroddiad Blynyddol 2025–2026",
+      "title_en": "Annual Report 2025–2026",
+      "file": "/documents/policies/annual-report-2025-26.pdf"
+    },
+    {
+      "title_cy": "Cofrestr Diddordebau Aelodau",
+      "title_en": "Register of Members' Declarations of Interest",
+      "file": "/documents/policies/register-of-members-interests.pdf"
+    },
+    {
+      "title_cy": "Cofrestr Asedau",
+      "title_en": "Asset Register",
+      "file": "/documents/policies/asset-register.pdf"
+    },
+    {
+      "title_cy": "Deddf Gwarchod Data 2018",
+      "title_en": "Data Protection Act",
+      "file": "/documents/policies/data-protection.pdf"
+    },
+    {
+      "title_cy": "Cynllun Gweithredu Bioamrywiaeth 2026–2029",
+      "title_en": "Biodiversity Action Plan 2026–2029",
+      "file": "/documents/policies/biodiversity-action-plan-2026-2029.pdf"
+    },
+    {
+      "title_cy": "Hysbysebion Lleol",
+      "title_en": "Local Notices",
+      "file": "/documents/policies/local-notices.pdf"
+    }
+  ]
+}

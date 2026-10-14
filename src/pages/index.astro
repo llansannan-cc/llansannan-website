@@ -26,8 +26,8 @@ const nextMeeting = nextMeetingEntry ? {
   date_cy: nextMeetingDate.cy,
   date_en: nextMeetingDate.en,
   time: nextMeetingEntry.time,
-  location_cy: settings.meeting_defaults.location_cy,
-  location_en: settings.meeting_defaults.location_en
+  location_cy: nextMeetingEntry.location_cy || settings.meeting_defaults.location_cy,
+  location_en: nextMeetingEntry.location_en || settings.meeting_defaults.location_en
 } : null;
 
 const latestNews = getActiveNews(news.items).filter(n => n.featured).slice(0, 3);

@@ -17,8 +17,8 @@ import { formatDateBilingual } from '../../lib/dates';
     <hr class="sh-rule">
 
     <div class="notice">
-      <span lang="cy">Cynhelir cyfarfodydd yn {settings.meeting_defaults.location_cy}. Mae pob cyfarfod yn agored i'r cyhoedd.</span>
-      <span lang="en">Meetings are held at {settings.meeting_defaults.location_en}. All meetings are open to the public.</span>
+      <span lang="cy">Mae pob cyfarfod yn agored i'r cyhoedd. Gall y lleoliad newid - gwiriwch y tabl.</span>
+      <span lang="en">All meetings are open to the public. The venue can change, so please check the table.</span>
     </div>
 
     <table class="mtg-table" aria-label="Meeting dates / Dyddiadau cyfarfodydd">
@@ -27,6 +27,7 @@ import { formatDateBilingual } from '../../lib/dates';
           <th lang="cy">Dyddiad</th><th lang="en">Date</th>
           <th lang="cy">Math</th><th lang="en">Type</th>
           <th lang="cy">Amser</th><th lang="en">Time</th>
+          <th lang="cy">Lleoliad</th><th lang="en">Venue</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +45,10 @@ import { formatDateBilingual } from '../../lib/dates';
               <span lang="en">{m.type_en}</span>
             </td>
             <td>{m.time}</td>
+            <td>
+              <span lang="cy">{m.location_cy || "I'w gadarnhau"}</span>
+              <span lang="en">{m.location_en || 'To be confirmed'}</span>
+            </td>
           </tr>
           );
         })}

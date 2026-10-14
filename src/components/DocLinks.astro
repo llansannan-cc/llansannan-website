@@ -8,6 +8,9 @@ interface Props {
 const { doc } = Astro.props;
 ---
 <div class="doc-links">
+  {doc.file_en && doc.file_en === doc.file_cy ? (
+    <a href={doc.file_en} class="doc-link pdf"><span lang="cy">Lawrlwytho (dwyieithog) — PDF</span><span lang="en">Download (bilingual) — PDF</span></a>
+  ) : (<>
   {doc.file_en ? (
     <a href={doc.file_en} class="doc-link pdf" lang="en">Download (English) — PDF</a>
   ) : (
@@ -18,4 +21,5 @@ const { doc } = Astro.props;
   ) : (
     <span style="font-style:italic;font-size:0.9rem" lang="cy">Ar gael yn fuan</span>
   )}
+  </>)}
 </div>

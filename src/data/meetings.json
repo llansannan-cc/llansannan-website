@@ -1,16 +1,85 @@
 {
   "schedule_2026": [
-    { "date": "2026-01-15", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-02-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-03-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-04-16", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-05-21", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-06-18", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-07-16", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-08-20", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "past" },
-    { "date": "2026-09-17", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "next" },
-    { "date": "2026-10-15", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
-    { "date": "2026-11-19", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" },
-    { "date": "2026-12-17", "type_cy": "Cyfarfod Cyffredin", "type_en": "Ordinary Meeting", "time": "19:00", "status": "upcoming" }
+    {
+      "date": "2026-01-14",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-02-11",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-03-11",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-04-22",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-05-13",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-06-10",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-07-08",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-08-12",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-09-09",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "past"
+    },
+    {
+      "date": "2026-10-14",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:30",
+      "status": "next",
+      "location_cy": "Neuadd Goffa Plwyf y Bylchau, Groes",
+      "location_en": "Plwyf y Bylchau Memorial Hall, Groes"
+    },
+    {
+      "date": "2026-11-11",
+      "type_cy": "Cyfarfod Cyffredin",
+      "type_en": "Ordinary Meeting",
+      "time": "19:00",
+      "status": "upcoming",
+      "location_cy": "Canolfan Addysg Bro Aled",
+      "location_en": "Bro Aled Education Centre"
+    }
   ]
 }

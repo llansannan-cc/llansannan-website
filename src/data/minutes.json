@@ -1,13 +1,859 @@
 {
   "items": [
     {
-      "meeting_date": "2026-08-20",
+      "meeting_date": "2026-09-09",
       "meeting_type_cy": "Cyfarfod Cyffredin",
       "meeting_type_en": "Ordinary Meeting",
       "status": "approved",
-      "chair": "Meurig Davies",
-      "minutes_cy_file": "/documents/2026/minutes/2026-08-20-cyfarfod-cyffredin-cofnodion-cy.pdf",
-      "minutes_en_file": "/documents/2026/minutes/2026-08-20-ordinary-meeting-approved-minutes-en.pdf"
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-09-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-09-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-08-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-08-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-08-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-07-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-07-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-07-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-06-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-06-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-06-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-05-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-05-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-05-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-04-22",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-04-22-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-04-22-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-03-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-03-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-03-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-02-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-02-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-02-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2026-01-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2026/minutes/2026-01-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2026/minutes/2026-01-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-12-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-12-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-12-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-11-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-11-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-11-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-10-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-10-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-10-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-09-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-09-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-09-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-07-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-07-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-07-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-05-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-05-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-05-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-05-14",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-05-14-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-05-14-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-04-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-04-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-04-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-03-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-03-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-03-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-02-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-02-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-02-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2025-01-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2025/minutes/2025-01-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2025/minutes/2025-01-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-12-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-12-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-12-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-11-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-11-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-11-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-10-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-10-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-10-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-09-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-09-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-09-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-07-17",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-07-17-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-07-17-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-06-19",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-06-19-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-06-19-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-05-15",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-05-15-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-05-15-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-05-15",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-05-15-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-05-15-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-04-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-04-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-04-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-03-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-03-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-03-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-02-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-02-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-02-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2024-01-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2024/minutes/2024-01-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2024/minutes/2024-01-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-12-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-12-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-12-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-06-21",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-06-21-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-06-21-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-05-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-05-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-05-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-03-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-03-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-03-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-02-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-02-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-02-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2023-01-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2023/minutes/2023-01-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2023/minutes/2023-01-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-12-07",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-12-07-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-12-07-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-11-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-11-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-11-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-10-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-10-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-10-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-09-21",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-09-21-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-09-21-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-06-15",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-06-15-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-06-15-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-05-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-05-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-05-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-05-11",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-05-11-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-05-11-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-02-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-02-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-02-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2022-01-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2022/minutes/2022-01-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2022/minutes/2022-01-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-12-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-12-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-12-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-11-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-11-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-11-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-10-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-10-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-10-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-07-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-07-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-07-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-06-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-06-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-06-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-05-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-05-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-05-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-05-12",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-05-12-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-05-12-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-04-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-04-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-04-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-03-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-03-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-03-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2021-02-25",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2021/minutes/2021-02-25-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2021/minutes/2021-02-25-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2020-09-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2020/minutes/2020-09-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2020/minutes/2020-09-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2020-08-19",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2020/minutes/2020-08-19-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2020/minutes/2020-08-19-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2020-03-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2020/minutes/2020-03-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2020/minutes/2020-03-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2020-02-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2020/minutes/2020-02-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2020/minutes/2020-02-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2020-01-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2020/minutes/2020-01-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2020/minutes/2020-01-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-12-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-12-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-12-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-11-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-11-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-11-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-10-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-10-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-10-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-09-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-09-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-09-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-07-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-07-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-07-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-06-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-06-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-06-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-05-08",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-05-08-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-05-08-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-05-01",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-05-01-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-05-01-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-04-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-04-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-04-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-03-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-03-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-03-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-02-06",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-02-06-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-02-06-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2019-01-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2019/minutes/2019-01-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2019/minutes/2019-01-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-12-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-12-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-12-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-11-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-11-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-11-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-10-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-10-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-10-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-09-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-09-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-09-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-06-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-06-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-06-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-05-09",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-05-09-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-05-09-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-05-09",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-05-09-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-05-09-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-04-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-04-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-04-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-03-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-03-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-03-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-02-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-02-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-02-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2018-01-10",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2018/minutes/2018-01-10-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2018/minutes/2018-01-10-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-11-01",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-11-01-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-11-01-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-09-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-09-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-09-13-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-08-16",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-08-16-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-08-16-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-06-14",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-06-14-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-06-14-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-05-10",
+      "meeting_type_cy": "Cyfarfod Blynyddol Cyffredinol",
+      "meeting_type_en": "Annual General Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-05-10-annual-general-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-05-10-annual-general-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-04-12",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-04-12-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-04-12-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-03-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-03-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-03-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-02-08",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-02-08-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-02-08-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2017-01-11",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2017/minutes/2017-01-11-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2017/minutes/2017-01-11-ordinary-meeting-minutes.pdf"
+    },
+    {
+      "meeting_date": "2016-07-13",
+      "meeting_type_cy": "Cyfarfod Cyffredin",
+      "meeting_type_en": "Ordinary Meeting",
+      "status": "approved",
+      "chair": "",
+      "minutes_cy_file": "/documents/2016/minutes/2016-07-13-ordinary-meeting-minutes.pdf",
+      "minutes_en_file": "/documents/2016/minutes/2016-07-13-ordinary-meeting-minutes.pdf"
     }
   ]
 }

@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import archive from '../../data/archive-documents.json';
+---
+<Layout title_cy="Archif Dogfennau" title_en="Document Archive">
+  <div class="page-banner"><h1><span lang="cy">Archif Dogfennau</span><span lang="en">Document Archive</span></h1></div>
+  <div class="breadcrumb">
+    <a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo;
+    <a href="/documents/"><span lang="cy">Dogfennau</span><span lang="en">Documents</span></a> &rsaquo;
+    <span lang="cy">Archif</span><span lang="en">Archive</span>
+  </div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Archif Dogfennau</span><span lang="en">Document Archive</span></h2><hr class="sh-rule">
+    <p lang="cy">Dogfennau a drosglwyddwyd o hen wefan y cyngor. Mae manylion personol wedi'u tynnu. Cysylltwch â'r Clerc am fformat arall.</p>
+    <p lang="en">Documents transferred from the council's previous website. Personal details have been removed. Contact the Clerk for another format.</p>
+    <div class="minutes-list">
+      {archive.items.map(d => (
+        <article class="minutes-item">
+          <h3><span lang="cy">{d.title_cy}</span><span lang="en">{d.title_en}</span></h3>
+          <ul class="doc-links"><li><a href={d.file} class="doc-link pdf"><span lang="cy">Lawrlwytho (dwyieithog) — PDF</span><span lang="en">Download (bilingual) — PDF</span></a></li></ul>
+        </article>
+      ))}
+    </div>
+  </div></div>
+</Layout>

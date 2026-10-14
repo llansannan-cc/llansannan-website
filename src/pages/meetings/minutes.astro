@@ -7,6 +7,7 @@ import councillors from '../../data/councillors.json';
 const approved = minutes.items
   .filter(m => m.status === 'approved')
   .sort((a, b) => b.meeting_date.localeCompare(a.meeting_date));
+const years = [...new Set(approved.map(m => m.meeting_date.slice(0, 4)))];
 const chair = councillors.people.find(p => p.role === 'chair' && p.active)?.name;
 ---
 <Layout title_cy="Cofnodion" title_en="Minutes">
@@ -37,29 +38,26 @@ const chair = councillors.people.find(p => p.role === 'chair' && p.active)?.name
       <p lang="en">No minutes have been published yet.</p>
     ) : (
       <div class="minutes-list">
-        {approved.map(m => (
-          <article class="minutes-item" data-pagefind-body>
-            <h3>
-              <span lang="cy">{m.meeting_type_cy} — {m.meeting_date}</span>
-              <span lang="en">{m.meeting_type_en} — {m.meeting_date}</span>
-            </h3>
-            <ul class="doc-links">
-              {m.minutes_en_file && (
-                <li>
-                  <a href={m.minutes_en_file} lang="en" class="doc-link pdf">
-                    Approved Minutes (English) — PDF
-                  </a>
-                </li>
-              )}
-              {m.minutes_cy_file && (
-                <li>
-                  <a href={m.minutes_cy_file} lang="cy" class="doc-link pdf">
-                    Cofnodion Cymeradwy (Cymraeg) — PDF
-                  </a>
-                </li>
-              )}
-            </ul>
-          </article>
+        {years.map(y => (
+          <>
+            <h3 class="sub-sh" id={`y${y}`}>{y}</h3>
+            {approved.filter(m => m.meeting_date.startsWith(y)).map(m => (
+              <article class="minutes-item" data-pagefind-body>
+                <h3>
+                  <span lang="cy">{m.meeting_type_cy} — {m.meeting_date}</span>
+                  <span lang="en">{m.meeting_type_en} — {m.meeting_date}</span>
+                </h3>
+                <ul class="doc-links">
+                  {m.minutes_en_file && m.minutes_en_file === m.minutes_cy_file ? (
+                    <li><a href={m.minutes_en_file} class="doc-link pdf"><span lang="cy">Cofnodion (dwyieithog) — PDF</span><span lang="en">Minutes (bilingual) — PDF</span></a></li>
+                  ) : (<>
+                    {m.minutes_en_file && <li><a href={m.minutes_en_file} lang="en" class="doc-link pdf">Approved Minutes (English) — PDF</a></li>}
+                    {m.minutes_cy_file && <li><a href={m.minutes_cy_file} lang="cy" class="doc-link pdf">Cofnodion Cymeradwy (Cymraeg) — PDF</a></li>}
+                  </>)}
+                </ul>
+              </article>
+            ))}
+          </>
         ))}
       </div>
     )}

@@ -1,9 +1,30 @@
 {
-  "payments": { "file_cy": "", "file_en": "" },
-  "what_we_spend": { "file_cy": "", "file_en": "" },
-  "annual_return": { "file_cy": "", "file_en": "" },
-  "standing_orders": { "file_cy": "", "file_en": "" },
-  "financial_regulations": { "file_cy": "", "file_en": "" },
-  "social_media": { "file_cy": "", "file_en": "" },
-  "biodiversity": { "file_cy": "", "file_en": "" }
+  "payments": {
+    "file_cy": "",
+    "file_en": ""
+  },
+  "what_we_spend": {
+    "file_cy": "",
+    "file_en": ""
+  },
+  "annual_return": {
+    "file_cy": "/documents/policies/annual-financial-report-and-audit-notices.pdf",
+    "file_en": "/documents/policies/annual-financial-report-and-audit-notices.pdf"
+  },
+  "standing_orders": {
+    "file_cy": "/documents/policies/standing-orders.pdf",
+    "file_en": "/documents/policies/standing-orders.pdf"
+  },
+  "financial_regulations": {
+    "file_cy": "/documents/policies/financial-regulations.pdf",
+    "file_en": "/documents/policies/financial-regulations.pdf"
+  },
+  "social_media": {
+    "file_cy": "",
+    "file_en": ""
+  },
+  "biodiversity": {
+    "file_cy": "/documents/policies/biodiversity-action-plan-2026-2029.pdf",
+    "file_en": "/documents/policies/biodiversity-action-plan-2026-2029.pdf"
+  }
 }
