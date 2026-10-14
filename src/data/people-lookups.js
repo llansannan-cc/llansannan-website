@@ -15,11 +15,12 @@ export const ROLE_LABELS = {
 export const WARD_LABELS = {
   llansannan: { cy: 'Ward Llansannan', en: 'Llansannan Ward' },
   bylchau: { cy: 'Ward Bylchau', en: 'Bylchau Ward' },
-  llannefydd: { cy: 'Ward Llannefydd', en: 'Llannefydd Ward' },
+  groes: { cy: 'Ward Groes', en: 'Groes Ward' },
+  'bryn-rhyd-yr-arian': { cy: 'Ward Bryn Rhyd-yr-Arian', en: 'Bryn Rhyd-yr-Arian Ward' },
   staff: { cy: 'Staff y Cyngor', en: 'Council Staff' },
 };
 
-// The three electoral wards, in display order. Deliberately excludes
+// The electoral wards, in display order. Deliberately excludes
 // "staff" (Clerk, RFO, etc.) -- those aren't elected and don't belong on
 // a ward listing.
-export const ELECTED_WARDS = ['llansannan', 'bylchau', 'llannefydd'];
+export const ELECTED_WARDS = ['llansannan', 'bylchau', 'groes', 'bryn-rhyd-yr-arian'];

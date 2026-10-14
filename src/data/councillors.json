@@ -27,13 +27,13 @@
     {
       "name": "Bethan Jones",
       "role": "councillor",
-      "ward": "llansannan",
+      "ward": "bryn-rhyd-yr-arian",
       "active": true
     },
     {
       "name": "Bethan Evans",
       "role": "councillor",
-      "ward": "llansannan",
+      "ward": "bylchau",
       "active": true
     },
     {
@@ -43,21 +43,27 @@
       "active": true
     },
     {
+      "name": "Vacant seat",
+      "role": "vacant",
+      "ward": "llansannan",
+      "active": false
+    },
+    {
       "name": "Elwyn Jones",
       "role": "councillor",
-      "ward": "bylchau",
+      "ward": "groes",
       "active": true
     },
     {
       "name": "David Morris",
       "role": "councillor",
-      "ward": "bylchau",
+      "ward": "groes",
       "active": true
     },
     {
       "name": "Ffion Clwyd Edwards",
       "role": "councillor",
-      "ward": "bylchau",
+      "ward": "groes",
       "active": true
     },
     {

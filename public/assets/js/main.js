@@ -3,8 +3,8 @@
 /* ── Language toggle ─────────────────────────────────────────────────────── */
 function toggleLang() {
   const html = document.documentElement;
-  const current = html.getAttribute('data-lang') || 'cy';
-  const next = current === 'cy' ? 'en' : 'cy';
+  const current = html.getAttribute('data-lang') || 'en';
+  const next = current === 'en' ? 'cy' : 'en';
   html.setAttribute('data-lang', next);
   html.setAttribute('lang', next === 'en' ? 'en-GB' : 'cy-GB');
   try { localStorage.setItem('lang', next); } catch(e) {}
@@ -14,9 +14,9 @@ function toggleLang() {
 (function() {
   try {
     const saved = localStorage.getItem('lang');
-    if (saved && saved !== 'cy') {
-      document.documentElement.setAttribute('data-lang', saved);
-      document.documentElement.setAttribute('lang', 'en-GB');
+    if (saved === 'cy') {
+      document.documentElement.setAttribute('data-lang', 'cy');
+      document.documentElement.setAttribute('lang', 'cy-GB');
     }
   } catch(e) {}
 })();
@@ -64,5 +64,18 @@ document.addEventListener('DOMContentLoaded', function() {
       link.classList.add('active');
       link.setAttribute('aria-current', 'page');
     }
+  });
+});
+
+/* ── PDF links open in a new window ──────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('a[href$=".pdf"], a[href*=".pdf?"]').forEach(function(a) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer');
+    var s = document.createElement('span');
+    s.className = 'new-window-note';
+    s.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap';
+    s.textContent = ' (opens in a new window / yn agor mewn ffenestr newydd)';
+    a.appendChild(s);
   });
 });

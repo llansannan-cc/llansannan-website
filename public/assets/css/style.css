@@ -22,8 +22,8 @@ body{font-family:'Open Sans',sans-serif;color:var(--text);font-size:15px;line-he
 .lang-toggle:hover{background:rgba(255,255,255,0.15);color:#fff;border-color:rgba(255,255,255,0.7)}
 
 /* ── LANGUAGE DISPLAY ───────────────────────────────────────────────────────── */
-html[data-lang="en"] [lang="cy"]{display:none!important}
-html:not([data-lang="en"]) [lang="en"]{display:none!important}
+html[data-lang="cy"] [lang="en"]{display:none!important}
+html:not([data-lang="cy"]) [lang="cy"]{display:none!important}
 
 /* ── NAV ────────────────────────────────────────────────────────────────────── */
 /* z-index:1001 -- must beat Leaflet's own controls/panes (the ward map

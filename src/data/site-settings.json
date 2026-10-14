@@ -6,8 +6,8 @@
     "chair_email": "chair@llansannan-cc.gov.wales",
     "chair_email_cy": "cadeirydd@llansannan-cc.gov.wales",
     "phone": "",
-    "address_cy": "Cyngor Cymuned Llansannan, Bro Aled, Conwy",
-    "address_en": "Llansannan Community Council, Bro Aled, Conwy"
+    "address_cy": "Swyddfa'r Post Llansannan, Canol y Llan, Llansannan, Dinbych, LL16 5HG",
+    "address_en": "Llansannan Post Office, Canol y Llan, Llansannan, Denbigh, LL16 5HG"
   },
   "form": {
     "endpoint": "https://forms.llansannan-cc.llyw.cymru/contact.php",
@@ -20,5 +20,10 @@
   "social": {
     "facebook": "",
     "twitter": ""
+  },
+  "county_councillor": {
+    "name": "Trystan Lewis",
+    "ward_cy": "Ward Llansannan, Cyngor Bwrdeistref Sirol Conwy",
+    "ward_en": "Llansannan Ward, Conwy County Borough Council"
   }
 }

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import councillors from '../../data/councillors.json';
+import settings from '../../data/site-settings.json';
 import { ROLE_LABELS, WARD_LABELS, ELECTED_WARDS } from '../../data/people-lookups.js';
 
 // Everything below is derived from src/data/councillors.json -- nothing on
@@ -68,6 +69,13 @@ const wards = ELECTED_WARDS.map(key => ({
 
     <p lang="cy">I gysylltu ag unrhyw gynghorydd, cysylltwch â'r Clerc drwy'r <a href="/contact/">dudalen gyswllt</a>.</p>
     <p lang="en">To contact any councillor, please get in touch with the Clerk via the <a href="/contact/">contact page</a>.</p>
+
+    {settings.county_councillor?.name && (
+      <div class="notice">
+        <span lang="cy">Cynghorydd Sir: <strong>{settings.county_councillor.name}</strong> — {settings.county_councillor.ward_cy}. Nid yw'n aelod o'r cyngor cymuned.</span>
+        <span lang="en">County Councillor: <strong>{settings.county_councillor.name}</strong> — {settings.county_councillor.ward_en}. Not a member of the community council.</span>
+      </div>
+    )}
 
     <!-- Councillors by ward -->
     <h3 class="sub-sh"><span lang="cy">Cynghorwyr yn ôl Ward</span><span lang="en">Councillors by Ward</span></h3>

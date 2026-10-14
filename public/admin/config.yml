@@ -210,7 +210,8 @@ collections:
                 options:
                   - { label: "Llansannan Ward", value: "llansannan" }
                   - { label: "Bylchau Ward", value: "bylchau" }
-                  - { label: "Llannefydd Ward", value: "llannefydd" }
+                  - { label: "Groes Ward", value: "groes" }
+                  - { label: "Bryn Rhyd-yr-Arian Ward", value: "bryn-rhyd-yr-arian" }
                   - { label: "Council Staff (not ward-elected, e.g. Clerk)", value: "staff" }
               - name: "party"
                 label: "Political party"
@@ -288,6 +289,13 @@ collections:
             fields:
               - { name: "location_cy", label: "Lleoliad arferol (Cymraeg)", widget: "string" }
               - { name: "location_en", label: "Usual venue (English)", widget: "string" }
+          - name: "county_councillor"
+            label: "County councillor (Conwy County Borough Council)"
+            widget: "object"
+            fields:
+              - { name: "name", label: "Name", widget: "string" }
+              - { name: "ward_cy", label: "Ward / corff (Cymraeg)", widget: "string" }
+              - { name: "ward_en", label: "Ward / body (English)", widget: "string" }
           - name: "social"
             label: "Social media links"
             widget: "object"

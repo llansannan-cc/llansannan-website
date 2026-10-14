@@ -49,7 +49,7 @@ const {
 const siteUrl = config.site.url;
 ---
 <!DOCTYPE html>
-<html lang="cy-GB" data-lang="cy">
+<html lang="en-GB" data-lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -145,8 +145,8 @@ const siteUrl = config.site.url;
 
 <style is:global>
   /* Bilingual show/hide */
-  html[data-lang="en"] [lang="cy"] { display: none !important; }
-  html:not([data-lang="en"]) [lang="en"] { display: none !important; }
+  html[data-lang="cy"] [lang="en"] { display: none !important; }
+  html:not([data-lang="cy"]) [lang="cy"] { display: none !important; }
 
   /* Skip link */
   .skip-link {

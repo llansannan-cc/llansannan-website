@@ -17,45 +17,40 @@ const allActive = councillors.people
   <div class="site-wrap"><div class="content" data-pagefind-body>
     <h2 class="sh"><span lang="cy">Cofrestr Buddiannau Aelodau</span><span lang="en">Members' Register of Interests</span></h2><hr class="sh-rule">
 
-    <p lang="cy">Mae'n ofynnol yn gyfreithiol i bob cynghorydd gofrestru eu buddiannau personol a phroffesiynol dan Reoliad Llywodraeth Cymru. Cynhelir y cofrestr gan Gyngor Sir Conwy.</p>
-    <p lang="en">All councillors are legally required to register their personal and professional interests under Welsh Government Regulations. The register is maintained by Conwy County Council.</p>
+    <p lang="cy">Mae'n ofynnol i bob cynghorydd ddatgan eu buddiannau personol a chofnodi'r datganiadau a wneir mewn cyfarfodydd dan y Côd Ymddygiad.</p>
+    <p lang="en">Every councillor must declare their personal interests, and declarations made at meetings are recorded, under the Code of Conduct.</p>
+
+    <div class="minutes-list" style="margin-top:1.5rem">
+      <div class="minutes-item">
+        <div>
+          <strong><span lang="cy">Cofrestr Datganiadau Diddordeb Aelodau</span><span lang="en">Register of Members' Declarations of Interest</span></strong>
+          <div class="fg-meta"><span lang="cy">Pob aelod, un ddogfen (2017–2026)</span><span lang="en">All members in one document (2017–2026)</span></div>
+        </div>
+        <div class="doc-links">
+          <a href="/documents/policies/register-of-members-interests.pdf" class="doc-link pdf">
+            <span lang="cy">Lawrlwytho (dwyieithog) — PDF</span><span lang="en">Download (bilingual) — PDF</span>
+          </a>
+        </div>
+      </div>
+    </div>
 
     <h3 class="sub-sh"><span lang="cy">Aelodau cyfredol</span><span lang="en">Current members</span></h3>
-    <div class="minutes-list">
+    <ul class="ym-plain" style="margin:.5rem 0 1rem 1.5rem;line-height:1.9">
       {allActive.map(c => (
-        <div class="minutes-item">
-          <div>
-            <strong>{c.name}</strong>
-            {c.role !== 'councillor' && (
-              <> — <em><span lang="cy">{ROLE_LABELS[c.role].cy}</span><span lang="en">{ROLE_LABELS[c.role].en}</span></em></>
-            )}
-            <div class="fg-meta"><span lang="cy">{c.ward_cy}</span><span lang="en">{c.ward_en}</span></div>
-          </div>
-          <div class="doc-links">
-            <a
-              href="https://democratiaeth.conwy.gov.uk/mgMemberIndex.aspx?bcr=1"
-              class="doc-link"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span lang="cy">Gweld cofrestru →</span>
-              <span lang="en">View register →</span>
-            </a>
-          </div>
-        </div>
+        <li>
+          <strong>{c.name}</strong>
+          {c.role !== 'councillor' && (
+            <> — <em><span lang="cy">{ROLE_LABELS[c.role].cy}</span><span lang="en">{ROLE_LABELS[c.role].en}</span></em></>
+          )}
+          , <span lang="cy">{c.ward_cy}</span><span lang="en">{c.ward_en}</span>
+        </li>
       ))}
-    </div>
+    </ul>
 
-    <div class="upload-note" style="margin-top:1.5rem">
-      <p lang="cy">Mae cofrestrau buddiannau manwl ar gael ar wefan Cyngor Sir Conwy.</p>
-      <p lang="en">Detailed registers of interests are available on the Conwy County Council website.</p>
-    </div>
+    <p lang="cy">I weld cofrestr buddiannau unigol aelod, cysylltwch â'r Clerc drwy'r <a href="/contact/">dudalen gyswllt</a>.</p>
+    <p lang="en">To see an individual member's register of interests, contact the Clerk via the <a href="/contact/">contact page</a>.</p>
 
     <p>
-      <a href="https://democratiaeth.conwy.gov.uk/mgMemberIndex.aspx?bcr=1" rel="noopener noreferrer" target="_blank">
-        <span lang="cy">Gwefan Conwy →</span><span lang="en">Conwy website →</span>
-      </a>
-      &nbsp;&nbsp;
       <a href="/documents/code-of-conduct/"><span lang="cy">Côd Ymddygiad →</span><span lang="en">Code of Conduct →</span></a>
     </p>
   </div></div>
