@@ -20,9 +20,11 @@ import settings from '../../data/site-settings.json';
     <p lang="en">To apply for a grant, write to the Clerk stating: the group's name, the amount requested, the purpose of the funding, and how it will benefit the community.</p>
 
     <p>
-      <a href={`mailto:${settings.council.email}`} class="btn" lang="cy">Anfon Cais →</a>
-      <a href={`mailto:${settings.council.email}`} class="btn" lang="en">Submit Application →</a>
+      <a href={`mailto:${settings.council.clerk_email_cy}?subject=Cais%20am%20grant`} class="btn" lang="cy">E-bostio'r Clerc →</a>
+      <a href={`mailto:${settings.council.clerk_email}?subject=Grant%20application`} class="btn" lang="en">Email the Clerk →</a>
     </p>
+    <p lang="cy">Neu defnyddiwch y <a href="/contact/">ffurflen gyswllt</a> i anfon eich cais. Os oes angen i chi atodi dogfennau (er enghraifft cyfrifon neu ddyfynbrisiau), e-bostiwch y Clerc yn uniongyrchol.</p>
+    <p lang="en">Or use the <a href="/contact/">contact form</a> to send your application. If you need to attach documents (such as accounts or quotes), email the Clerk directly.</p>
 
     <div class="notice" style="margin-top:2rem">
       <span lang="cy">Trafodir ceisiadau yng nghyfarfodydd rheolaidd y cyngor. Gall penderfyniadau gymryd hyd at ddau fis.</span>
