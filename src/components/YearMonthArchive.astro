@@ -1,0 +1,75 @@
+---
+import { monthNamesCy, monthNamesEn } from '../lib/dates';
+interface Entry { date: string; type_cy: string; type_en: string; file_cy?: string; file_en?: string; kind: 'minutes' | 'agenda'; }
+interface Props { entries: Entry[]; }
+const { entries } = Astro.props;
+const sorted = [...entries].sort((a, b) => b.date.localeCompare(a.date));
+const years = [...new Set(sorted.map(e => e.date.slice(0, 4)))];
+const label = { minutes: ['Cofnodion', 'Minutes'], agenda: ['Agenda', 'Agenda'] };
+---
+<div class="ym-archive">
+  {years.map((y, yi) => {
+    const inYear = sorted.filter(e => e.date.startsWith(y));
+    const months = [...new Set(inYear.map(e => e.date.slice(5, 7)))];
+    return (
+      <details class="ym-year" open={yi === 0}>
+        <summary><span class="ym-name">{y}</span><span class="ym-count">{inYear.length}</span></summary>
+        <div class="ym-body">
+          {months.map((m, mi) => {
+            const mi0 = parseInt(m, 10) - 1;
+            return (
+              <details class="ym-month" open={yi === 0 && mi === 0}>
+                <summary>
+                  <span class="ym-name"><span lang="cy">{monthNamesCy[mi0]}</span><span lang="en">{monthNamesEn[mi0]}</span></span>
+                </summary>
+                <ul class="ym-list" data-pagefind-body>
+                  {inYear.filter(e => e.date.slice(5, 7) === m).map(e => {
+                    const day = parseInt(e.date.slice(8), 10);
+                    const same = e.file_en && e.file_en === e.file_cy;
+                    return (
+                      <li>
+                        <span class="ym-meeting">
+                          <span lang="cy">{e.type_cy} — {day} {monthNamesCy[mi0]} {y}</span>
+                          <span lang="en">{e.type_en} — {day} {monthNamesEn[mi0]} {y}</span>
+                        </span>
+                        <span class="doc-links">
+                          {same ? (
+                            <a href={e.file_en} class="doc-link pdf"><span lang="cy">{label[e.kind][0]} (dwyieithog) — PDF</span><span lang="en">{label[e.kind][1]} (bilingual) — PDF</span></a>
+                          ) : (<>
+                            {e.file_en && <a href={e.file_en} lang="en" class="doc-link pdf">{label[e.kind][1]} (English) — PDF</a>}
+                            {e.file_cy && <a href={e.file_cy} lang="cy" class="doc-link pdf">{label[e.kind][0]} (Cymraeg) — PDF</a>}
+                          </>)}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+            );
+          })}
+        </div>
+      </details>
+    );
+  })}
+</div>
+<style>
+  .ym-archive { margin: 1.25rem 0; }
+  .ym-year { border: 1px solid var(--border, #ccd); border-radius: 6px; margin-bottom: .6rem; background: #fff; }
+  .ym-year > summary { font-size: 1.15rem; font-weight: 700; background: var(--primary-dark, #2b4f72); color: #fff; border-radius: 5px; }
+  .ym-year[open] > summary { border-radius: 5px 5px 0 0; }
+  summary { cursor: pointer; padding: .7rem 1rem; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '▸'; margin-right: .6rem; transition: transform .15s; }
+  details[open] > summary::before { transform: rotate(90deg); }
+  .ym-name { flex: 1; }
+  .ym-count { background: rgba(255,255,255,.25); border-radius: 999px; padding: 0 .6rem; font-size: .85rem; }
+  summary:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
+  .ym-body { padding: .6rem; }
+  .ym-month { border: 1px solid var(--border, #ccd); border-radius: 5px; margin-bottom: .4rem; }
+  .ym-month > summary { font-weight: 600; background: #eef3f8; color: #1d2b3a; border-radius: 4px; }
+  .ym-list { list-style: none; margin: 0; padding: .4rem 1rem .8rem; }
+  .ym-list li { padding: .5rem 0; border-bottom: 1px solid #e3e8ee; }
+  .ym-list li:last-child { border-bottom: 0; }
+  .ym-meeting { display: block; font-weight: 600; margin-bottom: .3rem; }
+  .doc-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+</style>

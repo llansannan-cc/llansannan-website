@@ -1,4 +1,5 @@
 ---
+import YearMonthArchive from '../../components/YearMonthArchive.astro';
 import Layout from '../../layouts/Layout.astro';
 import agendas from '../../data/agendas.json';
 import settings from '../../data/site-settings.json';
@@ -6,7 +7,6 @@ import settings from '../../data/site-settings.json';
 const withAgendas = agendas.items
   .filter(m => m.agenda_en_file || m.agenda_cy_file)
   .sort((a, b) => b.meeting_date.localeCompare(a.meeting_date));
-const years = [...new Set(withAgendas.map(m => m.meeting_date.slice(0, 4)))];
 ---
 <Layout title_cy="Agendâu" title_en="Agendas">
   <div class="page-banner">
@@ -27,29 +27,7 @@ const years = [...new Set(withAgendas.map(m => m.meeting_date.slice(0, 4)))];
     </div>
 
     {withAgendas.length > 0 ? (
-      <div class="minutes-list">
-        {years.map(y => (
-          <>
-            <h3 class="sub-sh" id={`y${y}`}>{y}</h3>
-            {withAgendas.filter(m => m.meeting_date.startsWith(y)).map(m => (
-              <article class="minutes-item" data-pagefind-body>
-                <h3>
-                  <span lang="cy">{m.meeting_type_cy} — {m.meeting_date}</span>
-                  <span lang="en">{m.meeting_type_en} — {m.meeting_date}</span>
-                </h3>
-                <ul class="doc-links">
-                  {m.agenda_en_file && m.agenda_en_file === m.agenda_cy_file ? (
-                    <li><a href={m.agenda_en_file} class="doc-link pdf"><span lang="cy">Agenda (dwyieithog) — PDF</span><span lang="en">Agenda (bilingual) — PDF</span></a></li>
-                  ) : (<>
-                    {m.agenda_en_file && <li><a href={m.agenda_en_file} lang="en" class="doc-link pdf">Agenda (English) — PDF</a></li>}
-                    {m.agenda_cy_file && <li><a href={m.agenda_cy_file} lang="cy" class="doc-link pdf">Agenda (Cymraeg) — PDF</a></li>}
-                  </>)}
-                </ul>
-              </article>
-            ))}
-          </>
-        ))}
-      </div>
+      <YearMonthArchive entries={withAgendas.map(m => ({ date: m.meeting_date, type_cy: m.meeting_type_cy, type_en: m.meeting_type_en, file_cy: m.agenda_cy_file, file_en: m.agenda_en_file, kind: 'agenda' }))} />
     ) : (
       <p lang="cy">Nid oes agendâu wedi'u cyhoeddi ar hyn o bryd.</p>
       <p lang="en">No agendas have been published at this time.</p>
