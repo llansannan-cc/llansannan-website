@@ -478,3 +478,10 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .welcome-find li a:hover{color:var(--primary);text-decoration:underline}
 .welcome-hint{font-size:.88rem;color:var(--muted);margin:.4rem 0 0}
 @media (max-width:760px){.welcome-find ul{grid-template-columns:1fr}}
+
+/* Quick access: white band (the blue gradient was hard to see for some
+   visitors) with clearly outlined boxes and a gap between each. */
+.quick-access-wrap{background:#fff}
+.home-actions{gap:1.25rem}
+.home-action{border:1px solid #b9c6d4;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.home-action:hover{border-color:var(--primary-dark);box-shadow:0 3px 10px rgba(0,0,0,0.12)}
