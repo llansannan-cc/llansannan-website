@@ -468,7 +468,7 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 
 /* Homepage welcome: "what you will find" panel */
 .welcome-section{align-items:start}
-.welcome-text>p{max-width:62ch}
+.welcome-text>p{max-width:none}
 .welcome-find{background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:1.1rem 1.3rem;margin:1.1rem 0 1.4rem}
 .welcome-find h3{font-size:1rem;color:var(--primary-dark);margin-bottom:.6rem}
 .welcome-find ul{list-style:none;margin:0 0 .8rem;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.4rem .9rem}
