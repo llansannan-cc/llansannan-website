@@ -495,11 +495,3 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .page-home .qa-band .home-action{border:1px solid #b9c6d4;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
 .page-home .qa-band .home-action:hover{border-color:var(--primary-dark);box-shadow:0 3px 10px rgba(0,0,0,0.12)}
 @media (max-width:760px){.page-home .site-wrap + .site-wrap{margin-top:1rem}.page-home .qa-band .content{padding:1.25rem 1rem}}
-
-/* Quick Access boxes: blue with white text (trial) */
-.page-home .qa-band .home-action{background:var(--primary-dark);border-color:var(--primary-dark)}
-.page-home .qa-band .home-action h3,
-.page-home .qa-band .home-action p{color:#fff}
-.page-home .qa-band .home-action .ha-btn{background:#fff;border-color:#fff;color:var(--primary-dark)}
-.page-home .qa-band .home-action:hover{background:var(--primary);border-color:var(--primary)}
-.page-home .qa-band .home-action:hover .ha-btn{background:#fff;border-color:#fff;color:var(--primary-dark)}
