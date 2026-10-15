@@ -465,3 +465,16 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .cms-preview .minutes-list,.cms-preview .cal-list{margin-top:0.75rem}
 .cms-preview .cllr-grid{margin-top:0.75rem}
 [hidden]{display:none!important}
+
+/* Homepage welcome: "what you will find" panel */
+.welcome-section{align-items:start}
+.welcome-text>p{max-width:62ch}
+.welcome-find{background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:1.1rem 1.3rem;margin:1.1rem 0 1.4rem}
+.welcome-find h3{font-size:1rem;color:var(--primary-dark);margin-bottom:.6rem}
+.welcome-find ul{list-style:none;margin:0 0 .8rem;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.4rem .9rem}
+.welcome-find li{position:relative;padding-left:1.3rem;font-size:.9rem;line-height:1.45}
+.welcome-find li::before{content:'✓';position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+.welcome-find li a{color:var(--text);text-decoration:none}
+.welcome-find li a:hover{color:var(--primary);text-decoration:underline}
+.welcome-hint{font-size:.88rem;color:var(--muted);margin:.4rem 0 0}
+@media (max-width:760px){.welcome-find ul{grid-template-columns:1fr}}
