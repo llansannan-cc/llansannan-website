@@ -31,7 +31,7 @@ collections:
       - name: "schedule"
         file: "src/data/meetings.json"
         label: "Meeting Schedule"
-        description: "The council's meeting calendar. Add next year's dates here each December."
+        description: "The council's meeting calendar. Add next year's dates here each December. The 'next meeting' on the site is worked out automatically from today's date and time - nothing needs marking as past or next."
         fields:
           - name: "schedule_2026"
             label: "Meetings"
@@ -48,14 +48,6 @@ collections:
                 widget: "select"
                 default: "19:00"
                 options: ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"]
-              - name: "status"
-                label: "Status"
-                widget: "select"
-                options:
-                  - { label: "Past", value: "past" }
-                  - { label: "Next meeting", value: "next" }
-                  - { label: "Upcoming", value: "upcoming" }
-                hint: "Only one meeting should be set to 'Next meeting' at a time."
 
   - name: "minutes"
     label: "Minutes"

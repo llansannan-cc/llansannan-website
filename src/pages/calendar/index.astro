@@ -3,12 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
 import events from '../../data/events.json';
 import { monthNamesEn, monthNamesCy, formatDateBilingual } from '../../lib/dates';
+import { computeStatuses, londonNow } from '../../lib/meetings';
 
 type CalItem = {
   iso: string;
   kind: 'meeting' | 'event';
   time: string;
   status: string;
+  end?: string;
   label_cy: string;
   label_en: string;
   date_cy?: string;
@@ -19,10 +21,10 @@ type CalItem = {
   description_en?: string;
 };
 
-const meetingItems: CalItem[] = meetings.schedule_2026.map((m): CalItem => {
+const meetingItems: CalItem[] = computeStatuses(meetings.schedule_2026).map((m): CalItem => {
   const { cy: date_cy, en: date_en } = formatDateBilingual(m.date);
   return {
-    iso: m.date, kind: 'meeting', time: m.time, status: m.status,
+    iso: m.date, kind: 'meeting', time: m.time, status: m.status, end: m.end,
     label_cy: m.type_cy, label_en: m.type_en,
     date_cy, date_en
   };
@@ -38,7 +40,7 @@ const eventItems: CalItem[] = events.items.map((e): CalItem => ({
 // One merged, sorted feed of council meetings and community events.
 const calendarItems = [...meetingItems, ...eventItems].sort((a, b) => a.iso.localeCompare(b.iso));
 
-const todayIso = new Date().toISOString().slice(0, 10);
+const todayIso = londonNow().iso;
 const upcomingItems = calendarItems.filter(it => it.iso >= todayIso);
 
 // Build a month's grid: a Monday-first array of day numbers (null = padding
@@ -64,9 +66,8 @@ function buildMonthGrid(year: number, month: number) {
 // JavaScript; the client script takes over month navigation from there.
 // Rebuilt daily by the scheduled rebuild, so "this month" stays current
 // without a new commit.
-const now = new Date();
-const initialYear = now.getFullYear();
-const initialMonth = now.getMonth();
+const initialYear = Number(todayIso.slice(0, 4));
+const initialMonth = Number(todayIso.slice(5, 7)) - 1;
 const { cells, byDay } = buildMonthGrid(initialYear, initialMonth);
 
 const weekdayLabels_en = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -149,7 +150,26 @@ const initialMonthItems = calendarItems
       </div>
     </div>
 
-    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy, todayIso }}>
+    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy }}>
+      // Live "today" and "next meeting", worked out in the visitor's browser
+      // (UK time) so the page is right even if it was built days ago.
+      function ukNow() {
+        var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+        var g = function (t) { return p.filter(function (x) { return x.type === t; })[0].value; };
+        var iso = g('year') + '-' + g('month') + '-' + g('day');
+        return { iso: iso, stamp: iso + 'T' + g('hour') + ':' + g('minute') };
+      }
+      var todayIso = ukNow().iso;
+      (function () {
+        var stamp = ukNow().stamp, found = false;
+        allItems.slice().sort(function (a, b) { return a.iso.localeCompare(b.iso); }).forEach(function (it) {
+          if (it.kind !== 'meeting') return;
+          if (it.end < stamp) it.status = 'past';
+          else if (!found) { it.status = 'next'; found = true; }
+          else it.status = 'upcoming';
+        });
+      })();
+
       function escapeHtml(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
           return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -160,7 +180,7 @@ const initialMonthItems = calendarItems
       var monthLabelEn = document.getElementById('calMonthLabelEn');
       var monthLabelCy = document.getElementById('calMonthLabelCy');
       var panel = document.getElementById('calDetail');
-      var state = { year: parseInt(grid.dataset.year, 10), month: parseInt(grid.dataset.month, 10) };
+      var state = { year: parseInt(todayIso.slice(0, 4), 10), month: parseInt(todayIso.slice(5, 7), 10) - 1 };
 
       function itemsByDay(year, month) {
         var byDay = {};
@@ -343,7 +363,26 @@ const initialMonthItems = calendarItems
       </div>
     </div>
 
-    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy, todayIso }}>
+    <script define:vars={{ allItems: calendarItems, monthNamesEn, monthNamesCy }}>
+      // Live "today" and "next meeting", worked out in the visitor's browser
+      // (UK time) so the page is right even if it was built days ago.
+      function ukNow() {
+        var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+        var g = function (t) { return p.filter(function (x) { return x.type === t; })[0].value; };
+        var iso = g('year') + '-' + g('month') + '-' + g('day');
+        return { iso: iso, stamp: iso + 'T' + g('hour') + ':' + g('minute') };
+      }
+      var todayIso = ukNow().iso;
+      (function () {
+        var stamp = ukNow().stamp, found = false;
+        allItems.slice().sort(function (a, b) { return a.iso.localeCompare(b.iso); }).forEach(function (it) {
+          if (it.kind !== 'meeting') return;
+          if (it.end < stamp) it.status = 'past';
+          else if (!found) { it.status = 'next'; found = true; }
+          else it.status = 'upcoming';
+        });
+      })();
+
       // Astro's define:vars wraps each script in its own isolated function
       // scope, so nothing from the grid's script above (including allItems
       // and escapeHtml) is actually reachable here -- everything this script
@@ -357,8 +396,7 @@ const initialMonthItems = calendarItems
       var mobileList = document.getElementById('calMobileList');
       var mobileMonthEn = document.getElementById('calMobileMonthEn');
       var mobileMonthCy = document.getElementById('calMobileMonthCy');
-      var mobileNow = new Date();
-      var mobileState = { year: mobileNow.getFullYear(), month: mobileNow.getMonth() };
+      var mobileState = { year: parseInt(todayIso.slice(0, 4), 10), month: parseInt(todayIso.slice(5, 7), 10) - 1 };
 
       function itemsForMonth(year, month) {
         return allItems.filter(function (it) {
@@ -422,6 +460,7 @@ const initialMonthItems = calendarItems
         if (mobileState.month > 11) { mobileState.month = 0; mobileState.year += 1; }
         renderMobileMonth(mobileState.year, mobileState.month);
       });
+      renderMobileMonth(mobileState.year, mobileState.month);
     </script>
 
     <p style="margin-top:1rem"><a href="/meetings/"><span lang="cy">Gweld pob cyfarfod →</span><span lang="en">View all meetings →</span></a></p>

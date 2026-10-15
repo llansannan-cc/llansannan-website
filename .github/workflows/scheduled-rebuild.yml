@@ -9,7 +9,7 @@ name: Scheduled rebuild (event/agenda expiry)
 
 on:
   schedule:
-    - cron: "0 5 * * *"   # 05:00 UTC daily (before the working day in the UK)
+    - cron: "0 5,12,18 * * *"   # three times a day (UTC); pages also self-correct in the browser
   workflow_dispatch: {}    # allows a manual "Run workflow" trigger too
 
 permissions:

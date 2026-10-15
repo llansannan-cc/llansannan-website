@@ -3,6 +3,10 @@ import Layout from '../../layouts/Layout.astro';
 import meetings from '../../data/meetings.json';
 import settings from '../../data/site-settings.json';
 import { formatDateBilingual } from '../../lib/dates';
+import { computeStatuses } from '../../lib/meetings';
+
+const scheduled = computeStatuses(meetings.schedule_2026);
+const yearShown = (scheduled.find(m => m.status === 'next') ?? scheduled[scheduled.length - 1])?.date.slice(0, 4) ?? '';
 ---
 <Layout title_cy="Dyddiadau Cyfarfodydd" title_en="Meeting Dates">
   <div class="page-banner">
@@ -13,7 +17,7 @@ import { formatDateBilingual } from '../../lib/dates';
     <span lang="cy">Cyfarfodydd</span><span lang="en">Meetings</span>
   </div>
   <div class="site-wrap"><div class="content">
-    <h2 class="sh"><span lang="cy">Cyfarfodydd 2026</span><span lang="en">2026 Meetings</span></h2>
+    <h2 class="sh"><span lang="cy">Cyfarfodydd {yearShown}</span><span lang="en">{yearShown} Meetings</span></h2>
     <hr class="sh-rule">
 
     <div class="notice">
@@ -31,14 +35,14 @@ import { formatDateBilingual } from '../../lib/dates';
         </tr>
       </thead>
       <tbody>
-        {meetings.schedule_2026.map(m => {
+        {scheduled.map(m => {
           const { cy: dateCy, en: dateEn } = formatDateBilingual(m.date);
           return (
-          <tr class={m.status === 'next' ? 'next-row' : ''}>
+          <tr class={m.status === 'next' ? 'next-row' : ''} data-end={m.end}>
             <td>
               <span lang="cy">{dateCy}</span>
               <span lang="en">{dateEn}</span>
-              {m.status === 'next' && <strong> ◀ <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>}
+              <strong class="nm-badge" hidden={m.status !== 'next'}> ◀ <span lang="cy">Nesaf</span><span lang="en">Next</span></strong>
             </td>
             <td>
               <span lang="cy">{m.type_cy}</span>

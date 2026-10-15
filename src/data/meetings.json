@@ -4,71 +4,61 @@
       "date": "2026-01-14",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-02-11",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-03-11",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-04-22",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-05-13",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-06-10",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-07-08",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-08-12",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-09-09",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
-      "time": "19:00",
-      "status": "past"
+      "time": "19:00"
     },
     {
       "date": "2026-10-14",
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
       "time": "19:30",
-      "status": "next",
       "location_cy": "Neuadd Bentref Llansannan",
       "location_en": "Llansannan Village Hall"
     },
@@ -77,7 +67,6 @@
       "type_cy": "Cyfarfod Cyffredin",
       "type_en": "Ordinary Meeting",
       "time": "19:00",
-      "status": "upcoming",
       "location_cy": "Canolfan Addysg Bro Aled",
       "location_en": "Bro Aled Education Centre"
     }

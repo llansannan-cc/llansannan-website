@@ -14,7 +14,7 @@ export type NewsItem = {
 };
 
 export function getActiveNews(items: NewsItem[]): NewsItem[] {
-  const todayIso = new Date().toISOString().slice(0, 10);
+  const todayIso = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(new Date());
   return items
     .filter(n => !n.expires || n.expires >= todayIso)
     .sort((a, b) => b.date.localeCompare(a.date));

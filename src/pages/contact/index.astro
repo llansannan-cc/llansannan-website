@@ -101,15 +101,41 @@ const chairPerson = councillors.people.find(p => p.role === 'chair' && p.active)
       </div>
       <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem" lang="cy">Mae'n rhaid llenwi meysydd sydd wedi'u marcio â * <span lang="en">Fields marked * are required</span></p>
       <div class="cf-turnstile" data-sitekey={settings.form.turnstile_site_key} data-language="auto" style="margin-bottom:1rem"></div>
-      <button type="submit" class="cf-submit">
-        <span lang="cy">Anfon Neges</span>
-        <span lang="en">Send Message</span>
+      <button type="submit" class="cf-submit" id="cf-submit">
+        <span class="cf-label-idle"><span lang="cy">Anfon Neges</span><span lang="en">Send Message</span></span>
+        <span class="cf-label-busy" hidden><span lang="cy">Yn anfon…</span><span lang="en">Sending…</span></span>
+        <span class="cf-label-done" hidden><span lang="cy">Neges wedi'i hanfon ✓</span><span lang="en">Message sent ✓</span></span>
       </button>
+      <p id="cf-under" role="status" style="margin-top:.6rem;font-weight:600" hidden>
+        <span lang="cy">Mae eich neges wedi'i chyflwyno. Diolch.</span>
+        <span lang="en">Your message has been submitted. Thank you.</span>
+      </p>
     </form>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
     <script is:inline>
       (function () {
+        var btn = document.getElementById('cf-submit');
+        var form = btn && btn.closest('form');
+        function show(cls) {
+          ['idle', 'busy', 'done'].forEach(function (c) {
+            btn.querySelector('.cf-label-' + c).hidden = (c !== cls);
+          });
+        }
+        if (form) {
+          form.addEventListener('submit', function () {
+            show('busy');
+            setTimeout(function () { btn.disabled = true; }, 0);
+          });
+          window.addEventListener('pageshow', function (e) {
+            if (e.persisted) { btn.disabled = false; show('idle'); }
+          });
+        }
         var s = new URLSearchParams(location.search).get('status');
+        if (s === 'sent' && btn) {
+          show('done');
+          btn.disabled = true;
+          document.getElementById('cf-under').hidden = false;
+        }
         if (!s) return;
         var el = document.querySelector('#form-status [data-status="' + s + '"]');
         if (el) { el.hidden = false; document.getElementById('form-status').focus(); }
