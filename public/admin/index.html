@@ -21,221 +21,266 @@
   <!--
     Custom preview templates.
 
-    Without these, Decap's default preview just dumps every field as a
-    plain label/value list, deeply nested for each item in a "list" widget
-    -- unreadable for these file collections since each one holds a whole
-    array of meetings/minutes/events/people in one entry. These templates
-    render each collection using the SAME CSS classes as the live pages
-    (.mtg-table, .minutes-item, .cal-item, .cllr-card, ...), and
-    registerPreviewStyle loads the real site stylesheet into the preview
-    iframe, so the preview looks like the actual site instead of a raw
-    form dump. `createClass` and `h` are globals exposed by decap-cms.js
-    itself for exactly this no-build-step registration pattern.
+    Each template mirrors the live page it belongs to, using the same CSS
+    classes as the site (page banner, minutes-item, cal-item, cllr-card, ...).
+    registerPreviewStyle loads the real site stylesheet plus /admin/preview.css
+    (preview-only extras) into the preview iframe. Lists are shown NEWEST
+    FIRST (and new items are added at the top of the editor list via
+    add_to_top in config.yml), so the latest entry is always at the top.
+
+    NOTE: for file collections Decap matches a template by the FILE's name
+    (schedule, minutes, agendas, events, people, news, general, documents),
+    so each template is registered under both the file and collection name.
   -->
   <script>
+    /* ---------- helpers ---------- */
     function toJS(value) { return value && value.toJS ? value.toJS() : (value || []); }
-
-    var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var WEEKDAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    function formatIsoDate(iso) {
-      if (!iso) return '';
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    function longDate(iso) {
+      if (!iso) return '(no date)';
       var d = new Date(iso + 'T00:00:00');
       if (isNaN(d.getTime())) return iso;
-      return WEEKDAY_NAMES[d.getDay()] + ', ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+      return WEEKDAYS[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+    }
+    function ukNow() {
+      var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+      var g = function (t) { return p.filter(function (x) { return x.type === t; })[0].value; };
+      var iso = g('year') + '-' + g('month') + '-' + g('day');
+      return { iso: iso, stamp: iso + 'T' + g('hour') + ':' + g('minute') };
+    }
+    function endStamp(date, time) {
+      var t = (time || '19:00').split(':'), hh = parseInt(t[0], 10), mm = t[1] || '00';
+      return hh + 3 > 23 ? date + 'T23:59' : date + 'T' + String(hh + 3).padStart(2, '0') + ':' + mm;
+    }
+    function byDateDesc(list, key) {
+      return list.slice().sort(function (a, b) { return String(b[key] || '').localeCompare(String(a[key] || '')); });
+    }
+    function Shell(title, intro, kids) {
+      return h('div', { className: 'pv-page' },
+        h('div', { className: 'page-banner' }, h('h1', {}, title)),
+        h('div', { className: 'pv-body' },
+          intro ? h('div', { className: 'pv-intro' }, intro) : null,
+          kids));
+    }
+    function Pill(text, cls) { return h('span', { className: 'pv-pill ' + (cls || '') }, text); }
+    function PdfLink(text) { return h('span', { className: 'doc-link pdf' }, text); }
+
+    /* Year > month groups, newest first, so a newly added item is at the top. */
+    function YearMonth(items, dateKey, renderItem) {
+      var sorted = byDateDesc(items, dateKey);
+      var years = [];
+      sorted.forEach(function (it) {
+        var d = String(it[dateKey] || '');
+        var y = d.slice(0, 4) || '----', m = d.slice(5, 7) || '00';
+        var yr = years.filter(function (x) { return x.y === y; })[0];
+        if (!yr) { yr = { y: y, months: [] }; years.push(yr); }
+        var mo = yr.months.filter(function (x) { return x.m === m; })[0];
+        if (!mo) { mo = { m: m, items: [] }; yr.months.push(mo); }
+        mo.items.push(it);
+      });
+      return h('div', { className: 'pv-ym' }, years.map(function (yr, yi) {
+        var count = yr.months.reduce(function (n, mo) { return n + mo.items.length; }, 0);
+        return h('div', { className: 'pv-year', key: yr.y },
+          h('div', { className: 'pv-year-head' }, h('span', {}, yr.y), h('span', { className: 'pv-count' }, count)),
+          yr.months.map(function (mo, mi) {
+            return h('div', { className: 'pv-month', key: mo.m },
+              h('div', { className: 'pv-month-head' }, MONTHS[parseInt(mo.m, 10) - 1] || 'No date'),
+              mo.items.map(function (it, n) { return renderItem(it, yi === 0 && mi === 0 && n === 0); }));
+          }));
+      }));
     }
 
+    /* ---------- Meeting dates ---------- */
     var MeetingsPreview = createClass({
       render: function () {
-        var rows = toJS(this.props.entry.getIn(['data', 'schedule_2026']));
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Meeting Schedule'),
+        var rows = toJS(this.props.entry.getIn(['data', 'schedule_2026'])).slice()
+          .sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+        var now = ukNow().stamp, found = false;
+        rows.forEach(function (m) {
+          if (endStamp(m.date, m.time) < now) m._s = 'past';
+          else if (!found) { m._s = 'next'; found = true; } else m._s = 'upcoming';
+        });
+        return Shell('Meeting Dates',
+          'Preview of the Meeting Dates page, latest date first. "Next" is worked out automatically from today\'s date. A blank venue uses the usual venue.',
           h('table', { className: 'mtg-table' },
-            h('thead', {}, h('tr', {},
-              h('th', {}, 'Date'), h('th', {}, 'Type'), h('th', {}, 'Time'), h('th', {}, 'Status')
-            )),
-            h('tbody', {}, rows.map(function (m, i) {
-              return h('tr', { key: i, className: m.status === 'next' ? 'next-row' : '' },
-                h('td', {}, formatIsoDate(m.date)),
-                h('td', {}, (m.type_en || m.type_cy) + (m.status === 'next' ? ' — Next' : '')),
-                h('td', {}, m.time || 'All day'),
-                h('td', {}, m.status)
-              );
-            }))
-          )
-        );
+            h('thead', {}, h('tr', {}, h('th', {}, 'Date'), h('th', {}, 'Type'), h('th', {}, 'Time'), h('th', {}, 'Venue'))),
+            h('tbody', {}, rows.slice().reverse().map(function (m, i) {
+              return h('tr', { key: i, className: (m._s === 'next' ? 'next-row ' : '') + (m._s === 'past' ? 'pv-past' : '') },
+                h('td', {}, longDate(m.date), m._s === 'next' ? h('strong', {}, ' ◀ Next') : null),
+                h('td', {}, m.type_en || m.type_cy),
+                h('td', {}, m.time || ''),
+                h('td', {}, m.location_en || m.location_cy || 'Usual venue'));
+            }))));
       }
     });
-    CMS.registerPreviewTemplate('meetings', MeetingsPreview);
 
+    /* ---------- Minutes ---------- */
     var MinutesPreview = createClass({
       render: function () {
         var items = toJS(this.props.entry.getIn(['data', 'items']));
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Meeting Minutes'),
-          h('div', { className: 'minutes-list' }, items.map(function (m, i) {
-            return h('article', { className: 'minutes-item', key: i },
-              h('h3', {}, (m.meeting_type_en || m.meeting_type_cy) + ' — ' + m.meeting_date),
-              h('p', {}, 'Status: ' + (m.status === 'approved' ? 'Approved (visible on site)' : 'Draft (not shown on site)')),
+        return Shell('Minutes', 'Newest first, grouped by year and month, like the live Minutes page. ' + items.length + ' sets of minutes.',
+          YearMonth(items, 'meeting_date', function (m, newest) {
+            var same = m.minutes_en_file && m.minutes_en_file === m.minutes_cy_file;
+            return h('article', { className: 'minutes-item pv-item' + (newest ? ' pv-newest' : ''), key: (m.meeting_date || '') + (m.minutes_en_file || '') },
+              h('div', {},
+                h('h3', {}, (m.meeting_type_en || m.meeting_type_cy || 'Meeting') + ' — ' + longDate(m.meeting_date), newest ? Pill('Newest', 'gold') : null),
+                m.status === 'approved' ? Pill('Approved: visible on site', 'green') : Pill('Draft: hidden on site', 'grey'),
+                m.chair ? h('span', { className: 'pv-meta' }, ' Chair: ' + m.chair) : null),
               h('ul', { className: 'doc-links' },
-                m.minutes_en_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Minutes (English) — PDF')) : null,
-                m.minutes_cy_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Cofnodion (Cymraeg) — PDF')) : null
-              )
-            );
-          }))
-        );
+                same ? h('li', {}, PdfLink('Minutes (bilingual) — PDF')) : [
+                  m.minutes_en_file ? h('li', { key: 'e' }, PdfLink('Approved Minutes (English) — PDF')) : null,
+                  m.minutes_cy_file ? h('li', { key: 'c' }, PdfLink('Cofnodion Cymeradwy (Cymraeg) — PDF')) : null],
+                (!m.minutes_en_file && !m.minutes_cy_file) ? h('li', {}, Pill('No PDF uploaded yet', 'red')) : null));
+          }));
       }
     });
-    CMS.registerPreviewTemplate('minutes', MinutesPreview);
 
+    /* ---------- Agendas ---------- */
     var AgendasPreview = createClass({
       render: function () {
         var items = toJS(this.props.entry.getIn(['data', 'items']));
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Meeting Agendas'),
-          h('div', { className: 'minutes-list' }, items.map(function (m, i) {
-            return h('article', { className: 'minutes-item', key: i },
-              h('h3', {}, (m.meeting_type_en || m.meeting_type_cy) + ' — ' + m.meeting_date),
+        return Shell('Agendas', 'Newest first, grouped by year and month. ' + items.length + ' agendas.',
+          YearMonth(items, 'meeting_date', function (m, newest) {
+            var same = m.agenda_en_file && m.agenda_en_file === m.agenda_cy_file;
+            return h('article', { className: 'minutes-item pv-item' + (newest ? ' pv-newest' : ''), key: (m.meeting_date || '') + (m.agenda_en_file || '') },
+              h('div', {}, h('h3', {}, (m.meeting_type_en || m.meeting_type_cy || 'Meeting') + ' — ' + longDate(m.meeting_date), newest ? Pill('Newest', 'gold') : null)),
               h('ul', { className: 'doc-links' },
-                m.agenda_en_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Agenda (English) — PDF')) : null,
-                m.agenda_cy_file ? h('li', {}, h('span', { className: 'doc-link pdf' }, 'Agenda (Cymraeg) — PDF')) : null
-              )
-            );
-          }))
-        );
+                same ? h('li', {}, PdfLink('Agenda (bilingual) — PDF')) : [
+                  m.agenda_en_file ? h('li', { key: 'e' }, PdfLink('Agenda (English) — PDF')) : null,
+                  m.agenda_cy_file ? h('li', { key: 'c' }, PdfLink('Agenda (Cymraeg) — PDF')) : null],
+                (!m.agenda_en_file && !m.agenda_cy_file) ? h('li', {}, Pill('No PDF uploaded yet', 'red')) : null));
+          }));
       }
     });
-    CMS.registerPreviewTemplate('agendas', AgendasPreview);
 
+    /* ---------- Events ---------- */
+    function eventCard(e, key, past) {
+      var d = String(e.date || '');
+      return h('div', { className: 'cal-item' + (past ? ' pv-past' : ''), key: key },
+        h('div', { className: 'cal-date-box' },
+          h('div', { className: 'cal-day' }, d.slice(8, 10)),
+          h('div', { className: 'cal-month' }, (MONTHS[parseInt(d.slice(5, 7), 10) - 1] || '').slice(0, 3))),
+        h('div', {},
+          h('div', { className: 'cal-title' }, e.title_en || e.title_cy || '(untitled)', past ? Pill('Past: hidden on site', 'grey') : null),
+          h('div', { className: 'cal-detail' }, longDate(e.date) + (e.time ? ' · ' + e.time : ' · All day') + ((e.location_en || e.location_cy) ? ' · ' + (e.location_en || e.location_cy) : '')),
+          (e.description_en || e.description_cy) ? h('p', { className: 'cal-desc' }, e.description_en || e.description_cy) : null));
+    }
     var EventsPreview = createClass({
       render: function () {
         var items = toJS(this.props.entry.getIn(['data', 'items']));
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Community Events'),
-          h('div', { className: 'cal-list' }, items.map(function (e, i) {
-            return h('div', { className: 'cal-item', key: i },
-              h('div', { className: 'cal-date-box' },
-                h('div', { className: 'cal-day' }, (e.date || '').slice(8, 10)),
-                h('div', { className: 'cal-month' }, (e.date || '').slice(5, 7))
-              ),
-              h('div', {},
-                h('div', { className: 'cal-title' }, e.title_en || e.title_cy),
-                h('div', { className: 'cal-detail' }, (e.time ? e.time + ' · ' : '') + (e.location_en || e.location_cy)),
-                (e.description_en || e.description_cy) ? h('p', { className: 'cal-desc' }, e.description_en || e.description_cy) : null
-              )
-            );
-          }))
-        );
+        var today = ukNow().iso;
+        var upcoming = items.filter(function (e) { return (e.date || '') >= today; }).sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+        var past = items.filter(function (e) { return (e.date || '') < today; }).sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
+        return Shell('Community Events', 'Upcoming events in date order, as on the calendar. Past events drop off the live site automatically.',
+          h('div', {},
+            h('h3', { className: 'pv-sub' }, 'Coming up (' + upcoming.length + ')'),
+            upcoming.length ? h('div', { className: 'cal-list' }, upcoming.map(function (e, i) { return eventCard(e, 'u' + i, false); })) : h('p', { className: 'pv-empty' }, 'No upcoming events.'),
+            past.length ? h('h3', { className: 'pv-sub' }, 'Past (' + past.length + ')') : null,
+            past.length ? h('div', { className: 'cal-list' }, past.map(function (e, i) { return eventCard(e, 'p' + i, true); })) : null));
       }
     });
-    CMS.registerPreviewTemplate('events', EventsPreview);
 
+    /* ---------- People ---------- */
+    var WARDS = { llansannan: 'Llansannan Ward', bylchau: 'Bylchau Ward', groes: 'Groes Ward', 'bryn-rhyd-yr-arian': 'Bryn Rhyd-yr-Arian Ward', staff: 'Council staff' };
     var PeoplePreview = createClass({
       render: function () {
         var people = toJS(this.props.entry.getIn(['data', 'people']));
         var chair = people.filter(function (p) { return p.role === 'chair' && p.active; })[0];
         var clerk = people.filter(function (p) { return p.role === 'clerk' && p.active; })[0];
-        var others = people.filter(function (p) { return p.role !== 'chair' && p.role !== 'clerk'; });
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Councillors & Officers'),
-          h('div', { className: 'cllr-leadership' },
-            chair ? h('div', { className: 'cllr-leader-card' },
-              h('div', { className: 'cllr-leader-role' }, 'Chair'),
-              h('div', { className: 'cllr-leader-name' }, chair.name)
-            ) : null,
-            clerk ? h('div', { className: 'cllr-leader-card' },
-              h('div', { className: 'cllr-leader-role' }, 'Clerk'),
-              h('div', { className: 'cllr-leader-name' }, clerk.name)
-            ) : null
-          ),
-          h('div', { className: 'cllr-grid' }, others.map(function (p, i) {
-            return h('div', { className: 'cllr-card' + (p.active ? '' : ' cllr-vacancy'), key: i },
-              h('div', { className: 'cllr-name' }, p.name || 'Vacant seat'),
-              h('div', { className: 'cllr-role' }, p.role + ' — ' + p.ward)
-            );
-          }))
-        );
+        var order = ['llansannan', 'bylchau', 'groes', 'bryn-rhyd-yr-arian'];
+        function leader(p, role) {
+          return p ? h('div', { className: 'cllr-leader-card' },
+            h('div', { className: 'cllr-leader-role' }, role),
+            h('div', { className: 'cllr-leader-name' }, p.name),
+            h('div', { className: 'cllr-leader-meta' }, (WARDS[p.ward] || '') + (p.party ? ' · ' + p.party : ''))) : null;
+        }
+        return Shell('Your Councillors', 'Chair and Clerk first, then councillors by ward, as on the live page.',
+          h('div', {},
+            h('div', { className: 'cllr-leadership' }, leader(chair, 'Chair'), leader(clerk, 'Clerk')),
+            order.map(function (w) {
+              var list = people.filter(function (p) { return p.ward === w && p.role !== 'chair'; });
+              if (!list.length) return null;
+              return h('section', { key: w },
+                h('p', { className: 'ward-label' }, WARDS[w]),
+                h('div', { className: 'cllr-grid' }, list.map(function (p, i) {
+                  return h('div', { className: 'cllr-card' + (p.active ? '' : ' cllr-vacancy'), key: i },
+                    h('div', { className: 'cllr-name' }, p.active ? p.name : 'Vacant seat'),
+                    h('div', { className: 'cllr-role' }, p.active ? (p.role === 'councillor' ? 'Councillor' : p.role) : 'Contact the Clerk'),
+                    p.party ? h('div', { className: 'cllr-role' }, p.party) : null,
+                    p.committees ? h('div', { className: 'cllr-role' }, p.committees) : null);
+                })));
+            })));
       }
     });
-    CMS.registerPreviewTemplate('people', PeoplePreview);
 
+    /* ---------- News ---------- */
     var NewsPreview = createClass({
       render: function () {
-        var items = toJS(this.props.entry.getIn(['data', 'items']));
-        var todayIso = new Date().toISOString().slice(0, 10);
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'News Posts'),
+        var items = byDateDesc(toJS(this.props.entry.getIn(['data', 'items'])), 'date');
+        var today = ukNow().iso;
+        return Shell('News', 'Newest first. Expired posts are shown faded and are hidden on the live site.',
           h('div', { className: 'news-grid' }, items.map(function (n, i) {
-            var expired = n.expires && n.expires < todayIso;
-            return h('article', { className: 'news-card', key: i, style: expired ? { opacity: 0.5 } : {} },
-              h('time', {}, formatIsoDate(n.date)),
-              h('h3', {}, (n.title_en || n.title_cy) + (n.featured ? ' — Featured on homepage' : '') + (expired ? ' — Expired (hidden)' : '')),
-              h('p', {}, n.body_en || n.body_cy)
-            );
-          }))
-        );
+            var expired = n.expires && n.expires < today;
+            return h('article', { className: 'news-card' + (expired ? ' pv-past' : ''), key: i },
+              h('time', {}, longDate(n.date)),
+              h('h3', {}, n.title_en || n.title_cy || '(untitled)'),
+              h('div', {}, i === 0 ? Pill('Newest', 'green') : null, n.featured ? Pill('On homepage', 'gold') : null, expired ? Pill('Expired: hidden', 'grey') : null),
+              h('p', {}, n.body_en || n.body_cy));
+          })));
       }
     });
-    CMS.registerPreviewTemplate('news', NewsPreview);
 
+    /* ---------- Contact & social settings ---------- */
+    function Row(label, value) {
+      return h('div', { className: 'crow' }, h('span', { className: 'clabel' }, label), h('span', { className: 'cval' }, value || '(not set)'));
+    }
     var SettingsPreview = createClass({
       render: function () {
-        var data = toJS(this.props.entry.getIn(['data']));
-        var council = data.council || {};
-        var meetingDefaults = data.meeting_defaults || {};
-        var social = data.social || {};
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Contact & Social Details'),
-          h('div', { className: 'contact-card' },
-            h('div', { className: 'ccard-head' }, 'Council contact'),
-            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Email'), h('span', { className: 'cval' }, council.email)),
-            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Address'), h('span', { className: 'cval' }, council.address_en || council.address_cy))
-          ),
-          h('div', { className: 'contact-card', style: { marginTop: '1rem' } },
-            h('div', { className: 'ccard-head' }, 'Usual meeting venue'),
-            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Venue'), h('span', { className: 'cval' }, meetingDefaults.location_en || meetingDefaults.location_cy))
-          ),
-          h('div', { className: 'contact-card', style: { marginTop: '1rem' } },
-            h('div', { className: 'ccard-head' }, 'Social links'),
-            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Facebook'), h('span', { className: 'cval' }, social.facebook || '(not set)')),
-            h('div', { className: 'crow' }, h('span', { className: 'clabel' }, 'Twitter / X'), h('span', { className: 'cval' }, social.twitter || '(not set)'))
-          )
-        );
+        var d = toJS(this.props.entry.getIn(['data']));
+        var c = d.council || {}, md = d.meeting_defaults || {}, s = d.social || {}, cc = d.county_councillor || {};
+        return Shell('Contact & Social Details', 'The details shown on the Contact page, footer and Clerk page.',
+          h('div', {},
+            h('div', { className: 'contact-card' }, h('div', { className: 'ccard-head' }, 'Council contact'),
+              Row('General email', c.email), Row('Clerk (English)', c.clerk_email), Row('Clerk (Welsh)', c.clerk_email_cy),
+              Row('Chair (English)', c.chair_email), Row('Chair (Welsh)', c.chair_email_cy), Row('Telephone', c.phone),
+              Row('Address (EN)', c.address_en), Row('Address (CY)', c.address_cy)),
+            h('div', { className: 'contact-card' }, h('div', { className: 'ccard-head' }, 'Usual meeting venue'), Row('Venue', md.location_en || md.location_cy)),
+            h('div', { className: 'contact-card' }, h('div', { className: 'ccard-head' }, 'County councillor'), Row('Name', cc.name), Row('Ward', cc.ward_en)),
+            h('div', { className: 'contact-card' }, h('div', { className: 'ccard-head' }, 'Social links'), Row('Facebook', s.facebook), Row('Twitter / X', s.twitter))));
       }
     });
-    CMS.registerPreviewTemplate('settings', SettingsPreview);
 
+    /* ---------- Policy documents ---------- */
     var DOCUMENT_LABELS = {
-      payments: 'Councillor Payments (2025/26)',
-      what_we_spend: '2026/27 Budget and Precept',
-      annual_return: 'AGAR 2024/25',
-      standing_orders: 'Standing Orders',
-      financial_regulations: 'Financial Regulations',
-      social_media: 'Social Media Policy',
-      biodiversity: 'Biodiversity Policy'
+      payments: 'Councillor Payments (2025/26)', what_we_spend: '2026/27 Budget and Precept', annual_return: 'Annual Return / Audit',
+      standing_orders: 'Standing Orders', financial_regulations: 'Financial Regulations', social_media: 'Social Media Policy', biodiversity: 'Biodiversity Policy'
     };
     var DocumentsPreview = createClass({
       render: function () {
         var data = toJS(this.props.entry.getIn(['data']));
-        return h('div', { className: 'cms-preview' },
-          h('h2', {}, 'Policy & Financial Documents'),
-          h('div', { className: 'minutes-list' }, Object.keys(DOCUMENT_LABELS).map(function (key, i) {
-            var doc = data[key] || {};
-            var uploaded = doc.file_en || doc.file_cy;
-            return h('div', { className: 'minutes-item', key: i },
-              h('div', {}, h('strong', {}, DOCUMENT_LABELS[key])),
-              h('div', { className: 'doc-links' },
-                uploaded
-                  ? h('span', { className: 'doc-link pdf' }, 'Uploaded — will show as a real download link')
-                  : h('span', { style: { fontStyle: 'italic', fontSize: '0.9rem' } }, 'Coming soon (no file uploaded yet)')
-              )
-            );
-          }))
-        );
+        return Shell('Policy & Financial Documents', 'A file attached means the page shows a real download link. Otherwise the live page says "Coming soon".',
+          h('div', { className: 'pv-ym' }, Object.keys(DOCUMENT_LABELS).map(function (key) {
+            var doc = data[key] || {}, up = doc.file_en || doc.file_cy;
+            return h('article', { className: 'minutes-item pv-item', key: key },
+              h('div', {}, h('h3', {}, DOCUMENT_LABELS[key])),
+              h('div', { className: 'doc-links' }, up ? PdfLink('File attached: shows a download link') : Pill('Coming soon (no file yet)', 'grey')));
+          })));
       }
     });
-    CMS.registerPreviewTemplate('documents', DocumentsPreview);
+
+    /* Register each template under the FILE name and the collection name. */
+    [
+      ['schedule', 'meetings', MeetingsPreview], ['minutes', 'minutes', MinutesPreview], ['agendas', 'agendas', AgendasPreview],
+      ['events', 'events', EventsPreview], ['people', 'people', PeoplePreview], ['news', 'news', NewsPreview],
+      ['general', 'settings', SettingsPreview], ['documents', 'documents', DocumentsPreview]
+    ].forEach(function (t) {
+      CMS.registerPreviewTemplate(t[0], t[2]);
+      if (t[1] !== t[0]) CMS.registerPreviewTemplate(t[1], t[2]);
+    });
 
     CMS.registerPreviewStyle('/assets/css/style.css');
+    CMS.registerPreviewStyle('/admin/preview.css');
   </script>
 </body>
 </html>

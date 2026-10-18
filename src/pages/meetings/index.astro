@@ -5,8 +5,8 @@ import settings from '../../data/site-settings.json';
 import { formatDateBilingual } from '../../lib/dates';
 import { computeStatuses } from '../../lib/meetings';
 
-const scheduled = computeStatuses(meetings.schedule_2026);
-const yearShown = (scheduled.find(m => m.status === 'next') ?? scheduled[scheduled.length - 1])?.date.slice(0, 4) ?? '';
+const scheduled = computeStatuses(meetings.schedule_2026).slice().reverse();
+const yearShown = (scheduled.find(m => m.status === 'next') ?? scheduled[0])?.date.slice(0, 4) ?? '';
 ---
 <Layout title_cy="Dyddiadau Cyfarfodydd" title_en="Meeting Dates">
   <div class="page-banner">
@@ -50,8 +50,8 @@ const yearShown = (scheduled.find(m => m.status === 'next') ?? scheduled[schedul
             </td>
             <td>{m.time}</td>
             <td>
-              <span lang="cy">{m.location_cy || "I'w gadarnhau"}</span>
-              <span lang="en">{m.location_en || 'To be confirmed'}</span>
+              <span lang="cy">{m.location_cy || settings.meeting_defaults.location_cy}</span>
+              <span lang="en">{m.location_en || settings.meeting_defaults.location_en}</span>
             </td>
           </tr>
           );
