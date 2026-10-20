@@ -31,6 +31,13 @@ function one_line(string $s): string
     return trim(preg_replace('/[\x00-\x1F\x7F]+/u', ' ', $s) ?? '');
 }
 
+// Health check for uptime monitoring: GET ?ping=1 returns 200 "ok" and nothing else.
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET' && ($_GET['ping'] ?? '') === '1') {
+    header('Content-Type: text/plain; charset=utf-8');
+    echo 'ok';
+    exit;
+}
+
 // 1. POST only, and a sane size.
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     http_response_code(405);
