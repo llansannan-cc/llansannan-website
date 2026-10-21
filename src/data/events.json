@@ -1,3 +1,44 @@
 {
-  "items": []
+  "items": [
+    {
+      "title_cy": "Cyfnod archwilio cyhoeddus yn dod i ben",
+      "title_en": "Public inspection of accounts ends",
+      "date": "2027-07-28",
+      "time": "",
+      "location_cy": "Cysylltwch â'r Clerc",
+      "location_en": "Contact the Clerk",
+      "description_cy": "Diwrnod olaf y cyfnod pan all etholwyr archwilio cyfrifon y Cyngor. Mae'r dyddiadau'n dilyn amserlen Archwilio Cymru a gallant newid.",
+      "description_en": "Last day of the period when electors can inspect the Council's accounts. Dates follow the Audit Wales timetable and may change."
+    },
+    {
+      "title_cy": "Cyfnod archwilio cyhoeddus yn dechrau",
+      "title_en": "Public inspection of accounts begins",
+      "date": "2027-07-01",
+      "time": "",
+      "location_cy": "Cysylltwch â'r Clerc",
+      "location_en": "Contact the Clerk",
+      "description_cy": "Gall etholwyr archwilio cyfrifon y Cyngor a'r Ffurflen Flynyddol. Mae'r dyddiadau'n dilyn amserlen Archwilio Cymru a gallant newid.",
+      "description_en": "Electors may inspect the Council's accounts and Annual Return. Dates follow the Audit Wales timetable and may change."
+    },
+    {
+      "title_cy": "Dyddiad cau: y Cyngor i gymeradwyo'r Ffurflen Flynyddol",
+      "title_en": "Deadline: Council approves the Annual Return",
+      "date": "2027-06-30",
+      "time": "",
+      "location_cy": "Cyfarfod y Cyngor",
+      "location_en": "Council meeting",
+      "description_cy": "Rhaid i'r Cyngor llawn gymeradwyo'r cyfrifon a'r Ffurflen Flynyddol erbyn 30 Mehefin.",
+      "description_en": "The full Council must approve the accounts and Annual Return by 30 June."
+    },
+    {
+      "title_cy": "Hysbysiad archwilio blynyddol i'w arddangos",
+      "title_en": "Annual audit notice displayed",
+      "date": "2027-06-16",
+      "time": "",
+      "location_cy": "Gwefan y Cyngor a'r hysbysfwrdd",
+      "location_en": "Council website and noticeboard",
+      "description_cy": "Hysbysiad o hawliau etholwyr i archwilio'r cyfrifon. Mae'r dyddiadau'n dilyn amserlen Archwilio Cymru a gallant newid.",
+      "description_en": "Notice of electors' rights to inspect the accounts. Dates follow the Audit Wales timetable and may change."
+    }
+  ]
 }
