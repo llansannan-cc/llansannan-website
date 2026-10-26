@@ -125,8 +125,7 @@
             return h('article', { className: 'minutes-item pv-item' + (newest ? ' pv-newest' : ''), key: (m.meeting_date || '') + (m.minutes_en_file || '') },
               h('div', {},
                 h('h3', {}, (m.meeting_type_en || m.meeting_type_cy || 'Meeting') + ' — ' + longDate(m.meeting_date), newest ? Pill('Newest', 'gold') : null),
-                m.status === 'approved' ? Pill('Approved: visible on site', 'green') : Pill('Draft: hidden on site', 'grey'),
-                m.chair ? h('span', { className: 'pv-meta' }, ' Chair: ' + m.chair) : null),
+                m.status === 'approved' ? Pill('Approved: visible on site', 'green') : Pill('Draft: hidden on site', 'grey')),
               h('ul', { className: 'doc-links' },
                 same ? h('li', {}, PdfLink('Minutes (bilingual) — PDF')) : [
                   m.minutes_en_file ? h('li', { key: 'e' }, PdfLink('Approved Minutes (English) — PDF')) : null,

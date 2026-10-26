@@ -26,6 +26,8 @@ const label = { minutes: ['Cofnodion', 'Minutes'], agenda: ['Agenda', 'Agenda'] 
                   {inYear.filter(e => e.date.slice(5, 7) === m).map(e => {
                     const day = parseInt(e.date.slice(8), 10);
                     const same = e.file_en && e.file_en === e.file_cy;
+                    const onlyOne = !!e.file_en !== !!e.file_cy;
+                    const single = e.file_en || e.file_cy;
                     return (
                       <li>
                         <span class="ym-meeting">
@@ -35,6 +37,8 @@ const label = { minutes: ['Cofnodion', 'Minutes'], agenda: ['Agenda', 'Agenda'] 
                         <span class="doc-links">
                           {same ? (
                             <a href={e.file_en} class="doc-link pdf"><span lang="cy">{label[e.kind][0]} (dwyieithog) — PDF</span><span lang="en">{label[e.kind][1]} (bilingual) — PDF</span></a>
+                          ) : onlyOne ? (
+                            <a href={single} class="doc-link pdf"><span lang="cy">{label[e.kind][0]} — PDF</span><span lang="en">{label[e.kind][1]} — PDF</span></a>
                           ) : (<>
                             {e.file_en && <a href={e.file_en} lang="en" class="doc-link pdf">{label[e.kind][1]} (English) — PDF</a>}
                             {e.file_cy && <a href={e.file_cy} lang="cy" class="doc-link pdf">{label[e.kind][0]} (Cymraeg) — PDF</a>}
