@@ -21,8 +21,12 @@ const ADMIN_CSP = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: https://avatars.githubusercontent.com https://*.githubusercontent.com",
-  "connect-src 'self' https://api.github.com https://github.com https://llansannan-cms-auth.llansannancc.workers.dev",
+  "img-src 'self' data: blob: https://avatars.githubusercontent.com https://*.githubusercontent.com",
+  // blob: is needed so Decap can read a file you've just picked (PDF upload)
+  // before it commits it to GitHub; without it uploads fail with "Failed to fetch".
+  "connect-src 'self' blob: data: https://api.github.com https://github.com https://llansannan-cms-auth.llansannancc.workers.dev",
+  "frame-src 'self' blob:",
+  "object-src 'self' blob:",
   "frame-ancestors 'none'",
 ].join('; ');
 
