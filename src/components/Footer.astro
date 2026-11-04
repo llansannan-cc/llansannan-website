@@ -55,7 +55,10 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
   </div>
 
   <div class="footer-bottom">
-    <span>&copy; {new Date().getFullYear()} {site.name_cy} / {site.name_en}</span>
+    <span>&copy; <span class="js-year">{new Date().getFullYear()}</span> {site.name_cy} / {site.name_en}
+      &nbsp;·&nbsp;
+      <a href="https://www.derivativemedia.co.uk/" class="footer-credit"><span lang="cy">Gwefan gan Derivative Media</span><span lang="en">Website by Derivative Media</span></a>
+    </span>
     <span>
       <a href="/privacy/"><span lang="cy">Polisi Preifatrwydd</span><span lang="en">Privacy Policy</span></a>
       &nbsp;|&nbsp;
@@ -66,4 +69,5 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <a href="/sitemap/"><span lang="cy">Map y Safle</span><span lang="en">Site Map</span></a>
     </span>
   </div>
+  <script is:inline>document.querySelectorAll(".js-year").forEach(function(e){e.textContent=new Date().getFullYear()})</script>
 </footer>
