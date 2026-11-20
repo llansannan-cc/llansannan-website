@@ -325,7 +325,15 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 .hero-frosted-bar .hero-title{font-size:2rem;text-shadow:none;position:static;margin:0;line-height:1.2}
 .hero-frosted-bar .hero-btns{margin-top:0.9rem}
 @media(max-width:768px){.hero-emblem{width:130px;height:130px}}
-@media(max-width:600px){.hero{height:420px}.hero-emblem{width:110px;height:110px}.hero-emblem-wrap{top:16px}.hero-frosted-bar .hero-title{font-size:1.5rem}}
+@media(max-width:600px){
+  /* Phones: show the village, not just sky. The photo gets its own 340px
+     strip at the top (focused on the houses) and the title bar sits BELOW it
+     instead of covering the bottom of the picture. */
+  .hero{height:auto;background-size:auto 340px;background-position:56% 0;background-color:var(--primary-dark);justify-content:flex-start;padding-top:292px}
+  .hero-emblem{width:110px;height:110px}.hero-emblem-wrap{top:16px}
+  .hero-frosted-bar{background:var(--primary-dark);backdrop-filter:none;-webkit-backdrop-filter:none;padding:1.1rem 1rem 2.6rem}
+  .hero-frosted-bar .hero-title{font-size:1.5rem}
+}
 
 /* ══════════════════════════════════════════════════════════════════════════════
    ASTRO REBUILD — new nav structure + page components

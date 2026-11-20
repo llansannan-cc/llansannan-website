@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import settings from '../../data/site-settings.json';
+const { council } = settings;
+---
+<Layout title_cy="Cwynion" title_en="Complaints">
+  <div class="page-banner"><h1><span lang="cy">Cwynion</span><span lang="en">Complaints</span></h1></div>
+  <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <a href="/the-council/"><span lang="cy">Y Cyngor</span><span lang="en">The Council</span></a> &rsaquo; <span lang="cy">Cwynion</span><span lang="en">Complaints</span></div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Cwyno am y Cyngor</span><span lang="en">Making a Complaint</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Rydym am wybod os nad ydych yn fodlon ar rywbeth y mae'r Cyngor wedi'i wneud, neu wedi methu â'i wneud. Mae cwynion yn ein helpu i wella.</p>
+    <p lang="en">We want to know if you are unhappy with something the Council has done, or failed to do. Complaints help us to improve.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Cwyno wrth y Cyngor</span><span lang="en">Complaining to the Council</span></h3>
+    <p lang="cy">Ysgrifennwch at y Clerc, gan nodi beth ddigwyddodd, pryd, a'r hyn yr hoffech i ni ei wneud. Gallwch anfon e-bost at <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a>, defnyddio'r <a href="/contact/">ffurflen gyswllt</a>, neu ysgrifennu i'r cyfeiriad isod. Bydd y Clerc yn cydnabod eich cwyn ac yn ei hystyried yn unol â pholisi cwynion y Cyngor. Mae croeso i chi ofyn am gopi o'r polisi.</p>
+    <p lang="en">Write to the Clerk, saying what happened, when, and what you would like us to do. You can email <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a>, use the <a href="/contact/">contact form</a>, or write to the address below. The Clerk will acknowledge your complaint and consider it under the Council's complaints policy. You are welcome to ask for a copy of the policy.</p>
+    <p>
+      <span lang="cy">{council.address_cy}</span><span lang="en">{council.address_en}</span>
+    </p>
+
+    <h3 class="sub-sh"><span lang="cy">Cwyno am ymddygiad cynghorydd</span><span lang="en">Complaining about a councillor's conduct</span></h3>
+    <p lang="cy">Mae cynghorwyr yn rhwym wrth <a href="/documents/code-of-conduct/">God Ymddygiad</a>. Os ydych yn credu bod cynghorydd wedi torri'r Cod, gallwch gwyno'n uniongyrchol i Ombwdsmon Gwasanaethau Cyhoeddus Cymru.</p>
+    <p lang="en">Councillors are bound by the <a href="/documents/code-of-conduct/">Code of Conduct</a>. If you believe a councillor has broken the Code, you can complain directly to the Public Services Ombudsman for Wales.</p>
+    <p>
+      <a href="https://www.ombudsman.wales/" target="_blank" rel="noopener noreferrer"><span lang="cy">Ombwdsmon Gwasanaethau Cyhoeddus Cymru</span><span lang="en">Public Services Ombudsman for Wales</span></a><br>
+      1 Ffordd yr Hen Gae, Pencoed, CF35 5LJ
+    </p>
+
+    <h3 class="sub-sh"><span lang="cy">Cwyno am Gyngor Conwy</span><span lang="en">Complaining about Conwy County Borough Council</span></h3>
+    <p lang="cy">Cyngor Bwrdeistref Sirol Conwy sy'n gyfrifol am wasanaethau megis ffyrdd, sbwriel, ailgylchu a chynllunio. Ni all y Cyngor Cymuned ddatrys cwynion amdanynt, ond gall eich helpu i'w codi. Gweler <a href="https://www.conwy.gov.uk/en/Council/Contact-Us/Contact-the-Council/How-to-make-a-complaint.aspx" target="_blank" rel="noopener noreferrer">sut i gwyno i Gyngor Conwy</a>.</p>
+    <p lang="en">Conwy County Borough Council is responsible for services such as roads, waste, recycling and planning. The Community Council cannot resolve complaints about these, but can help you raise them. See <a href="https://www.conwy.gov.uk/en/Council/Contact-Us/Contact-the-Council/How-to-make-a-complaint.aspx" target="_blank" rel="noopener noreferrer">how to complain to Conwy Council</a>.</p>
+  </div></div>
+</Layout>

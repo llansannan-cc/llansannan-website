@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import settings from '../../data/site-settings.json';
+const { council, meeting_defaults } = settings;
+---
+<Layout title_cy="Mynychu Cyfarfodydd" title_en="Attending Meetings">
+  <div class="page-banner"><h1><span lang="cy">Mynychu Cyfarfodydd</span><span lang="en">Attending Meetings</span></h1></div>
+  <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <a href="/meetings/"><span lang="cy">Cyfarfodydd</span><span lang="en">Meetings</span></a> &rsaquo; <span lang="cy">Mynychu Cyfarfodydd</span><span lang="en">Attending Meetings</span></div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Mynychu Cyfarfodydd y Cyngor</span><span lang="en">Attending Council Meetings</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Mae cyfarfodydd y Cyngor yn agored i'r cyhoedd, ac mae croeso i drigolion ddod i weld sut mae'r Cyngor yn gweithio. Does dim angen cofrestru ymlaen llaw.</p>
+    <p lang="en">Council meetings are open to the public, and residents are welcome to come along and see how the Council works. You do not need to register in advance.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Pryd a ble</span><span lang="en">When and where</span></h3>
+    <p lang="cy">Mae'r Cyngor fel arfer yn cyfarfod unwaith y mis. Gweler y dudalen <a href="/meetings/">Dyddiadau</a> am y dyddiad, yr amser a'r lleoliad. Y lleoliad arferol yw {meeting_defaults.location_cy}, ond weithiau cynhelir cyfarfod mewn man arall, felly gwiriwch bob tro.</p>
+    <p lang="en">The Council usually meets once a month. See the <a href="/meetings/">Dates</a> page for the date, time and venue. The usual venue is {meeting_defaults.location_en}, but a meeting is sometimes held elsewhere, so please check each time.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Cyn y cyfarfod</span><span lang="en">Before the meeting</span></h3>
+    <p lang="cy">Cyhoeddir yr <a href="/meetings/agendas/">agenda</a> o leiaf dri diwrnod clir cyn pob cyfarfod. Mae'n dweud beth fydd yn cael ei drafod.</p>
+    <p lang="en">The <a href="/meetings/agendas/">agenda</a> is published at least three clear days before each meeting. It tells you what will be discussed.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Siarad yn y cyfarfod</span><span lang="en">Speaking at a meeting</span></h3>
+    <p lang="cy">Fel arfer, caiff aelodau o'r cyhoedd siarad ar ddechrau'r cyfarfod, pan fydd y Cadeirydd yn gohirio'r Rheolau Sefydlog dros dro. Os hoffech godi mater, cysylltwch â'r Clerc ymlaen llaw os gallwch, fel y gellir ei roi ar yr agenda neu gael gwybodaeth ar eich cyfer. Y Cadeirydd sy'n rheoli'r cyfarfod.</p>
+    <p lang="en">Members of the public can usually have their say at the start of the meeting, when the Chair briefly suspends Standing Orders. If you would like to raise a matter, please contact the Clerk beforehand if you can, so that it can be placed on the agenda or the information can be prepared for you. The Chair runs the meeting.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Eitemau cyfrinachol</span><span lang="en">Confidential items</span></h3>
+    <p lang="cy">Mewn achosion cyfyngedig, megis materion staffio neu faterion cyfreithiol, gall y Cyngor benderfynu trafod eitem yn breifat. Gofynnir i aelodau o'r cyhoedd adael am yr eitem honno yn unig.</p>
+    <p lang="en">In limited cases, such as staffing or legal matters, the Council may resolve to discuss an item in private. Members of the public will be asked to leave for that item only.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Hygyrchedd a'r Gymraeg</span><span lang="en">Access and language</span></h3>
+    <p lang="cy">Os oes angen cymorth arnoch i fynychu, neu os hoffech ddefnyddio'r Gymraeg neu'r Saesneg, rhowch wybod i'r Clerc ymlaen llaw a gwnawn ein gorau i helpu.</p>
+    <p lang="en">If you need support to attend, or would like to use Welsh or English, please let the Clerk know beforehand and we will do our best to help.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Ar ôl y cyfarfod</span><span lang="en">After the meeting</span></h3>
+    <p lang="cy">Cyhoeddir y <a href="/meetings/minutes/">cofnodion</a> ar ôl iddynt gael eu cymeradwyo yng nghyfarfod nesaf y Cyngor.</p>
+    <p lang="en">The <a href="/meetings/minutes/">minutes</a> are published once they have been approved at the Council's next meeting.</p>
+
+    <div class="upload-note">
+      <p lang="cy">Cwestiynau? Cysylltwch â'r Clerc: <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a> neu defnyddiwch y <a href="/contact/">ffurflen gyswllt</a>.</p>
+      <p lang="en">Questions? Contact the Clerk: <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a> or use the <a href="/contact/">contact form</a>.</p>
+    </div>
+  </div></div>
+</Layout>

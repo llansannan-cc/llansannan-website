@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import settings from '../../data/site-settings.json';
+const { council } = settings;
+---
+<Layout title_cy="Dod yn Gynghorydd" title_en="Become a Councillor">
+  <div class="page-banner"><h1><span lang="cy">Dod yn Gynghorydd</span><span lang="en">Become a Councillor</span></h1></div>
+  <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <a href="/the-council/"><span lang="cy">Y Cyngor</span><span lang="en">The Council</span></a> &rsaquo; <span lang="cy">Dod yn Gynghorydd</span><span lang="en">Become a Councillor</span></div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Dod yn Gynghorydd Cymuned</span><span lang="en">Becoming a Community Councillor</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Mae cynghorwyr cymuned yn bobl leol sy'n rhoi eu hamser yn wirfoddol i helpu i wneud yn siŵr bod llais y gymuned yn cael ei glywed. Does dim angen profiad blaenorol, dim ond diddordeb yn eich ardal a pharodrwydd i wrando.</p>
+    <p lang="en">Community councillors are local people who give their time voluntarily to make sure the community's voice is heard. You do not need previous experience, just an interest in your area and a willingness to listen.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Beth mae cynghorydd yn ei wneud?</span><span lang="en">What does a councillor do?</span></h3>
+    <p lang="cy">Mae cynghorwyr yn mynychu cyfarfodydd misol y Cyngor, yn darllen papurau'r agenda, yn gwneud penderfyniadau ar y cyd ar faterion lleol megis grantiau, cyllid a cheisiadau cynllunio, ac yn gwrando ar drigolion. Gallant hefyd ymuno â phwyllgorau a gwaith lleol eraill.</p>
+    <p lang="en">Councillors attend the Council's monthly meetings, read the agenda papers, make joint decisions on local matters such as grants, finances and planning applications, and listen to residents. They may also join committees and other local work.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Pwy all sefyll?</span><span lang="en">Who can stand?</span></h3>
+    <p lang="cy">Yn gyffredinol, rhaid i chi fod yn 18 oed neu'n hŷn ac mae gennych gysylltiad cymhwyso â'r ardal, drwy fod ar y gofrestr etholwyr yno, neu drwy fyw, gweithio neu fod yn berchen ar dir neu eiddo yno. Mae rhai rhesymau dros anghymhwyso, er enghraifft bod yn weithiwr cyflogedig i'r Cyngor, methdaliad neu rai collfarnau troseddol. Os nad ydych yn siŵr, gofynnwch i'r Clerc.</p>
+    <p lang="en">In general, you must be 18 or over and have a qualifying connection with the area, by being on the electoral register there, or by living, working or owning land or property there. There are some disqualifications, for example being an employee of the Council, bankruptcy or certain criminal convictions. If you are not sure, please ask the Clerk.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Etholiadau</span><span lang="en">Elections</span></h3>
+    <p lang="cy">Cynhelir etholiadau cynghorau cymuned bob pum mlynedd, a'r nesaf ym mis Mai 2027. Mae'r etholiadau'n cael eu trefnu gan Wasanaethau Democrataidd Cyngor Bwrdeistref Sirol Conwy, lle gallwch gael papurau enwebu a gwybodaeth am y broses. Gweler <a href="https://www.conwy.gov.uk/en/Council/Voting-and-Elections/Voting-and-Elections.aspx" target="_blank" rel="noopener noreferrer">Pleidleisio ac Etholiadau, Conwy</a>.</p>
+    <p lang="en">Community council elections are held every five years, with the next in May 2027. Elections are run by Democratic Services at Conwy County Borough Council, where you can get nomination papers and information about the process. See <a href="https://www.conwy.gov.uk/en/Council/Voting-and-Elections/Voting-and-Elections.aspx" target="_blank" rel="noopener noreferrer">Voting and Elections, Conwy</a>.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Seddi gwag a chyfethol</span><span lang="en">Vacancies and co-option</span></h3>
+    <p lang="cy">Os daw sedd yn wag rhwng etholiadau, mae'r Cyngor yn rhoi hysbysiad cyhoeddus. Os na chaiff etholiad ei ofyn amdano, gall y Cyngor lenwi'r sedd drwy gyfethol. Cyhoeddir hysbysiadau o seddi gwag ar y dudalen <a href="/news/">Newyddion</a> ac ar hysbysfyrddau lleol.</p>
+    <p lang="en">If a seat becomes vacant between elections, the Council gives public notice. If an election is not requested, the Council can fill the seat by co-option. Notices of vacancies are published on the <a href="/news/">News</a> page and on local noticeboards.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Cefnogaeth a hyfforddiant</span><span lang="en">Support and training</span></h3>
+    <p lang="cy">Mae cynghorwyr newydd yn cael cefnogaeth gan y Clerc a chynghorwyr profiadol, a hyfforddiant gan <a href="https://onevoicewales.org.uk" target="_blank" rel="noopener noreferrer">Un Llais Cymru</a>. Mae pob cynghorydd yn cytuno i'r <a href="/documents/code-of-conduct/">Cod Ymddygiad</a> ac yn datgan eu <a href="/councillors/interests/">diddordebau</a>.</p>
+    <p lang="en">New councillors are supported by the Clerk and experienced councillors, and receive training from <a href="https://onevoicewales.org.uk" target="_blank" rel="noopener noreferrer">One Voice Wales</a>. All councillors agree to the <a href="/documents/code-of-conduct/">Code of Conduct</a> and declare their <a href="/councillors/interests/">interests</a>.</p>
+
+    <div class="upload-note">
+      <p lang="cy">Â diddordeb? Dewch i un o'n cyfarfodydd (gweler <a href="/meetings/attending/">Mynychu Cyfarfodydd</a>) neu cysylltwch â'r Clerc: <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a>.</p>
+      <p lang="en">Interested? Come along to one of our meetings (see <a href="/meetings/attending/">Attending Meetings</a>) or contact the Clerk: <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a>.</p>
+    </div>
+  </div></div>
+</Layout>

@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const conwy = 'https://www.conwy.gov.uk/en';
+const groups = [
+  {
+    cy: 'Adrodd, Talu a Gwneud Cais', en: 'Report, Pay and Apply',
+    items: [
+      { cy: 'Adrodd, Talu, Gwneud Cais (twll yn y ffordd, golau stryd, tipio anghyfreithlon a mwy)', en: 'Report, Pay, Apply (potholes, street lights, fly-tipping and more)', href: `${conwy}/Resident/Report-Pay-Apply/Report-Pay-Apply.aspx` },
+      { cy: 'Fy Conwy: eich cyfrif ar-lein', en: 'My Conwy: your online account', href: `${conwy}/Resident/MyConwy-Account/My-Conwy-Account.aspx` },
+      { cy: 'Treth Cyngor', en: 'Council Tax', href: `${conwy}/Resident/Council-Tax/Council-Tax.aspx` },
+    ]
+  },
+  {
+    cy: 'Ffyrdd, parcio a theithio', en: 'Roads, parking and travel',
+    items: [
+      { cy: 'Parcio, Ffyrdd a Theithio', en: 'Parking, Roads and Travel', href: `${conwy}/Resident/Parking-Roads-and-Travel/Parking-Roads-Travel.aspx` },
+    ]
+  },
+  {
+    cy: 'Ailgylchu a gwastraff', en: 'Recycling and waste',
+    items: [
+      { cy: 'Ailgylchu a Gwastraff, gan gynnwys calendrau casglu', en: 'Recycling and Waste, including collection calendars', href: `${conwy}/Resident/Recycling-and-Waste/Recycling-and-Waste.aspx` },
+      { cy: 'Problemau Amgylcheddol', en: 'Environmental Problems', href: `${conwy}/Resident/Environmental-problems/Environmental-Problems.aspx` },
+    ]
+  },
+  {
+    cy: 'Cynllunio a thai', en: 'Planning and housing',
+    items: [
+      { cy: 'Cynllunio, Rheoli Adeiladu a Chadwraeth', en: 'Planning, Building Control and Conservation', href: `${conwy}/Resident/Planning-Building-Control-and-Conservation/Planning-Building-Control-Conservation.aspx` },
+      { cy: 'Tai', en: 'Housing', href: `${conwy}/Resident/Housing/Housing.aspx` },
+    ]
+  },
+  {
+    cy: 'Gofal, iechyd a lles', en: 'Care, health and wellbeing',
+    items: [
+      { cy: 'Gofal Cymdeithasol a Lles', en: 'Social Care and Wellbeing', href: `${conwy}/Resident/Social-Care-and-Wellbeing/Social-Care-and-Wellbeing.aspx` },
+      { cy: 'Rwy\'n poeni am rywun', en: 'I am worried about somebody', href: `${conwy}/Resident/Social-Care-and-Wellbeing/Im-worried-about-somebody/I-am-worried-about-somebody.aspx` },
+      { cy: 'Hamdden, Chwaraeon ac Iechyd', en: 'Leisure, Sport and Health', href: `${conwy}/Resident/Leisure-sport-and-health/Leisure-Sport-and-Wellbeing.aspx` },
+      { cy: 'Budd-daliadau a Grantiau', en: 'Benefits and Grants', href: `${conwy}/Resident/Benefits-and-grants/Benefits-and-Grants.aspx` },
+    ]
+  },
+  {
+    cy: 'Addysg, llyfrgelloedd a diwylliant', en: 'Education, libraries and culture',
+    items: [
+      { cy: 'Addysg, Plant a Phobl Ifanc', en: 'Education, Children and Young People', href: `${conwy}/Resident/Education-and-Families/Education-Children-and-Young-People.aspx` },
+      { cy: 'Llyfrgelloedd, Archifau a Diwylliant', en: 'Libraries, Archives and Culture', href: `${conwy}/Resident/Libraries-Museums-and-Archives/Libraries-Archives-and-Culture.aspx` },
+    ]
+  },
+];
+---
+<Layout title_cy="Gwasanaethau Lleol" title_en="Local Services">
+  <div class="page-banner"><h1><span lang="cy">Gwasanaethau Lleol</span><span lang="en">Local Services</span></h1></div>
+  <div class="breadcrumb">
+    <a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo;
+    <a href="/llansannan/">Llansannan</a> &rsaquo;
+    <span lang="cy">Gwasanaethau Lleol</span><span lang="en">Local Services</span>
+  </div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Gwasanaethau Lleol a Defnyddiol</span><span lang="en">Local and Useful Services</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Cyngor Bwrdeistref Sirol Conwy sy'n gyfrifol am y rhan fwyaf o wasanaethau lleol, megis ffyrdd, gwastraff, ailgylchu a chynllunio. Dyma gysylltiadau defnyddiol. Os nad ydych yn siŵr at bwy i droi, cysylltwch â'r <a href="/contact/">Clerc</a> a byddwn yn eich cyfeirio.</p>
+    <p lang="en">Conwy County Borough Council is responsible for most local services, such as roads, waste, recycling and planning. Here are some useful links. If you are not sure who to contact, get in touch with the <a href="/contact/">Clerk</a> and we will point you in the right direction.</p>
+
+    <div class="upload-note" style="border-left:4px solid var(--danger,#c0392b)">
+      <p lang="cy"><strong>Argyfwng?</strong> Ffoniwch <strong>999</strong>. Ar gyfer yr heddlu pan nad yw'n argyfwng, ffoniwch <strong>101</strong>. Ar gyfer cyngor iechyd nad yw'n argyfwng, ffoniwch <strong>111</strong>.</p>
+      <p lang="en"><strong>Emergency?</strong> Call <strong>999</strong>. For the police when it is not an emergency, call <strong>101</strong>. For non-emergency health advice, call <strong>111</strong>.</p>
+    </div>
+
+    <h3 class="sub-sh"><span lang="cy">Cyngor Bwrdeistref Sirol Conwy</span><span lang="en">Conwy County Borough Council</span></h3>
+    <p lang="cy">Ffôn: <strong>01492 574000</strong> &middot; Cyfeiriad post: Blwch Post 1, Bae Colwyn, LL29 0GG &middot; <a href={`${conwy}/Council/Contact-Us/Contact-us.aspx`} target="_blank" rel="noopener noreferrer">Cysylltu â Chyngor Conwy</a></p>
+    <p lang="en">Telephone: <strong>01492 574000</strong> &middot; Postal address: PO Box 1, Colwyn Bay, LL29 0GG &middot; <a href={`${conwy}/Council/Contact-Us/Contact-us.aspx`} target="_blank" rel="noopener noreferrer">Contact Conwy Council</a></p>
+
+    {groups.map(g => (
+      <section>
+        <h3 class="sub-sh"><span lang="cy">{g.cy}</span><span lang="en">{g.en}</span></h3>
+        <ul style="margin:0.5rem 0 1rem 1.5rem;line-height:1.9">
+          {g.items.map(i => (
+            <li><a href={i.href} target="_blank" rel="noopener noreferrer"><span lang="cy">{i.cy}</span><span lang="en">{i.en}</span></a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <h3 class="sub-sh"><span lang="cy">Llifogydd</span><span lang="en">Flooding</span></h3>
+    <p lang="cy">Llinell ymateb llifogydd 24 awr Conwy: <strong>01492 577999</strong>. Gweler hefyd <a href={`${conwy}/Resident/Crime-and-emergencies/Preparing-for-Emergencies/Flooding/Flooding.aspx`} target="_blank" rel="noopener noreferrer">gwybodaeth am lifogydd Conwy</a> a <a href="https://naturalresources.wales/flooding" target="_blank" rel="noopener noreferrer">Cyfoeth Naturiol Cymru</a> (Floodline: <strong>0345 988 1188</strong>).</p>
+    <p lang="en">Conwy's 24 hour flood response line: <strong>01492 577999</strong>. See also <a href={`${conwy}/Resident/Crime-and-emergencies/Preparing-for-Emergencies/Flooding/Flooding.aspx`} target="_blank" rel="noopener noreferrer">Conwy flooding information</a> and <a href="https://naturalresources.wales/flooding" target="_blank" rel="noopener noreferrer">Natural Resources Wales</a> (Floodline: <strong>0345 988 1188</strong>).</p>
+
+    <h3 class="sub-sh"><span lang="cy">Diffibriliwr cymunedol</span><span lang="en">Community defibrillator</span></h3>
+    <p lang="cy">Mae diffibriliwr ar wal allanol Canolfan Addysg Bro Aled, ger drysau mynediad y neuadd. I agor y blwch, mae angen cod gan Wasanaeth Ambiwlans Cymru, ac fe'i rhoddir pan fyddwch yn ffonio <strong>999</strong>.</p>
+    <p lang="en">There is a defibrillator on the outside wall of Bro Aled Education Centre, near the hall entrance doors. To open the box you need a code from the Welsh Ambulance Service, which you are given when you call <strong>999</strong>.</p>
+
+    <p style="margin-top:1.5rem"><a href="/llansannan/business/"><span lang="cy">Busnesau a grwpiau lleol →</span><span lang="en">Local businesses and groups →</span></a> &nbsp;|&nbsp; <a href="/planning/"><span lang="cy">Cynllunio →</span><span lang="en">Planning →</span></a></p>
+  </div></div>
+</Layout>
