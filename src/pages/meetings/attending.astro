@@ -37,8 +37,8 @@ const { council, meeting_defaults } = settings;
     <p lang="en">The <a href="/meetings/minutes/">minutes</a> are published once they have been approved at the Council's next meeting.</p>
 
     <div class="upload-note">
-      <p lang="cy">Cwestiynau? Cysylltwch â'r Clerc: <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a> neu defnyddiwch y <a href="/contact/">ffurflen gyswllt</a>.</p>
-      <p lang="en">Questions? Contact the Clerk: <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a> or use the <a href="/contact/">contact form</a>.</p>
+      <p lang="cy">Cwestiynau? Cysylltwch â'r Clerc: <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a>, ffoniwch <a href={`tel:${council.phone.replace(/\s+/g, '')}`}>{council.phone}</a>, neu defnyddiwch y <a href="/contact/">ffurflen gyswllt</a>.</p>
+      <p lang="en">Questions? Contact the Clerk: <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a>, call <a href={`tel:${council.phone.replace(/\s+/g, '')}`}>{council.phone}</a>, or use the <a href="/contact/">contact form</a>.</p>
     </div>
   </div></div>
 </Layout>

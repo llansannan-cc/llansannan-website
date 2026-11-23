@@ -17,6 +17,7 @@ const { council } = settings;
     <p lang="en">Write to the Clerk, saying what happened, when, and what you would like us to do. You can email <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a>, use the <a href="/contact/">contact form</a>, or write to the address below. The Clerk will acknowledge your complaint and consider it under the Council's complaints policy. You are welcome to ask for a copy of the policy.</p>
     <p>
       <span lang="cy">{council.address_cy}</span><span lang="en">{council.address_en}</span>
+      {council.phone && <><br><span lang="cy">Ffôn: </span><span lang="en">Tel: </span><a href={`tel:${council.phone.replace(/\s+/g, '')}`}>{council.phone}</a></>}
     </p>
 
     <h3 class="sub-sh"><span lang="cy">Cwyno am ymddygiad cynghorydd</span><span lang="en">Complaining about a councillor's conduct</span></h3>

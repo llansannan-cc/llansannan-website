@@ -19,6 +19,7 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
         <span lang="cy">{ROLE_LABELS.clerk.cy}: {clerkPerson?.name}</span>
         <span lang="en">{ROLE_LABELS.clerk.en}: {clerkPerson?.name}</span><br>
         <a href={`mailto:${council.email}`}>{council.email}</a>
+        {council.phone && <><br><span lang="cy">Ffôn: </span><span lang="en">Tel: </span><a href={`tel:${council.phone.replace(/\s+/g, '')}`}>{council.phone}</a></>}
       </p>
     </div>
 

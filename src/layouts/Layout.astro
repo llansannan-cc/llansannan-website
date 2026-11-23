@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import config from '../data/config.json';
+import pageDescriptions from '../data/page-descriptions.json';
 
 // public/assets/* is served with an "immutable, max-age=31536000" cache
 // header (see public/_headers) -- fine for images, but it means an edit to
@@ -33,19 +34,29 @@ interface Props {
   ogImage?: string;
   pageClass?: string;
   preloadImage?: string;
+  /** Optional: use instead of the automatic "Welsh / English — council name" title (for Google). */
+  fullTitle?: string;
 }
 
 const {
   title_cy,
   title_en,
-  description_cy = config.site.name_cy,
-  description_en = config.site.name_en,
+  description_cy: descCyProp,
+  description_en: descEnProp,
   canonical = Astro.url.href,
   ogImage = '/assets/img/village-aerial.jpg',
   pageClass = '',
-  preloadImage
+  preloadImage,
+  fullTitle
 } = Astro.props;
 
+// Each page gets its own meta description: one passed in by the page wins,
+// otherwise it is looked up by URL in src/data/page-descriptions.json.
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
+const looked = (pageDescriptions as Record<string, { cy: string; en: string }>)[path];
+const description_cy = descCyProp ?? looked?.cy ?? `${title_cy} - ${config.site.name_cy}`;
+const description_en = descEnProp ?? looked?.en ?? `${title_en} - ${config.site.name_en}`;
+const pageTitle =fullTitle ?? `${title_cy} / ${title_en} — ${config.site.name_cy}`;
 const siteUrl = config.site.url;
 ---
 <!DOCTYPE html>
@@ -53,7 +64,7 @@ const siteUrl = config.site.url;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title_cy} / {title_en} — {config.site.name_cy}</title>
+  <title>{pageTitle}</title>
   <meta name="description" content={`${description_cy} | ${description_en}`}>
   <link rel="canonical" href={canonical}>
   <link rel="alternate" hreflang="cy" href={canonical}>
@@ -93,7 +104,7 @@ const siteUrl = config.site.url;
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content={canonical}>
-  <meta property="og:title" content={`${title_cy} | ${title_en} — ${config.site.name_cy}`}>
+  <meta property="og:title" content={fullTitle ?? `${title_cy} | ${title_en} — ${config.site.name_cy}`}>
   <meta property="og:description" content={description_en}>
   <meta property="og:image" content={`${siteUrl}${ogImage}`}>
   <meta property="og:locale" content="cy_GB">
