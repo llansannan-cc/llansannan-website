@@ -15,7 +15,24 @@ import Layout from '../../layouts/Layout.astro';
     <p lang="en">Llansannan Community Council has four wards: Llansannan, Bylchau, Groes and Bryn Rhyd-yr-Arian. The map below shows the boundary of the whole community council area and the main villages. The boundaries between the four wards are being confirmed and will be added when available.</p>
 
     <!-- Map container -->
-    <div id="ward-map" style="height:480px;border-radius:6px;margin:1.5rem 0;border:1px solid var(--border)" aria-label="Ward boundary map" role="application"></div>
+    <div id="ward-map" style="height:480px;border-radius:6px;margin:1.5rem 0 0.75rem;border:1px solid var(--border)" role="region" aria-label="Map of the Llansannan Community Council area / Map o ardal Cyngor Cymuned Llansannan" aria-describedby="ward-map-desc"></div>
+
+    <!-- Text alternative: everything the map shows, in words, for screen reader and non-visual users. -->
+    <div id="ward-map-desc" class="upload-note" style="margin-bottom:1.5rem">
+      <h3 class="sub-sh" style="margin-top:0"><span lang="cy">Disgrifiad o'r map</span><span lang="en">Map description</span></h3>
+      <p lang="cy">Mae'r map yn dangos ardal gyfan Cyngor Cymuned Llansannan fel ardal gysgodol sydd tua 13 km o'r gogledd i'r de a thua 13 km o'r dwyrain i'r gorllewin, yn Bro Aled, Conwy. Mae dau farciwr pentref:</p>
+      <p lang="en">The map shows the whole Llansannan Community Council area as a shaded region about 13 km from north to south and about 13 km from east to west, in Bro Aled, Conwy. There are two village markers:</p>
+      <ul lang="cy" style="margin:0.25rem 0 0.75rem 1.5rem;line-height:1.8">
+        <li><strong>Llansannan</strong>: y pentref yng nghalon Bro Aled, i'r gogledd-orllewin o ganol y map.</li>
+        <li><strong>Bylchau</strong>: tua 5 km i'r de-ddwyrain o bentref Llansannan.</li>
+      </ul>
+      <ul lang="en" style="margin:0.25rem 0 0.75rem 1.5rem;line-height:1.8">
+        <li><strong>Llansannan</strong>: the village at the heart of Bro Aled, north-west of the middle of the map.</li>
+        <li><strong>Bylchau</strong>: about 5 km south-east of Llansannan village.</li>
+      </ul>
+      <p lang="cy">Rhennir yr ardal yn bedair ward: Llansannan, Bylchau, Groes a Bryn Rhyd-yr-Arian. Nid yw'r map yn dangos y ffiniau rhwng y wardiau eto. Os hoffech ddisgrifiad pellach o'r ffiniau, cysylltwch â'r <a href="/contact/">Clerc</a>.</p>
+      <p lang="en">The area is divided into four wards: Llansannan, Bylchau, Groes and Bryn Rhyd-yr-Arian. The map does not yet show the boundaries between the wards. For a fuller description of the boundaries, please contact the <a href="/contact/">Clerk</a>.</p>
+    </div>
 
     <p lang="cy" style="font-size:0.875rem;color:var(--text-muted)">Sylwer: Ffin y gymuned: data Arolwg Ordnans (Boundary-Line) trwy mySociety MapIt, Hawlfraint y Goron a hawl cronfa ddata, Trwydded Llywodraeth Agored. Nid yw'n dangos ffiniau'r wardiau unigol.</p>
     <p lang="en" style="font-size:0.875rem;color:var(--text-muted)">Note: Community boundary: Ordnance Survey Boundary-Line data via mySociety MapIt, © Crown copyright and database right, Open Government Licence. It does not show the individual ward boundaries.</p>
@@ -63,10 +80,18 @@ import Layout from '../../layouts/Layout.astro';
       { lat: 53.17976, lng: -3.59841, label: 'Llansannan<br>LL16 5HE' },
       { lat: 53.15336, lng: -3.53274, label: 'Bylchau' }
     ];
+    const cyLang = document.documentElement.dataset.lang === 'cy';
     villages.forEach(v => {
-      L.marker([v.lat, v.lng], { icon: villageIcon })
+      const plain = v.label.split('<br>')[0];
+      const m = L.marker([v.lat, v.lng], { icon: villageIcon, title: plain, keyboard: true })
         .bindPopup(`<strong>${v.label}</strong>`)
         .addTo(map);
+      // Give each marker a spoken name (Leaflet leaves div markers unnamed).
+      const el = m.getElement();
+      if (el) {
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-label', cyLang ? `Marciwr pentref ${plain}. Pwyswch Enter am fanylion.` : `${plain} village marker. Press Enter for details.`);
+      }
     });
 
     map.fitBounds(boundaryLayer.getBounds(), { padding: [20, 20] });

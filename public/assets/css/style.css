@@ -7,7 +7,7 @@
 
 :root{
   --primary:#3d6e99;--primary-dark:#2b4f72;--primary-light:#5088be;
-  --accent:#b07420;--accent-light:#d4944a;
+  --accent:#8f5a0d;--accent-light:#d4944a;--accent-dark:#7a4c0a;
   --text:#2c2c2c;--muted:#5a5a5a;--danger:#c0392b;
   --bg:#edeae5;--white:#ffffff;--border:#d4cfc5;
 }
@@ -32,8 +32,8 @@ html:not([data-lang="cy"]) [lang="cy"]{display:none!important}
 .site-nav{background:var(--primary);position:sticky;top:0;z-index:1001;box-shadow:0 2px 10px rgba(0,0,0,0.25)}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;flex-wrap:nowrap}
 .nav-item{position:relative}
-.nav-link{display:flex;align-items:center;gap:0.25rem;padding:0.9rem 0.85rem;color:rgba(255,255,255,0.82);text-decoration:none;font-size:0.78rem;font-weight:500;letter-spacing:0.04em;white-space:nowrap;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;font-family:'Open Sans',sans-serif;transition:all 0.15s}
-.nav-link:hover,.nav-link.active{color:#fff;background:var(--primary-light);border-bottom-color:var(--accent-light)}
+.nav-link{display:flex;align-items:center;gap:0.25rem;padding:0.9rem 0.85rem;color:rgba(255,255,255,0.92);text-decoration:none;font-size:0.78rem;font-weight:500;letter-spacing:0.04em;white-space:nowrap;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;font-family:'Open Sans',sans-serif;transition:all 0.15s}
+.nav-link:hover,.nav-link.active{color:#fff;background:var(--primary-dark);border-bottom-color:var(--accent-light)}
 .nav-link .arr{font-size:0.6rem;opacity:0.55;margin-left:1px}
 .dropdown{display:none;position:absolute;top:100%;left:0;background:var(--primary-dark);min-width:220px;box-shadow:0 6px 16px rgba(0,0,0,0.3);z-index:200}
 .nav-item:hover>.dropdown{display:block}
@@ -59,7 +59,7 @@ html:not([data-lang="cy"]) [lang="cy"]{display:none!important}
 .hero-btns{position:relative;z-index:2;display:flex;gap:0.75rem;margin-top:1.25rem;flex-wrap:wrap;justify-content:center}
 .hero-btn{padding:0.6rem 1.4rem;border-radius:3px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;font-family:'Open Sans',sans-serif;transition:all 0.15s;text-decoration:none;display:inline-block}
 .hero-btn.primary{background:var(--accent);color:#fff}
-.hero-btn.primary:hover{background:var(--accent-light)}
+.hero-btn.primary:hover{background:var(--accent-dark)}
 .hero-btn.outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.6)}
 .hero-btn.outline:hover{background:rgba(255,255,255,0.12)}
 /* Inner page banner (smaller hero) */
@@ -98,7 +98,7 @@ a{color:var(--primary)}
 
 /* ── BUTTONS ────────────────────────────────────────────────────────────────── */
 .btn{display:inline-block;padding:0.55rem 1.2rem;background:var(--primary);color:#fff;border-radius:3px;font-size:0.82rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'Open Sans',sans-serif;transition:background 0.15s}
-.btn:hover{background:var(--primary-light)}
+.btn:hover{background:var(--primary-dark)}
 .btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
 .btn-outline:hover{background:var(--primary);color:#fff}
 
@@ -291,7 +291,7 @@ footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:2.5rem
 .cf-field textarea{resize:vertical;min-height:110px}
 .cf-field input:focus,.cf-field textarea:focus{outline:2px solid var(--primary);outline-offset:1px;border-color:var(--primary)}
 .cf-submit{background:var(--accent);color:#fff;padding:0.7rem 2rem;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:background 0.15s}
-.cf-submit:hover{background:var(--accent-light)}
+.cf-submit:hover{background:var(--accent-dark)}
 
 /* ── ACCESSIBILITY / LEGAL PAGES ────────────────────────────────────────────── */
 .policy-section{margin-bottom:2rem}
@@ -420,7 +420,7 @@ ul.dropdown li a:hover{background:var(--primary);color:#fff}
 .next-meeting .date{font-family:'Playfair Display',serif;font-size:1.15rem;flex:1}
 .nm-meta{font-size:0.8rem;opacity:0.75;flex-basis:100%}
 .nm-link{margin-left:auto;background:var(--accent);color:#fff;padding:0.4rem 1rem;border-radius:3px;font-size:0.78rem;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0}
-.nm-link:hover{background:var(--accent-light);color:#fff}
+.nm-link:hover{background:var(--accent-dark);color:#fff}
 
 /* ── MINUTES / DOCUMENTS ────────────────────────────────────────────────────── */
 .minutes-list{display:flex;flex-direction:column;gap:1rem;margin:1rem 0}
