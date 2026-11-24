@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import settings from '../../data/site-settings.json';
+const { council } = settings;
+
+const classes = [
+  {
+    cy: 'Dosbarth 1 – Pwy ydym ni a beth rydym yn ei wneud', en: 'Class 1 – Who we are and what we do',
+    items: [
+      { href: '/the-council/', cy: 'Am y Cyngor', en: 'About the Council' },
+      { href: '/councillors/', cy: 'Ein cynghorwyr', en: 'Our councillors' },
+      { href: '/councillors/ward-map/', cy: 'Map ward', en: 'Ward map' },
+      { href: '/the-council/clerk/', cy: 'Y Clerc', en: 'The Clerk' },
+      { href: '/contact/', cy: 'Cysylltu â ni', en: 'Contact us' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 2 – Beth rydym yn ei wario a sut', en: 'Class 2 – What we spend and how we spend it',
+    items: [
+      { href: '/the-council/what-we-spend/', cy: 'Beth rydym yn ei wario', en: 'What we spend' },
+      { href: '/the-council/financial-contribution/', cy: 'Eich cyfraniad ariannol', en: 'Your financial contribution' },
+      { href: '/the-council/annual-return/', cy: 'Ffurflen Flynyddol', en: 'Annual Return' },
+      { href: '/councillors/payments/', cy: 'Taliadau i gynghorwyr', en: "Councillors' payments" },
+      { href: '/documents/financial-regulations/', cy: 'Rheoliadau Ariannol', en: 'Financial Regulations' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 3 – Ein blaenoriaethau a sut rydym yn gwneud', en: 'Class 3 – Our priorities and how we are doing',
+    items: [
+      { href: '/documents/archive/', cy: 'Adroddiadau a dogfennau', en: 'Reports and documents' },
+      { href: '/documents/biodiversity/', cy: 'Bioamrywiaeth', en: 'Biodiversity' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 4 – Sut rydym yn gwneud penderfyniadau', en: 'Class 4 – How we make decisions',
+    items: [
+      { href: '/meetings/', cy: 'Cyfarfodydd', en: 'Meetings' },
+      { href: '/meetings/agendas/', cy: 'Agendâu', en: 'Agendas' },
+      { href: '/meetings/minutes/', cy: 'Cofnodion', en: 'Minutes' },
+      { href: '/planning/', cy: 'Cynllunio', en: 'Planning' },
+      { href: '/documents/standing-orders/', cy: 'Rheolau Sefydlog', en: 'Standing Orders' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 5 – Ein polisïau a gweithdrefnau', en: 'Class 5 – Our policies and procedures',
+    items: [
+      { href: '/documents/code-of-conduct/', cy: 'Côd Ymddygiad', en: 'Code of Conduct' },
+      { href: '/documents/nolan-principles/', cy: 'Egwyddorion Nolan', en: 'Nolan Principles' },
+      { href: '/documents/social-media/', cy: 'Canllaw Cyfryngau Cymdeithasol', en: 'Social Media Guide' },
+      { href: '/the-council/complaints/', cy: 'Cwynion', en: 'Complaints' },
+      { href: '/privacy/', cy: 'Polisi Preifatrwydd', en: 'Privacy Policy' },
+      { href: '/accessibility/', cy: 'Datganiad Hygyrchedd', en: 'Accessibility Statement' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 6 – Rhestrau a chofrestrau', en: 'Class 6 – Lists and registers',
+    items: [
+      { href: '/councillors/interests/', cy: 'Cofrestr buddiannau', en: 'Register of interests' },
+      { href: '/documents/archive/', cy: 'Cofrestrau a hysbysiadau', en: 'Registers and notices' },
+    ],
+  },
+  {
+    cy: 'Dosbarth 7 – Y gwasanaethau a gynigiwn', en: 'Class 7 – The services we offer',
+    items: [
+      { href: '/the-council/grants/', cy: 'Grantiau', en: 'Grants' },
+      { href: '/llansannan/local-services/', cy: 'Gwasanaethau lleol', en: 'Local services' },
+      { href: '/the-council/become-a-councillor/', cy: 'Dod yn gynghorydd', en: 'Become a councillor' },
+    ],
+  },
+];
+---
+<Layout title_cy="Cynllun Cyhoeddi" title_en="Publication Scheme">
+  <div class="page-banner"><h1><span lang="cy">Cynllun Cyhoeddi</span><span lang="en">Publication Scheme</span></h1></div>
+  <div class="breadcrumb">
+    <a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo;
+    <a href="/documents/"><span lang="cy">Dogfennau</span><span lang="en">Documents</span></a> &rsaquo;
+    <span lang="cy">Cynllun Cyhoeddi</span><span lang="en">Publication Scheme</span>
+  </div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Cynllun Cyhoeddi</span><span lang="en">Publication Scheme</span></h2><hr class="sh-rule">
+
+    <p lang="cy">Mae Swyddfa'r Comisiynydd Gwybodaeth (ICO) yn disgwyl i gynghorau cymuned fabwysiadu ei Chynllun Cyhoeddi Enghreifftiol. Mae'n rhestru'r wybodaeth y dylai'r Cyngor ei chyhoeddi'n rheolaidd, fel arfer ar ei wefan.</p>
+    <p lang="en">The Information Commissioner's Office (ICO) expects community councils to adopt its Model Publication Scheme. It sets out the information the Council should publish routinely, normally on its website.</p>
+
+    <p lang="cy">Isod ceir y saith dosbarth o wybodaeth a ble i ddod o hyd i bob un ar y wefan hon.</p>
+    <p lang="en">Below are the seven classes of information and where to find each on this website.</p>
+
+    {classes.map(c => (
+      <>
+        <h3 class="sub-sh"><span lang="cy">{c.cy}</span><span lang="en">{c.en}</span></h3>
+        <ul style="margin:0.5rem 0 1rem 1.5rem;line-height:1.9">
+          {c.items.map(i => <li><a href={i.href}><span lang="cy">{i.cy}</span><span lang="en">{i.en}</span></a></li>)}
+        </ul>
+      </>
+    ))}
+
+    <h3 class="sub-sh"><span lang="cy">Gwybodaeth nad yw ar y wefan</span><span lang="en">Information not on this website</span></h3>
+    <p lang="cy">Gall rhywfaint o wybodaeth fod wedi'i heithrio, er enghraifft os nad yw'r Cyngor yn ei dal, os yw'n gyfrinachol yn ôl y gyfraith, neu os yw'n hen. Mae'r Cyngor yn ceisio cyhoeddi cymaint â phosib heb gost. Gellir codi tâl rhesymol am gopïau papur (llungopïo a phostio), a byddwn yn dweud wrthych am y gost ymlaen llaw.</p>
+    <p lang="en">Some information may be exempt, for example where the Council does not hold it, it is confidential by law, or it is out of date. The Council aims to publish as much as possible at no cost. A reasonable charge may be made for paper copies (photocopying and postage), and we will tell you the cost beforehand.</p>
+
+    <h3 class="sub-sh"><span lang="cy">Gofyn am wybodaeth</span><span lang="en">Requesting information</span></h3>
+    <p lang="cy">Anfonwch geisiadau at y Clerc: <a href={`mailto:${council.clerk_email_cy}`}>{council.clerk_email_cy}</a>, neu defnyddiwch y <a href="/contact/">ffurflen gyswllt</a>. Gallwch hefyd ysgrifennu i: {council.address_cy}</p>
+    <p lang="en">Send requests to the Clerk: <a href={`mailto:${council.clerk_email}`}>{council.clerk_email}</a>, or use the <a href="/contact/">contact form</a>. You can also write to: {council.address_en}</p>
+
+    <p><a href="https://ico.org.uk/for-organisations/foi/freedom-of-information-and-environmental-information-regulations/the-publication-scheme/" target="_blank" rel="noopener noreferrer"><span lang="cy">Cynllun Cyhoeddi Enghreifftiol yr ICO</span><span lang="en">ICO Model Publication Scheme</span></a></p>
+  </div></div>
+</Layout>

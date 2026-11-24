@@ -22,6 +22,12 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
     <p lang="cy">Mae Cyngor Cymuned Llansannan yn haen gyntaf llywodraeth leol sy'n gwasanaethu ardal Bro Aled yng Nghonwy. Mae'n cynrychioli cymunedau Llansannan, Bylchau, Groes a Bryn Rhyd-yr-Arian.</p>
     <p lang="en">Llansannan Community Council is the first tier of local government serving the Bro Aled area of Conwy County Borough. It represents the communities of Llansannan, Bylchau, Groes and Bryn Rhyd-yr-Arian.</p>
 
+    <p lang="cy">Cynghorau cymuned yw'r lefel o lywodraeth sydd agosaf at y bobl. Mae'r Cyngor yn lleisio barn y gymuned wrth Gyngor Conwy a chyrff eraill, yn cael ei ymgynghori ar geisiadau cynllunio lleol, ac yn gofalu am gyfleusterau a gwasanaethau lleol. Ariennir y Cyngor drwy'r praesept, sef rhan fach o'r Dreth Gyngor. Mae'r cynghorwyr yn wirfoddolwyr sy'n byw neu'n gweithio yn yr ardal.</p>
+    <p lang="en">Community councils are the tier of government closest to the people. The Council speaks for the community to Conwy County Borough Council and other bodies, is consulted on local planning applications, and looks after local facilities and services. It is funded through the precept, a small part of the Council Tax. Councillors are volunteers who live or work in the area.</p>
+
+    <p lang="cy">Mae'r Cyngor yn gweithio'n ddwyieithog, mae ei gyfarfodydd yn agored i'r cyhoedd, ac mae'n cyhoeddi agendâu, cofnodion a'i gyfrifon ar y wefan hon.</p>
+    <p lang="en">The Council works bilingually, its meetings are open to the public, and it publishes agendas, minutes and its accounts on this website.</p>
+
     <h3 class="sub-sh"><span lang="cy">Cadeirydd</span><span lang="en">Chair</span></h3>
     <p lang="cy">Y {ROLE_LABELS.chair.cy} presennol yw y Cynghorydd <strong>{chairPerson?.name}</strong>.</p>
     <p lang="en">The current {ROLE_LABELS.chair.en} is Councillor <strong>{chairPerson?.name}</strong>.</p>
@@ -31,8 +37,8 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
     <p lang="en">The principal officer is the Clerk — <strong>{clerkPerson?.name}</strong>. The Clerk is responsible for advising the council, taking minutes and ensuring compliance. <a href="/the-council/clerk/">More about the Clerk →</a></p>
 
     <h3 class="sub-sh"><span lang="cy">Aelodaeth</span><span lang="en">Membership</span></h3>
-    <p lang="cy">Mae gan y cyngor {totalCouncillors} aelod ar hyn o bryd, gyda sedd wag yn Ward Llansannan. Mae pob aelod wedi'i gyd-optio. <a href="/councillors/">Gweld eich cynghorwyr →</a></p>
-    <p lang="en">The council currently has {totalCouncillors} members, with a vacancy in Llansannan Ward. All members are co-opted. <a href="/councillors/">View your councillors →</a></p>
+    <p lang="cy">Mae gan y cyngor {totalCouncillors} aelod ar hyn o bryd. <a href="/councillors/">Gweld eich cynghorwyr →</a> Os hoffech helpu i lunio dyfodol yr ardal, gallwch <a href="/the-council/become-a-councillor/">ddod yn gynghorydd →</a></p>
+    <p lang="en">The council currently has {totalCouncillors} members. <a href="/councillors/">View your councillors →</a> If you would like to help shape the future of the area, you can <a href="/the-council/become-a-councillor/">become a councillor →</a></p>
 
     <h3 class="sub-sh"><span lang="cy">Cyfarfodydd</span><span lang="en">Meetings</span></h3>
     <p lang="cy">Mae'r cyngor yn cwrdd bob mis ac mae'r cyfarfodydd yn agored i'r cyhoedd. <a href="/meetings/">Gweld dyddiadau cyfarfodydd →</a></p>
@@ -50,6 +56,10 @@ const clerkPerson = councillors.people.find(p => p.role === 'clerk' && p.active)
       <a href="/the-council/what-we-spend/" class="qa-card">
         <div class="qa-label"><span lang="cy">Beth Rydym yn ei Wario</span><span lang="en">What We Spend</span></div>
         <div class="qa-desc"><span lang="cy">Cyllideb a gwariant</span><span lang="en">Budget and expenditure</span></div>
+      </a>
+      <a href="/the-council/complaints/" class="qa-card">
+        <div class="qa-label"><span lang="cy">Cwynion</span><span lang="en">Complaints</span></div>
+        <div class="qa-desc"><span lang="cy">Sut i gwyno</span><span lang="en">How to make a complaint</span></div>
       </a>
       <a href="/the-council/clerk/" class="qa-card">
         <div class="qa-label"><span lang="cy">Ein Clerc</span><span lang="en">Our Clerk</span></div>

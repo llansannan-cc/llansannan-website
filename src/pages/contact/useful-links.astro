@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const groups = [
+  { cy: 'Y Cyngor a llywodraeth', en: 'Councils and government', links: [
+    { u: 'https://www.conwy.gov.uk/', cy: 'Cyngor Bwrdeistref Sirol Conwy', en: 'Conwy County Borough Council' },
+    { u: 'https://onevoicewales.wales/', cy: 'Un Llais Cymru', en: 'One Voice Wales' },
+    { u: 'https://www.llyw.cymru/', cy: 'Llywodraeth Cymru', en: 'Welsh Government' },
+    { u: 'https://senedd.wales/', cy: 'Senedd Cymru', en: 'Senedd Cymru' },
+    { u: 'https://www.ombudsman.wales/', cy: 'Ombwdsmon Gwasanaethau Cyhoeddus Cymru', en: 'Public Services Ombudsman for Wales' },
+  ]},
+  { cy: 'Diogelwch ac iechyd', en: 'Safety and health', links: [
+    { u: 'https://www.north-wales.police.uk/', cy: 'Heddlu Gogledd Cymru', en: 'North Wales Police' },
+    { u: 'https://www.nwfire.gov.uk/', cy: 'Gwasanaeth Tân ac Achub Gogledd Cymru', en: 'North Wales Fire and Rescue Service' },
+    { u: 'https://bcu.gig.cymru/', cy: 'Bwrdd Iechyd Betsi Cadwaladr', en: 'Betsi Cadwaladr University Health Board' },
+  ]},
+  { cy: 'Cymorth i drigolion', en: 'Help for residents', links: [
+    { u: 'https://www.conwy.gov.uk/en/Resident/', cy: 'Gwasanaethau i drigolion Conwy', en: 'Conwy resident services' },
+    { u: 'https://www.cymraeg.llyw.cymru/', cy: 'Dysgu a defnyddio Cymraeg', en: 'Learn and use Welsh' },
+  ]},
+];
+---
+<Layout title_cy="Dolenni Defnyddiol" title_en="Useful Links">
+  <div class="page-banner"><h1><span lang="cy">Dolenni Defnyddiol</span><span lang="en">Useful Links</span></h1></div>
+  <div class="breadcrumb"><a href="/"><span lang="cy">Hafan</span><span lang="en">Home</span></a> &rsaquo; <a href="/contact/"><span lang="cy">Cysylltu</span><span lang="en">Contact</span></a> &rsaquo; <span lang="cy">Dolenni Defnyddiol</span><span lang="en">Useful Links</span></div>
+  <div class="site-wrap"><div class="content" data-pagefind-body>
+    <h2 class="sh"><span lang="cy">Dolenni Defnyddiol</span><span lang="en">Useful Links</span></h2><hr class="sh-rule">
+    <p lang="cy">Gwefannau allanol a allai fod o gymorth. Nid yw'r Cyngor yn gyfrifol am eu cynnwys.</p>
+    <p lang="en">External websites that may help. The Council is not responsible for their content.</p>
+    {groups.map(g => (
+      <>
+        <h3 class="sub-sh"><span lang="cy">{g.cy}</span><span lang="en">{g.en}</span></h3>
+        <ul style="margin:0.5rem 0 1rem 1.5rem;line-height:1.9">
+          {g.links.map(l => <li><a href={l.u} target="_blank" rel="noopener noreferrer"><span lang="cy">{l.cy}</span><span lang="en">{l.en}</span></a></li>)}
+        </ul>
+      </>
+    ))}
+  </div></div>
+</Layout>
